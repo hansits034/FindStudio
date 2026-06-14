@@ -46,7 +46,7 @@ export default function HomePage() {
           <div className="flex items-center gap-3 mb-10 animate-fade-in">
             <span className="dot animate-shimmer" />
             <span className="eyebrow text-ink-300">
-              Ekosistem kreator Surabaya — alat, studio & jasa profesional
+              Ekosistem kreator Surabaya, alat, studio & jasa profesional
             </span>
           </div>
 
@@ -66,7 +66,7 @@ export default function HomePage() {
 
               <p className="text-lg lg:text-xl text-ink-300 max-w-xl mb-8 leading-relaxed">
                 <strong className="text-white font-medium">FindStudio</strong> menyatukan rental
-                kamera, drone, lighting, studio, dan jasa profesional se-Surabaya dalam satu platform —
+                kamera, drone, lighting, studio, dan jasa profesional se-Surabaya dalam satu platform,
                 lengkap dengan dana proteksi internal dan pembayaran escrow.
               </p>
 
@@ -139,7 +139,7 @@ export default function HomePage() {
       <section className="max-w-[1440px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
         <div className="flex items-end justify-between mb-12 lg:mb-16 gap-8">
           <div>
-            <div className="eyebrow text-amber-400 mb-3">01 — Katalog</div>
+            <div className="eyebrow text-amber-400 mb-3">01. Katalog</div>
             <h2 className="headline text-5xl lg:text-7xl max-w-2xl">
               Semua yang Anda butuhkan,
               <span className="italic text-amber-400 font-light"> satu rute.</span>
@@ -182,13 +182,13 @@ export default function HomePage() {
       <section className="max-w-[1440px] mx-auto px-6 lg:px-10 py-8 lg:py-12">
         <div className="flex items-end justify-between mb-12 gap-8">
           <div>
-            <div className="eyebrow text-amber-400 mb-3">02 — Sedang tren</div>
+            <div className="eyebrow text-amber-400 mb-3">02. Sedang tren</div>
             <h2 className="headline text-5xl lg:text-7xl">
               Yang sedang
               <br />
               <span className="italic text-amber-400 font-light">paling diminati.</span>
             </h2>
-            <p className="text-ink-300 mt-4 max-w-lg">Dari kamera, studio, sampai jasa — lintas kategori, semua di Surabaya.</p>
+            <p className="text-ink-300 mt-4 max-w-lg">Dari kamera, studio, sampai jasa, lintas kategori, semua di Surabaya.</p>
           </div>
           <Link href="/browse" className="hidden md:inline-flex btn-ghost text-sm">
             Lihat semua
@@ -213,7 +213,7 @@ export default function HomePage() {
         <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-6">
-              <div className="eyebrow text-amber-400 mb-3">03 — Dana proteksi internal</div>
+              <div className="eyebrow text-amber-400 mb-3">03. Dana proteksi internal</div>
               <h2 className="headline text-5xl lg:text-7xl mb-6">
                 Sewa tenang.
                 <br />
@@ -225,7 +225,7 @@ export default function HomePage() {
                 <Shield className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                 <p className="text-sm text-ink-200 leading-relaxed">
                   <strong className="text-amber-400">Biaya kecil, perlindungan besar.</strong>{' '}
-                  Tambahkan Proteksi Alat saat checkout — hanya 5% dari nilai sewa. Jika alat
+                  Tambahkan Proteksi Alat saat checkout, hanya 5% dari nilai sewa. Jika alat
                   mengalami kerusakan selama masa penyewaan, biaya perbaikan ditanggung tanpa perlu
                   negosiasi dengan siapapun.
                 </p>
@@ -233,7 +233,7 @@ export default function HomePage() {
 
               <p className="text-lg text-ink-300 max-w-xl mb-4 leading-relaxed">
                 Cukup aktifkan proteksi di halaman checkout. Jika terjadi kerusakan, vendor mengajukan
-                klaim di dashboard — upload foto kondisi alat. Tim FindStudio memverifikasi dan
+                klaim di dashboard, upload foto kondisi alat. Tim FindStudio memverifikasi dan
                 memastikan biaya perbaikan ditanggung dalam kurang dari 4 jam, maksimal senilai
                 harga alat yang terdaftar.
               </p>
@@ -271,7 +271,7 @@ export default function HomePage() {
                 <div className="flex items-center justify-between mb-6 relative">
                   <div>
                     <div className="eyebrow text-amber-400">Contoh checkout</div>
-                    <div className="font-display text-2xl mt-1">Sony A7 IV — 1 hari sewa</div>
+                    <div className="font-display text-2xl mt-1">Sony A7 IV, 1 hari sewa</div>
                   </div>
                   <span className="pill">+ Proteksi</span>
                 </div>
@@ -287,7 +287,7 @@ export default function HomePage() {
                   <Shield className="w-5 h-5 text-amber-400 shrink-0" strokeWidth={1.5} />
                   <p className="text-xs text-ink-300 leading-relaxed">
                     Alat rusak saat disewa? Vendor tekan{' '}
-                    <span className="text-amber-400">Klaim Proteksi</span> — biaya perbaikan
+                    <span className="text-amber-400">Klaim Proteksi</span>, biaya perbaikan
                     ditanggung platform tanpa dispute.
                   </p>
                 </div>
@@ -301,7 +301,7 @@ export default function HomePage() {
       <section className="max-w-[1440px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
         <div className="flex items-end justify-between mb-16 gap-8">
           <div>
-            <div className="eyebrow text-amber-400 mb-3">04 — Cara kerja</div>
+            <div className="eyebrow text-amber-400 mb-3">04. Cara kerja</div>
             <h2 className="headline text-5xl lg:text-7xl max-w-3xl">
               Empat langkah, satu
               <span className="italic text-amber-400 font-light"> ekosistem.</span>
@@ -315,7 +315,7 @@ export default function HomePage() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-ink-700/40 rounded-2xl overflow-hidden">
           {[
-            { n: '01', title: 'Cari & saring', desc: 'Pencarian bahasa biasa: lokasi, harga, jenis layanan, rating — langsung dibedah.' },
+            { n: '01', title: 'Cari & saring', desc: 'Pencarian bahasa biasa: lokasi, harga, jenis layanan, rating, langsung dibedah.' },
             { n: '02', title: 'Pesan & jadwalkan', desc: 'Kalender real-time, deteksi konflik double-booking, chat langsung dengan vendor.' },
             { n: '03', title: 'Bayar via escrow', desc: 'Dana ditahan platform hingga alat dikembalikan / jasa selesai.' },
             { n: '04', title: 'Review dua arah', desc: 'Vendor & klien saling menilai. Reputasi terbangun tiap transaksi.' },
@@ -334,14 +334,14 @@ export default function HomePage() {
         <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-16 lg:py-24">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-5">
-              <div className="eyebrow text-amber-400 mb-3">05 — Pencarian cerdas</div>
+              <div className="eyebrow text-amber-400 mb-3">05. Pencarian cerdas</div>
               <h2 className="headline text-5xl lg:text-6xl mb-6">
                 Ketik niat,
                 <br />
                 <span className="italic text-amber-400 font-light">bukan kata kunci.</span>
               </h2>
               <p className="text-ink-300 leading-relaxed mb-6">
-                Jelaskan kebutuhan Anda dengan bahasa biasa — sistem membedah kalimat menjadi
+                Jelaskan kebutuhan Anda dengan bahasa biasa, sistem membedah kalimat menjadi
                 kategori, lokasi, budget, dan rating, lalu menyaring katalog Surabaya secara otomatis.
               </p>
               <ul className="space-y-2 text-sm text-ink-300">
@@ -355,11 +355,11 @@ export default function HomePage() {
               <div className="card p-6 lg:p-8 backdrop-blur-xl">
                 <div className="flex items-center gap-2 mb-5">
                   <div className="w-2 h-2 rounded-full bg-amber-400 animate-shimmer" />
-                  <span className="eyebrow text-amber-400">Coba sekarang — langsung jalan</span>
+                  <span className="eyebrow text-amber-400">Coba sekarang, langsung jalan</span>
                 </div>
                 <SmartSearch variant="hero" placeholder="Tulis kebutuhanmu, mis. 'lighting LED untuk wedding di Manyar rating 4.5'…" />
                 <p className="text-xs text-ink-400 mt-4 leading-relaxed">
-                  Catatan jujur: ini parser berbasis aturan (rule-based), belum model NLP penuh —
+                  Catatan jujur: ini parser berbasis aturan (rule-based), belum model NLP penuh,
                   tapi sudah bisa mengenali lokasi, harga, jenis layanan, dan rating dari kalimatmu.
                 </p>
               </div>
@@ -371,14 +371,14 @@ export default function HomePage() {
       {/* AFFILIATE (06) ------------------------------------------------------ */}
       <section className="max-w-[1440px] mx-auto px-6 lg:px-10 py-20 lg:py-28">
         <div className="max-w-3xl mx-auto text-center">
-          <div className="eyebrow text-amber-400 mb-3">06 — Program Afiliasi</div>
+          <div className="eyebrow text-amber-400 mb-3">06. Program Afiliasi</div>
           <h2 className="headline text-5xl lg:text-7xl mb-6">
             Bagikan kode,
             <br />
             <span className="italic text-amber-400 font-light">dapat reward.</span>
           </h2>
           <p className="text-lg text-ink-300 max-w-xl mx-auto mb-12 leading-relaxed">
-            Daftar sebagai afiliasi, bagikan kode unikmu ke siapapun — kreator, teman, atau followers.
+            Daftar sebagai afiliasi, bagikan kode unikmu ke siapapun, kreator, teman, atau followers.
             Setiap booking yang terjadi lewat kodemu memberikan reward langsung ke wallet-mu.
           </p>
 
@@ -390,7 +390,7 @@ export default function HomePage() {
               FSRP123
             </div>
             <div className="text-xs text-ink-400 relative">
-              Kode unik — tiap pengguna baru yang pakai kodemu langsung terhubung denganmu
+              Kode unik, tiap pengguna baru yang pakai kodemu langsung terhubung denganmu
             </div>
           </div>
 
@@ -422,7 +422,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="eyebrow text-amber-400 mb-3">07 — Komunitas</div>
+              <div className="eyebrow text-amber-400 mb-3">07. Komunitas</div>
               <h2 className="headline text-4xl lg:text-6xl mb-5">
                 Jangan berkarya
                 <br />
@@ -431,7 +431,7 @@ export default function HomePage() {
               <p className="text-ink-300 leading-relaxed mb-8 max-w-lg">
                 Discord FindStudio adalah tempat kreator dan vendor Surabaya terhubung nyata:
                 berbagi tips shoot, cari tim kolaborasi, dapat info promo eksklusif, dan diskusi
-                bisnis bersama. Komunitas yang aktif — bukan sekadar grup kosong.
+                bisnis bersama. Komunitas yang aktif, bukan sekadar grup kosong.
               </p>
 
               <div className="space-y-2.5 mb-8">
@@ -444,7 +444,7 @@ export default function HomePage() {
                   <div key={i} className="flex items-center gap-3 text-sm">
                     <Hash className="w-3.5 h-3.5 text-ink-500 shrink-0" />
                     <span className="font-mono text-sm" style={{ color: '#8b91b8' }}>{c.ch}</span>
-                    <span className="text-ink-400 hidden sm:inline text-xs">— {c.desc}</span>
+                    <span className="text-ink-400 hidden sm:inline text-xs">- {c.desc}</span>
                   </div>
                 ))}
               </div>
@@ -562,7 +562,7 @@ export default function HomePage() {
                 <span className="italic text-amber-400 font-light">Alat Mahal.</span>
               </h2>
               <p className="text-ink-300 text-sm leading-relaxed mb-8 max-w-sm">
-                Sewa kamera, booking studio, sampai cari editor — semuanya bisa dalam satu
+                Sewa kamera, booking studio, sampai cari editor, semuanya bisa dalam satu
                 platform. Wujudkan idemu bersama FindStudio!
               </p>
               <Link href="/register?role=client" className="btn-primary text-sm">

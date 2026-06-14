@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 
 export const metadata = {
-  title: 'Tentang FindStudio — Ekosistem Kreator Surabaya',
+  title: 'Tentang FindStudio, Ekosistem Kreator Surabaya',
   description: 'Apa itu FindStudio: platform terpadu sewa alat, studio, dan jasa profesional untuk kreator di Surabaya.',
 };
 
@@ -35,7 +35,7 @@ export default function AboutPage() {
             FindStudio adalah ekosistem terpadu bagi kreator konten, fotografer, videografer, dan
             sinematografer di <strong className="text-white">Surabaya</strong>. Sewa kamera, lensa,
             drone, dan lighting; pesan studio untuk produksi atau livestream; dan pakai jasa
-            profesional seperti editor dan colorist — semuanya di satu tempat.
+            profesional seperti editor dan colorist, semuanya di satu tempat.
           </p>
         </div>
       </section>
@@ -54,7 +54,7 @@ export default function AboutPage() {
               Prosesnya lambat, harga tidak transparan, dan kepercayaan sulit dibangun.
             </p>
             <p>
-              FindStudio menyatukan semuanya dalam satu platform. Kami tidak sekadar menambah listing —
+              FindStudio menyatukan semuanya dalam satu platform. Kami tidak sekadar menambah listing,
               kami memperkuat <strong className="text-white">kepercayaan</strong> antara penyewa dan
               penyedia lewat verifikasi, escrow, dan dana proteksi internal, agar ekosistemnya aktif dan
               mudah diakses.
@@ -99,10 +99,10 @@ export default function AboutPage() {
         <h2 className="headline text-4xl lg:text-5xl mb-10">Yang membuatnya berjalan.</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {[
-            { icon: Search, title: 'Pencarian cerdas', desc: 'Ketik kebutuhan dengan bahasa biasa — sistem membedah lokasi, harga, jenis layanan, dan rating.' },
+            { icon: Search, title: 'Pencarian cerdas', desc: 'Ketik kebutuhan dengan bahasa biasa, sistem membedah lokasi, harga, jenis layanan, dan rating.' },
             { icon: CalendarCheck, title: 'Booking & kalender', desc: 'Ketersediaan real-time lintas vendor dengan deteksi konflik double-booking.' },
             { icon: Box, title: 'Checkout multi-vendor', desc: 'Sewa kamera dari Vendor A dan studio dari Vendor B dalam satu transaksi.' },
-            { icon: Shield, title: 'Pembayaran escrow', desc: 'Dana ditahan platform sampai alat dikembalikan / jasa selesai — aman dua arah.' },
+            { icon: Shield, title: 'Pembayaran escrow', desc: 'Dana ditahan platform sampai alat dikembalikan / jasa selesai, aman dua arah.' },
             { icon: MessageCircle, title: 'Chat real-time', desc: 'Diskusi teknis & negosiasi langsung antara klien dan vendor di dalam platform.' },
           ].map((f, i) => (
             <div key={i} className="card p-6 lift">
@@ -129,14 +129,14 @@ export default function AboutPage() {
                 <Shield className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                 <p className="text-sm text-ink-200 leading-relaxed">
                   <strong className="text-amber-400">Biaya kecil, perlindungan besar.</strong>{' '}
-                  Tambahkan Proteksi Alat di halaman checkout — hanya 5% dari nilai sewa. Jika
+                  Tambahkan Proteksi Alat di halaman checkout, hanya 5% dari nilai sewa. Jika
                   alat rusak selama masa sewa, biaya perbaikan ditanggung. Tidak perlu negosiasi,
                   tidak perlu ribut.
                 </p>
               </div>
               <p className="text-ink-300 leading-relaxed mb-4">
                 Saat klien menyewa, mereka bisa memilih{' '}
-                <em>&ldquo;Tambahkan Proteksi Alat&rdquo;</em> di halaman checkout — biaya 5% dari
+                <em>&ldquo;Tambahkan Proteksi Alat&rdquo;</em> di halaman checkout, biaya 5% dari
                 nilai sewa ditambahkan ke total pembayaran. Jika terjadi kerusakan selama masa
                 penyewaan, vendor mengajukan klaim di dashboard FindStudio, upload foto kondisi alat.
                 Tim kami memverifikasi dan memastikan biaya perbaikan ditanggung dalam waktu kurang
@@ -152,7 +152,7 @@ export default function AboutPage() {
               <div className="eyebrow text-amber-400 mb-4">Alur Proteksi Alat</div>
               <ol className="space-y-4">
                 {[
-                  { t: 'Checkout', d: 'Klien pilih "Tambahkan Proteksi Alat" — 5% dari nilai sewa ditambahkan ke total.' },
+                  { t: 'Checkout', d: 'Klien pilih "Tambahkan Proteksi Alat", 5% dari nilai sewa ditambahkan ke total.' },
                   { t: 'Sewa berjalan', d: 'Alat disewa normal. Klien dan vendor bebas transaksi tanpa khawatir.' },
                   { t: 'Klaim (jika rusak)', d: 'Vendor tekan Klaim di dashboard → upload foto kondisi alat sebelum & sesudah.' },
                   { t: 'Verifikasi & Selesai', d: 'Tim FindStudio memverifikasi dan menanggung biaya perbaikan < 4 jam.' },
@@ -201,7 +201,7 @@ export default function AboutPage() {
                 <span className="italic text-amber-400 font-light">sendirian.</span>
               </h2>
               <p className="text-ink-300 leading-relaxed mb-6 text-sm lg:text-base">
-                Discord FindStudio bukan sekadar grup — ini ekosistem hidup tempat kreator dan
+                Discord FindStudio bukan sekadar grup, ini ekosistem hidup tempat kreator dan
                 vendor Surabaya terhubung nyata. Berbagi tips shoot, cari tim kolaborasi, dapat
                 info promo eksklusif, dan diskusi bisnis bareng yang lain.
               </p>
@@ -216,7 +216,7 @@ export default function AboutPage() {
                   <div key={i} className="flex items-center gap-2.5 text-sm">
                     <Hash className="w-3.5 h-3.5 text-ink-500 shrink-0" />
                     <span className="font-mono" style={{ color: '#8b91b8' }}>{c.ch}</span>
-                    <span className="text-ink-400 hidden sm:inline text-xs">— {c.desc}</span>
+                    <span className="text-ink-400 hidden sm:inline text-xs">- {c.desc}</span>
                   </div>
                 ))}
               </div>
@@ -232,7 +232,7 @@ export default function AboutPage() {
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                     <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.04.037.05a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
                   </svg>
-                  Gabung Sekarang — Gratis
+                  Gabung Sekarang, Gratis
                 </a>
                 <span className="text-xs text-ink-400">1.200+ member · Langsung aktif</span>
               </div>

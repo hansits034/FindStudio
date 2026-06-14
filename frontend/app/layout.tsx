@@ -23,9 +23,9 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'FindStudio — Sewa Alat & Studio untuk Kreator',
+  title: 'FindStudio, Sewa Alat & Studio untuk Kreator',
   description:
-    'Platform terpadu untuk fotografer, videografer, dan sinematografer. Sewa kamera, lensa, drone, studio, dan jasa editor — semua dalam satu tempat.',
+    'Platform terpadu untuk fotografer, videografer, dan sinematografer. Sewa kamera, lensa, drone, studio, dan jasa editor, semua dalam satu tempat.',
   keywords: ['sewa kamera', 'sewa studio', 'rental lensa', 'jasa editor', 'kreator konten'],
   icons: { icon: '/favicon.png' },
 };

@@ -27,7 +27,7 @@ export default function LoginPage() {
       else if (role === 'ADMIN') router.push('/dashboard/admin');
       else router.push('/dashboard/client');
     } catch (err: any) {
-      setError(err.message || 'Login gagal — pastikan backend berjalan di :4000');
+      setError(err.message || 'Login gagal, pastikan backend berjalan di :4000');
     } finally {
       setLoading(false);
     }

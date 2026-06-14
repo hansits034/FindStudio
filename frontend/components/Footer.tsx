@@ -12,7 +12,7 @@ export default function Footer() {
               © 2026 FindStudio. Sebuah ekosistem untuk para kreator.
             </div>
             <div className="text-xs text-ink-500/70 leading-relaxed max-w-md">
-              Proteksi FindStudio adalah program proteksi alat internal platform — bukan produk asuransi dari lembaga keuangan.
+              Proteksi FindStudio adalah program proteksi alat internal platform, bukan produk asuransi dari lembaga keuangan.
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -36,7 +36,7 @@ export default function Footer() {
 
         <div className="mt-8 pt-6 border-t border-ink-700/30">
           <a
-            href="https://wa.me/6281234567890"
+            href="https://wa.me"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 text-sm text-ink-300 hover:text-white transition group"

@@ -163,7 +163,7 @@ export default function EquipmentDetailPage({ params }: { params: { id: string }
 
               <div className="mt-4 flex items-center justify-center gap-2 text-xs text-ink-400">
                 <CreditCard className="w-3.5 h-3.5" />
-                <span>Pembayaran via escrow — dana ditahan hingga alat dikembalikan</span>
+                <span>Pembayaran via escrow, dana ditahan hingga alat dikembalikan</span>
               </div>
             </div>
 
@@ -227,7 +227,7 @@ export default function EquipmentDetailPage({ params }: { params: { id: string }
 
           <div className="lg:col-span-5">
             <div className="eyebrow text-amber-400 mb-3">Ketersediaan</div>
-            <h2 className="headline text-4xl mb-8">Mei — Juni 2026</h2>
+            <h2 className="headline text-4xl mb-8">Mei - Juni 2026</h2>
             <CalendarMini bookedDates={item.bookedDates} />
             <div className="mt-4 flex items-center gap-4 text-xs text-ink-400">
               <span className="flex items-center gap-1.5">

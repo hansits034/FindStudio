@@ -159,7 +159,7 @@ export default function VendorDashboardPage() {
                   <Shield className="w-5 h-5 text-amber-400" />
                   <div>
                     <h3 className="font-display text-lg">Klaim Proteksi aktif</h3>
-                    <p className="text-xs text-ink-400">DJI Mavic 3 — baling-baling retak</p>
+                    <p className="text-xs text-ink-400">DJI Mavic 3, baling-baling retak</p>
                   </div>
                 </div>
                 <div className="space-y-1.5 text-xs">

@@ -133,7 +133,7 @@ export default function CartPage() {
                 </div>
                 <p className="text-xs text-ink-300 leading-relaxed">
                   10% dari nilai sewa item terproteksi ({formatIDR(protectionFee)}) masuk ke Platform Protection Fund.
-                  Dipotong dari payout vendor — tidak menambah total bayar Anda.
+                  Dipotong dari payout vendor, tidak menambah total bayar Anda.
                 </p>
               </div>
 

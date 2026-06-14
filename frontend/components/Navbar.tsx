@@ -61,7 +61,7 @@ export default function Navbar() {
           </div>
           <div className="flex flex-col leading-none">
             <span className="font-display text-xl tracking-tight">FindStudio</span>
-            <span className="eyebrow text-ink-400 mt-0.5">est. 2026 — Surabaya</span>
+            <span className="eyebrow text-ink-400 mt-0.5">est. 2026, Surabaya</span>
           </div>
         </Link>
 

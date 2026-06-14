@@ -12,6 +12,10 @@ type Msg =
   | { id: number; from: 'me' | 'them'; type: 'text'; text: string; time: string; read?: boolean }
   | { id: number; from: 'me' | 'them'; type: 'image'; imgSrc: string; time: string; read?: boolean };
 
+// Omit biasa tidak terdistribusi pada union (hanya menyisakan properti bersama).
+// Versi distributif ini menerapkan Omit ke tiap varian, jadi `text`/`imgSrc` tetap ada.
+type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never;
+
 const conversations = vendors.map((v, i) => ({
   ...v,
   preview: [
@@ -73,7 +77,7 @@ export default function MessagesPage() {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages.length, active]);
 
-  function addMsg(msg: Omit<Msg, 'id'>) {
+  function addMsg(msg: DistributiveOmit<Msg, 'id'>) {
     const full = { ...msg, id: nextId++ } as Msg;
     setMsgMap((prev) => ({ ...prev, [v.id]: [...(prev[v.id] ?? []), full] }));
   }

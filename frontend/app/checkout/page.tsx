@@ -54,7 +54,7 @@ export default function CheckoutPage() {
                         <Truck className="w-4 h-4 text-amber-400" />
                         <span className="font-medium">Antar via Gojek/Grab</span>
                       </div>
-                      <p className="text-xs text-ink-400">Rp 25.000 — Rp 50.000 (tergantung jarak)</p>
+                      <p className="text-xs text-ink-400">Rp 25.000 - Rp 50.000 (tergantung jarak)</p>
                     </div>
                   </div>
                 </label>
@@ -68,7 +68,7 @@ export default function CheckoutPage() {
                 <span className="eyebrow text-ink-400">untuk vendor</span>
               </div>
               <p className="text-xs text-ink-400 mb-3">
-                Jelaskan secara singkat — vendor akan menyiapkan setup paling sesuai.
+                Jelaskan secara singkat, vendor akan menyiapkan setup paling sesuai.
               </p>
               <textarea
                 rows={4}

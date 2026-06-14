@@ -78,7 +78,7 @@ export default function OrdersPage() {
                 {upcoming.map((b) => (
                   <div key={b.id} className="relative mb-6 last:mb-0">
                     <div className="absolute -left-[18px] top-1 w-3 h-3 rounded-full bg-amber-400 ring-4 ring-ink-900" />
-                    <div className="text-xs text-amber-400 tabular mb-1">{fmtDate(b.startDate)}{b.endDate !== b.startDate ? ` — ${fmtDate(b.endDate)}` : ''}</div>
+                    <div className="text-xs text-amber-400 tabular mb-1">{fmtDate(b.startDate)}{b.endDate !== b.startDate ? ` - ${fmtDate(b.endDate)}` : ''}</div>
                     <div className="text-sm font-medium leading-tight">{b.itemName}</div>
                     <div className="text-xs text-ink-400">{b.vendorName}</div>
                     <Link href="/messages" className="inline-flex items-center gap-1 text-xs text-ink-300 hover:text-amber-400 mt-1.5">

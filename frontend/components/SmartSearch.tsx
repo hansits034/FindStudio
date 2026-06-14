@@ -79,7 +79,7 @@ export default function SmartSearch({
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); submit(); } }}
-          placeholder={placeholder ?? 'Deskripsikan kebutuhanmu — "kamera kurang dari 900rb untuk landscape"'}
+          placeholder={placeholder ?? 'Deskripsikan kebutuhanmu, "kamera kurang dari 900rb untuk landscape"'}
           className={`flex-1 bg-transparent outline-none text-sm ${isHero ? 'py-2' : 'field !pl-3'}`}
           aria-label="Pencarian AI"
           disabled={thinking}

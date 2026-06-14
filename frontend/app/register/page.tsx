@@ -52,7 +52,7 @@ function RegisterInner() {
       });
       router.push(isVendor ? '/dashboard/vendor' : '/dashboard/client');
     } catch (err: any) {
-      setError(err.message || 'Pendaftaran gagal — coba lagi.');
+      setError(err.message || 'Pendaftaran gagal, coba lagi.');
     } finally {
       setLoading(false);
     }
@@ -92,7 +92,7 @@ function RegisterInner() {
         </h1>
         <p className="text-ink-300 mb-10 max-w-xl">
           {forcedVendor
-            ? 'Daftarkan kamera, drone, lighting, studio, atau jasa Anda — mulai hasilkan dari aset yang menganggur di Surabaya.'
+            ? 'Daftarkan kamera, drone, lighting, studio, atau jasa Anda, mulai hasilkan dari aset yang menganggur di Surabaya.'
             : 'Mulai sebagai kreator yang menyewa, atau vendor yang menghasilkan dari aset Anda.'}
         </p>
 
