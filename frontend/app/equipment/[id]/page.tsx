@@ -191,10 +191,10 @@ export default function EquipmentDetailPage({ params }: { params: { id: string }
                     </span>
                   </div>
                 </div>
-                <button className="btn-ghost !py-2 !px-3 text-xs">
+                <Link href={`/messages?v=${vendor.id}`} className="btn-ghost !py-2 !px-3 text-xs">
                   <MessageCircle className="w-3.5 h-3.5" />
                   Chat
-                </button>
+                </Link>
               </div>
             )}
           </div>

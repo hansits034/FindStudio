@@ -9,18 +9,23 @@ import SmartSearch from '@/components/SmartSearch';
 import {
   ArrowUpRight,
   Camera,
+  Aperture,
+  Plane,
+  Lightbulb,
+  Mic,
+  Box,
+  MapPin,
   Sparkles,
   Shield,
   Wallet,
   Clock,
-  Star,
-  Box,
   TrendingUp,
-  MapPin,
   MessageCircle,
   CalendarCheck,
+  Hash,
+  Users,
 } from 'lucide-react';
-import { equipment, vendors, studios, services } from '@/lib/mockData';
+import { equipment, studios, services } from '@/lib/mockData';
 
 export default function HomePage() {
   // Trending = campuran lintas kategori, bukan kamera saja
@@ -35,6 +40,9 @@ export default function HomePage() {
       {/* HERO ---------------------------------------------------------------- */}
       <section className="relative overflow-hidden mesh">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-10 pt-16 lg:pt-24 pb-20 lg:pb-28 relative">
+          <p className="font-display italic text-amber-400/40 text-2xl lg:text-3xl mb-8 lg:mb-12 animate-fade-in select-none">
+            "One Platform for Every Creative"
+          </p>
           <div className="flex items-center gap-3 mb-10 animate-fade-in">
             <span className="dot animate-shimmer" />
             <span className="eyebrow text-ink-300">
@@ -61,11 +69,6 @@ export default function HomePage() {
                 kamera, drone, lighting, studio, dan jasa profesional se-Surabaya dalam satu platform —
                 lengkap dengan dana proteksi internal dan pembayaran escrow.
               </p>
-
-              {/* Smart search — bisa bahasa biasa */}
-              <div className="max-w-xl mb-6">
-                <SmartSearch variant="hero" />
-              </div>
 
               <div className="mt-10 grid grid-cols-3 max-w-md gap-6">
                 {[
@@ -148,21 +151,25 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 lg:gap-4">
           {[
-            { icon: Camera, title: 'Kamera & Lensa', desc: 'Mirrorless, cinema, prime lens.', cat: 'camera' },
-            { icon: Sparkles, title: 'Drone & Aerial', desc: 'Mavic, Inspire, FPV custom.', cat: 'drone' },
-            { icon: Box, title: 'Lighting & Grip', desc: 'LED, strobe, modifier, RGB.', cat: 'lighting' },
-            { icon: MapPin, title: 'Studio & Ruang', desc: 'Cyc, daylight, livestream.', cat: 'studio' },
+            { icon: Camera,    title: 'Kamera',        desc: 'Mirrorless, cinema, hybrid.',  cat: 'camera'   },
+            { icon: Aperture,  title: 'Lensa',         desc: 'Prime, zoom, cine set.',        cat: 'lens'     },
+            { icon: Plane,     title: 'Drone',         desc: 'Mavic, Inspire, FPV custom.',  cat: 'drone'    },
+            { icon: Lightbulb, title: 'Lighting',      desc: 'LED, strobe, RGB modifier.',   cat: 'lighting' },
+            { icon: Mic,       title: 'Audio',         desc: 'Wireless mic, recorder, mixer.',cat: 'audio'   },
+            { icon: Box,       title: 'Gimbal & Rig',  desc: 'Stabilizer, cage, heavy-duty.',cat: 'gimbal'   },
+            { icon: MapPin,    title: 'Studio',        desc: 'Cyc, daylight, livestream.',   cat: 'studio'   },
+            { icon: Sparkles,  title: 'Jasa Profesional', desc: 'Fotografer, videografer, editor.', cat: 'service' },
           ].map((c, i) => (
-            <Link key={i} href={`/browse?cat=${c.cat}`} className="card p-6 lg:p-8 lift group relative overflow-hidden">
-              <div className="absolute -right-8 -bottom-8 opacity-5 group-hover:opacity-20 transition-opacity">
-                <c.icon className="w-40 h-40 text-amber-400" strokeWidth={0.5} />
+            <Link key={i} href={`/browse?cat=${c.cat}`} className="card p-5 lg:p-7 lift group relative overflow-hidden">
+              <div className="absolute -right-6 -bottom-6 opacity-5 group-hover:opacity-20 transition-opacity">
+                <c.icon className="w-32 h-32 text-amber-400" strokeWidth={0.5} />
               </div>
-              <c.icon className="w-7 h-7 text-amber-400 mb-8" strokeWidth={1.4} />
-              <h3 className="font-display text-2xl mb-2 group-hover:text-amber-400 transition">{c.title}</h3>
-              <p className="text-sm text-ink-300 mb-6">{c.desc}</p>
-              <div className="flex items-center justify-between border-t border-ink-700/40 pt-4">
+              <c.icon className="w-6 h-6 text-amber-400 mb-6" strokeWidth={1.4} />
+              <h3 className="font-display text-xl mb-1.5 group-hover:text-amber-400 transition leading-tight">{c.title}</h3>
+              <p className="text-xs text-ink-300 mb-5 leading-relaxed">{c.desc}</p>
+              <div className="flex items-center justify-between border-t border-ink-700/40 pt-3.5">
                 <span className="text-xs text-ink-400">Surabaya</span>
                 <ArrowUpRight className="w-4 h-4 text-ink-400 group-hover:text-amber-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition" />
               </div>
@@ -213,19 +220,27 @@ export default function HomePage() {
                 <span className="italic text-amber-400 font-light">Tanpa cemas.</span>
               </h2>
 
-              {/* Penegasan: bukan asuransi */}
-              <div className="card !bg-amber-400/5 !border-amber-400/30 p-4 mb-6 flex items-start gap-3 max-w-xl">
+              {/* Proteksi Alat */}
+              <div className="card !bg-amber-400/5 !border-amber-400/40 p-4 mb-6 flex items-start gap-3 max-w-xl">
                 <Shield className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                 <p className="text-sm text-ink-200 leading-relaxed">
-                  <strong className="text-amber-400">Ini bukan asuransi.</strong> FindStudio mengelola
-                  sendiri <em>Platform Protection Fund</em> — dana cadangan internal, bukan produk asuransi
-                  pihak ketiga dan tidak terikat regulasi asuransi.
+                  <strong className="text-amber-400">Biaya kecil, perlindungan besar.</strong>{' '}
+                  Tambahkan Proteksi Alat saat checkout — hanya 5% dari nilai sewa. Jika alat
+                  mengalami kerusakan selama masa penyewaan, biaya perbaikan ditanggung tanpa perlu
+                  negosiasi dengan siapapun.
                 </p>
               </div>
 
-              <p className="text-lg text-ink-300 max-w-xl mb-8 leading-relaxed">
-                10% dari nilai sewa masuk ke dana cadangan. Jika ada kerusakan, vendor mengajukan klaim
-                dan biaya perbaikan dicairkan langsung dari dana — tanpa pihak ketiga, tanpa drama.
+              <p className="text-lg text-ink-300 max-w-xl mb-4 leading-relaxed">
+                Cukup aktifkan proteksi di halaman checkout. Jika terjadi kerusakan, vendor mengajukan
+                klaim di dashboard — upload foto kondisi alat. Tim FindStudio memverifikasi dan
+                memastikan biaya perbaikan ditanggung dalam kurang dari 4 jam, maksimal senilai
+                harga alat yang terdaftar.
+              </p>
+
+              <p className="text-xs text-ink-400/60 italic max-w-xl mb-8 leading-relaxed">
+                Proteksi FindStudio adalah program proteksi alat internal platform, bukan merupakan
+                produk asuransi dari lembaga keuangan.
               </p>
 
               <div className="grid grid-cols-2 gap-4 mb-8">
@@ -255,25 +270,25 @@ export default function HomePage() {
                 <div className="absolute top-0 right-0 w-40 h-40 bg-amber-400/10 blur-3xl rounded-full" />
                 <div className="flex items-center justify-between mb-6 relative">
                   <div>
-                    <div className="eyebrow text-amber-400">Contoh pencairan</div>
+                    <div className="eyebrow text-amber-400">Contoh checkout</div>
                     <div className="font-display text-2xl mt-1">Sony A7 IV — 1 hari sewa</div>
                   </div>
-                  <span className="pill">Aktif</span>
+                  <span className="pill">+ Proteksi</span>
                 </div>
                 <div className="space-y-3 text-sm relative">
                   <Row label="Harga sewa per hari" value="Rp 500.000" />
                   <Row label="Biaya layanan platform" value="Rp 10.000" muted />
-                  <Row label="Dana proteksi (10%)" value="− Rp 50.000" highlight />
+                  <Row label="Proteksi Alat (5%)" value="+ Rp 25.000" highlight />
                   <div className="divider my-2" />
-                  <Row label="Klien membayar" value="Rp 510.000" bold />
-                  <Row label="Dicairkan ke wallet vendor" value="Rp 450.000" bold accent />
-                  <Row label="Masuk ke Protection Fund" value="Rp 50.000" muted />
+                  <Row label="Total yang dibayar klien" value="Rp 535.000" bold />
+                  <Row label="Vendor menerima" value="Rp 490.000" bold accent />
                 </div>
                 <div className="mt-6 pt-6 border-t border-ink-700/40 flex items-center gap-3">
                   <Shield className="w-5 h-5 text-amber-400 shrink-0" strokeWidth={1.5} />
                   <p className="text-xs text-ink-300 leading-relaxed">
-                    Jika alat rusak, vendor menekan <span className="text-amber-400">Klaim Proteksi</span> di
-                    dashboard — dana perbaikan dicairkan hingga senilai harga alat.
+                    Alat rusak saat disewa? Vendor tekan{' '}
+                    <span className="text-amber-400">Klaim Proteksi</span> — biaya perbaikan
+                    ditanggung platform tanpa dispute.
                   </p>
                 </div>
               </div>
@@ -353,77 +368,215 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* VENDORS (06) -------------------------------------------------------- */}
-      <section className="max-w-[1440px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
-        <div className="flex items-end justify-between mb-10 gap-8">
-          <div>
-            <div className="eyebrow text-amber-400 mb-3">06 — Vendor terverifikasi</div>
-            <h2 className="headline text-5xl lg:text-7xl">
-              Bertemu para
-              <br />
-              <span className="italic text-amber-400 font-light">pemilik alat Surabaya.</span>
-            </h2>
-          </div>
-        </div>
+      {/* AFFILIATE (06) ------------------------------------------------------ */}
+      <section className="max-w-[1440px] mx-auto px-6 lg:px-10 py-20 lg:py-28">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="eyebrow text-amber-400 mb-3">06 — Program Afiliasi</div>
+          <h2 className="headline text-5xl lg:text-7xl mb-6">
+            Bagikan kode,
+            <br />
+            <span className="italic text-amber-400 font-light">dapat reward.</span>
+          </h2>
+          <p className="text-lg text-ink-300 max-w-xl mx-auto mb-12 leading-relaxed">
+            Daftar sebagai afiliasi, bagikan kode unikmu ke siapapun — kreator, teman, atau followers.
+            Setiap booking yang terjadi lewat kodemu memberikan reward langsung ke wallet-mu.
+          </p>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {vendors.slice(0, 4).map((v) => (
-            <div key={v.id} className="card overflow-hidden lift group">
-              <div className="aspect-[5/3] relative overflow-hidden">
-                <Image src={v.cover} alt={v.name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="25vw" />
-              </div>
-              <div className="p-5 -mt-10 relative">
-                <div className="w-14 h-14 rounded-full overflow-hidden border-4 border-ink-900 mb-3 relative">
-                  <Image src={v.avatar} alt={v.name} fill className="object-cover" sizes="56px" />
+          <div className="card p-8 lg:p-10 relative overflow-hidden max-w-sm mx-auto mb-8">
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-400/5 via-transparent to-transparent" />
+            <div className="absolute -right-8 -top-8 w-40 h-40 bg-amber-400/10 blur-3xl rounded-full" />
+            <div className="eyebrow text-ink-400 mb-3 relative">Kode afiliasimu</div>
+            <div className="font-mono text-5xl lg:text-6xl text-amber-400 tracking-[0.18em] mb-4 relative select-all">
+              FSRP123
+            </div>
+            <div className="text-xs text-ink-400 relative">
+              Kode unik — tiap pengguna baru yang pakai kodemu langsung terhubung denganmu
+            </div>
+          </div>
+
+          <Link href="/register" className="btn-primary">
+            Daftar & Dapatkan Kodemu
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+
+      {/* DISCORD COMMUNITY (08) ---------------------------------------------- */}
+      <section className="max-w-[1440px] mx-auto px-6 lg:px-10 pb-24">
+        <div className="card p-10 lg:p-14 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(88,101,242,0.07) 0%, transparent 55%)' }}>
+          <div className="absolute -left-20 -top-20 w-96 h-96 rounded-full blur-[100px]" style={{ background: 'rgba(88,101,242,0.07)' }} />
+          <div className="absolute -right-20 -bottom-20 w-96 h-96 bg-amber-400/5 rounded-full blur-[100px]" />
+
+          <div className="relative grid lg:grid-cols-2 gap-12 items-center">
+            {/* Kiri — copy + CTA */}
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0" style={{ background: '#5865F2' }}>
+                  <svg className="w-6 h-6 fill-white" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.04.037.05a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                  </svg>
                 </div>
-                <h3 className="font-display text-lg leading-tight">{v.name}</h3>
-                <div className="text-xs text-ink-400 mt-1 mb-3">{v.tagline}</div>
-                <div className="flex items-center justify-between text-xs">
-                  <span className="flex items-center gap-1"><MapPin className="w-3 h-3 text-amber-400" /><span className="text-ink-300">{v.location}</span></span>
-                  <span className="flex items-center gap-1"><Star className="w-3 h-3 fill-amber-400 text-amber-400" /><span className="tabular">{v.rating}</span></span>
+                <div>
+                  <div className="font-display text-xl leading-tight">FindStudio Community</div>
+                  <div className="eyebrow text-ink-400 mt-0.5">Server Discord resmi · Gratis</div>
+                </div>
+              </div>
+
+              <div className="eyebrow text-amber-400 mb-3">07 — Komunitas</div>
+              <h2 className="headline text-4xl lg:text-6xl mb-5">
+                Jangan berkarya
+                <br />
+                <span className="italic text-amber-400 font-light">sendirian.</span>
+              </h2>
+              <p className="text-ink-300 leading-relaxed mb-8 max-w-lg">
+                Discord FindStudio adalah tempat kreator dan vendor Surabaya terhubung nyata:
+                berbagi tips shoot, cari tim kolaborasi, dapat info promo eksklusif, dan diskusi
+                bisnis bersama. Komunitas yang aktif — bukan sekadar grup kosong.
+              </p>
+
+              <div className="space-y-2.5 mb-8">
+                {[
+                  { ch: '#lounge-kreator', desc: 'Ngobrol bebas, share hasil karya, minta feedback' },
+                  { ch: '#cari-tim-shoot', desc: 'Cari DP, kameraman, editor, MUA untuk kolaborasi' },
+                  { ch: '#info-promo',     desc: 'Notifikasi diskon, kode promo & alat baru dari vendor' },
+                  { ch: '#vendor-lounge',  desc: 'Khusus vendor: tips listing, pricing & cerita sukses' },
+                ].map((c, i) => (
+                  <div key={i} className="flex items-center gap-3 text-sm">
+                    <Hash className="w-3.5 h-3.5 text-ink-500 shrink-0" />
+                    <span className="font-mono text-sm" style={{ color: '#8b91b8' }}>{c.ch}</span>
+                    <span className="text-ink-400 hidden sm:inline text-xs">— {c.desc}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3">
+                <a
+                  href="https://discord.gg/findstudio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 py-3 px-6 rounded-full font-medium text-sm text-white transition hover:opacity-90 active:scale-95"
+                  style={{ background: '#5865F2' }}
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.04.037.05a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                  </svg>
+                  Gabung Discord Sekarang
+                </a>
+                <span className="text-sm text-ink-400">Gratis · Langsung aktif</span>
+              </div>
+            </div>
+
+            {/* Kanan — stats + simulasi chat */}
+            <div className="space-y-4">
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  { k: '1.2K+', l: 'Member aktif' },
+                  { k: '340+', l: 'Vendor join' },
+                  { k: '24/7', l: 'Selalu ramai' },
+                ].map((s, i) => (
+                  <div key={i} className="card p-4 text-center">
+                    <div className="font-display text-2xl text-amber-400 tabular">{s.k}</div>
+                    <div className="text-xs text-ink-400 mt-1">{s.l}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Simulasi Discord chat */}
+              <div className="card p-5">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-shimmer" />
+                  <span className="eyebrow text-emerald-400 text-[0.65rem]">Live di #lounge-kreator</span>
+                </div>
+                <div className="space-y-3.5">
+                  {[
+                    { user: 'dimas_shoot',  color: '#f9b17a', msg: 'Ada yang punya gimbal RS3 untuk disewa weekend ini? 🙏' },
+                    { user: 'rina.creative', color: '#a78bfa', msg: 'Coba pake kode FSRP123 kak, diskon 15% booking pertama 🎉' },
+                    { user: 'vendor_lumen', color: '#34d399', msg: 'Aputure 600X Pro baru tersedia! Cek di FindStudio ✨' },
+                    { user: 'dimas_shoot',  color: '#f9b17a', msg: 'Mantap! Langsung booking sekarang 🔥' },
+                  ].map((m, i) => (
+                    <div key={i} className="flex items-start gap-2.5">
+                      <div
+                        className="w-7 h-7 rounded-full flex items-center justify-center text-[0.65rem] font-bold shrink-0 text-ink-900"
+                        style={{ background: m.color }}
+                      >
+                        {m.user[0].toUpperCase()}
+                      </div>
+                      <div>
+                        <span className="text-[0.65rem] font-medium" style={{ color: m.color }}>{m.user}</span>
+                        <p className="text-xs text-ink-300 mt-0.5 leading-snug">{m.msg}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="card p-4 flex items-center gap-3">
+                <Users className="w-5 h-5 text-amber-400 shrink-0" />
+                <div>
+                  <div className="text-sm font-medium">Tersedia untuk kreator &amp; vendor</div>
+                  <div className="text-xs text-ink-400">Dua channel terpisah berdasarkan peranmu di platform</div>
                 </div>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
       {/* CTA ----------------------------------------------------------------- */}
       <section className="max-w-[1440px] mx-auto px-6 lg:px-10 mb-24">
-        <div className="card p-10 lg:p-16 relative overflow-hidden">
-          <div className="absolute -right-20 -top-20 w-96 h-96 bg-amber-400/10 blur-[100px] rounded-full" />
-          <div className="absolute -left-20 -bottom-20 w-96 h-96 bg-ink-500/20 blur-[100px] rounded-full" />
-          <div className="relative grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="eyebrow text-amber-400 mb-3">Siap memulai?</div>
-              <h2 className="headline text-5xl lg:text-7xl mb-4">
-                Mulai shoot
+        <div className="grid md:grid-cols-2 gap-5">
+
+          {/* Vendor CTA */}
+          <div className="card p-10 lg:p-12 relative overflow-hidden">
+            <div className="absolute -left-16 -bottom-16 w-72 h-72 bg-ink-500/20 blur-[80px] rounded-full" />
+            <div className="relative">
+              <div className="eyebrow text-ink-400 mb-3">Untuk Vendor & Provider</div>
+              <h2 className="headline text-4xl lg:text-5xl mb-4">
+                Ubah Aset Nganggur
                 <br />
-                <span className="italic text-amber-400 font-light">malam ini.</span>
+                <span className="italic font-light" style={{ color: '#8b91b8' }}>Jadi Passive Income.</span>
               </h2>
-              <p className="text-ink-300 max-w-md">
-                Daftar gratis. Browse ribuan alat di Surabaya. Booking dalam hitungan menit —
-                tanpa komitmen bulanan, tanpa biaya tersembunyi.
+              <p className="text-ink-300 text-sm leading-relaxed mb-8 max-w-sm">
+                Daftarkan studio, alat, dan jasamu. Jangkau ribuan kreator dengan sistem
+                transaksi yang dijamin aman. Mulai bermitra dengan FindStudio!
               </p>
-            </div>
-            <div className="flex flex-col gap-3">
-              <Link href="/register?role=client" className="btn-primary justify-center text-base">
-                Buat akun kreator
-                <ArrowUpRight className="w-4 h-4" />
-              </Link>
               <Link
                 href="/register?role=vendor"
-                className="justify-center text-base inline-flex items-center gap-2 py-3.5 px-6 rounded-full border"
+                className="inline-flex items-center gap-2 py-3 px-6 rounded-full border text-sm transition hover:border-amber-400/60 hover:text-amber-400"
                 style={{ borderColor: '#676f9d', color: '#8b91b8' }}
               >
-                Daftarkan alat (vendor)
+                Daftarkan Asetmu
                 <ArrowUpRight className="w-4 h-4" />
-              </Link>
-              <Link href="/browse" className="text-sm text-center text-ink-300 hover:text-amber-400 transition mt-2">
-                atau jelajahi tanpa daftar →
               </Link>
             </div>
           </div>
+
+          {/* Creator CTA */}
+          <div className="card p-10 lg:p-12 relative overflow-hidden">
+            <div className="absolute -right-16 -top-16 w-72 h-72 bg-amber-400/10 blur-[80px] rounded-full" />
+            <div className="relative">
+              <div className="eyebrow text-amber-400 mb-3">Untuk Kreator & Content Creator</div>
+              <h2 className="headline text-4xl lg:text-5xl mb-4">
+                Gak Harus Punya
+                <br />
+                <span className="italic text-amber-400 font-light">Alat Mahal.</span>
+              </h2>
+              <p className="text-ink-300 text-sm leading-relaxed mb-8 max-w-sm">
+                Sewa kamera, booking studio, sampai cari editor — semuanya bisa dalam satu
+                platform. Wujudkan idemu bersama FindStudio!
+              </p>
+              <Link href="/register?role=client" className="btn-primary text-sm">
+                Mulai Berkarya
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+
+        </div>
+        <div className="text-center mt-5">
+          <Link href="/browse" className="text-sm text-ink-400 hover:text-amber-400 transition">
+            atau jelajahi tanpa daftar →
+          </Link>
         </div>
       </section>
 

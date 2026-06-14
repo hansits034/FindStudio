@@ -73,7 +73,16 @@ export interface Service {
   id: string;
   slug: string;
   name: string;
-  type: 'editor-photo' | 'editor-video' | 'colorist' | 'sound';
+  type:
+    | 'fotografer-ecommerce'
+    | 'fotografer-potret'
+    | 'fotografer-produk'
+    | 'videografer-wedding'
+    | 'videografer-commercial'
+    | 'editor-video'
+    | 'editor-photo'
+    | 'colorist'
+    | 'sound';
   vendorId: string;
   pricePerProject: number;
   turnaround: string;
@@ -591,52 +600,76 @@ export const studios: Studio[] = [
 // ---- SERVICES (6) ----------------------------------------------------------
 export const services: Service[] = [
   {
-    id: 'srv1', slug: 'tone-color-grade', name: 'Color Grading Sinematik', type: 'colorist',
-    vendorId: 'v4', pricePerProject: 2500000, turnaround: '3–5 hari',
-    portfolio: [u('photo-1574375927938-d5a98e8ffe85', 1200), u('photo-1492691527719-9d1e07e534b4', 1200)],
-    cover: u('photo-1574375927938-d5a98e8ffe85', 1200),
-    rating: 4.95, reviewCount: 38,
-    description: 'Grading di DaVinci Resolve dengan workflow ACES. Cocok untuk brand commercial 30–60 detik.',
+    id: 'srv1', slug: 'fotografer-ecommerce-katalog', name: 'Fotografer E-commerce (50 SKU)',
+    type: 'fotografer-ecommerce',
+    vendorId: 'v4', pricePerProject: 2500000, turnaround: '3 hari',
+    portfolio: [
+      u('photo-1556761175-5973dc0f32e7', 1200),
+      u('photo-1441986300917-64674bd600d8', 1200),
+    ],
+    cover: u('photo-1556761175-5973dc0f32e7', 1200),
+    rating: 4.92, reviewCount: 74,
+    description: 'Foto produk di atas background putih/seamless untuk kebutuhan marketplace (Tokopedia, Shopee, dll). Paket 50 SKU: flat lay, angle depan, detail close-up. Termasuk basic retouching & background removal.',
   },
   {
-    id: 'srv2', slug: 'editor-video-tone', name: 'Video Editing Multi-cam', type: 'editor-video',
-    vendorId: 'v4', pricePerProject: 1800000, turnaround: '5–7 hari',
-    portfolio: [u('photo-1574375927938-d5a98e8ffe85', 1200)],
+    id: 'srv2', slug: 'fotografer-potret-personal', name: 'Fotografer Potret & Personal Branding',
+    type: 'fotografer-potret',
+    vendorId: 'v1', pricePerProject: 1500000, turnaround: '5 hari',
+    portfolio: [
+      u('photo-1531746020798-e6953c6e8e04', 1200),
+      u('photo-1506794778202-cad84cf45f1d', 1200),
+    ],
+    cover: u('photo-1531746020798-e6953c6e8e04', 1200),
+    rating: 4.96, reviewCount: 118,
+    description: 'Sesi foto potret profesional: headshot, personal branding LinkedIn, foto aktor/model, dan portfolio kreatif. Paket termasuk 5 jam sesi + 30 foto edited final. Lokasi studio atau outdoor Surabaya.',
+  },
+  {
+    id: 'srv3', slug: 'fotografer-produk-komersial', name: 'Fotografer Produk Komersial',
+    type: 'fotografer-produk',
+    vendorId: 'v4', pricePerProject: 3500000, turnaround: '7 hari',
+    portfolio: [
+      u('photo-1585386959984-a4155224a1ad', 1200),
+      u('photo-1542291026-7eec264c27ff', 1200),
+    ],
+    cover: u('photo-1585386959984-a4155224a1ad', 1200),
+    rating: 4.89, reviewCount: 47,
+    description: 'Foto produk FMCG, kecantikan, F&B, dan fashion untuk kebutuhan brand commercial, iklan cetak, dan konten digital. Full-day session + 15 foto final retouched, komposisi kreatif, dan mood board konsultasi.',
+  },
+  {
+    id: 'srv4', slug: 'videografer-wedding-highlight', name: 'Videografer Wedding Cinematic',
+    type: 'videografer-wedding',
+    vendorId: 'v2', pricePerProject: 8500000, turnaround: '21 hari',
+    portfolio: [
+      u('photo-1511285560929-80b456fea0bc', 1200),
+      u('photo-1519225421980-715cb0215aed', 1200),
+    ],
+    cover: u('photo-1511285560929-80b456fea0bc', 1200),
+    rating: 4.94, reviewCount: 63,
+    description: 'Dokumentasi pernikahan sinematik penuh: akad + resepsi + teaser 60 detik untuk sosmed. Highlight reel 5–7 menit, ceremony cut lengkap, dan 3 Reels edisi khusus. Dikerjakan 2 videografer dengan kamera cinema.',
+  },
+  {
+    id: 'srv5', slug: 'videografer-commercial-brand', name: 'Videografer Brand Commercial',
+    type: 'videografer-commercial',
+    vendorId: 'v6', pricePerProject: 12000000, turnaround: '14 hari',
+    portfolio: [
+      u('photo-1492691527719-9d1e07e534b4', 1200),
+      u('photo-1574375927938-d5a98e8ffe85', 1200),
+    ],
     cover: u('photo-1492691527719-9d1e07e534b4', 1200),
-    rating: 4.88, reviewCount: 24,
-    description: 'Editing multicam (hingga 4 angle) + motion graphic ringan + delivery 4K.',
+    rating: 4.91, reviewCount: 31,
+    description: 'Produksi video brand: TVC 30–60 detik, company profile, dan konten campaign. Full produksi (pra hingga pasca): director, 2 kamera cinema, lighting kit lengkap, VO recording, color grading profesional.',
   },
   {
-    id: 'srv3', slug: 'photo-retouch', name: 'Photo Retouching Beauty', type: 'editor-photo',
-    vendorId: 'v4', pricePerProject: 350000, turnaround: '24 jam',
-    portfolio: [u('photo-1556761175-5973dc0f32e7', 1200)],
-    cover: u('photo-1556761175-5973dc0f32e7', 1200),
-    rating: 4.92, reviewCount: 88,
-    description: 'High-end retouch (10 foto) — skin, color, dodge & burn. Frequency separation.',
-  },
-  {
-    id: 'srv4', slug: 'wedding-edit-package', name: 'Wedding Highlight Edit', type: 'editor-video',
-    vendorId: 'v2', pricePerProject: 3200000, turnaround: '14 hari',
-    portfolio: [u('photo-1519225421980-715cb0215aed', 1200)],
-    cover: u('photo-1519225421980-715cb0215aed', 1200),
-    rating: 4.86, reviewCount: 41,
-    description: 'Highlight reel 3-5 menit + ceremony cut + reels short-form. License music profesional.',
-  },
-  {
-    id: 'srv5', slug: 'sound-mix-master', name: 'Audio Mixing & Mastering', type: 'sound',
-    vendorId: 'v5', pricePerProject: 1500000, turnaround: '4–6 hari',
-    portfolio: [u('photo-1493676304819-0d7a8d026dcf', 1200)],
-    cover: u('photo-1493676304819-0d7a8d026dcf', 1200),
-    rating: 4.9, reviewCount: 27,
-    description: 'Mixing dialog, ADR, foley, music dengan delivery -16 LUFS untuk YouTube.',
-  },
-  {
-    id: 'srv6', slug: 'product-retouch-ecom', name: 'E-commerce Product Edit (50 SKU)', type: 'editor-photo',
-    vendorId: 'v4', pricePerProject: 1200000, turnaround: '3 hari',
-    portfolio: [u('photo-1556761175-5973dc0f32e7', 1200)],
-    cover: u('photo-1556761175-5973dc0f32e7', 1200),
-    rating: 4.82, reviewCount: 52,
-    description: 'Background removal, color correction, & shadow add-on untuk listing marketplace.',
+    id: 'srv6', slug: 'editor-video-on-demand', name: 'Editor Video On-demand (per Proyek)',
+    type: 'editor-video',
+    vendorId: 'v4', pricePerProject: 1800000, turnaround: '5–7 hari',
+    portfolio: [
+      u('photo-1516035069371-29a1b244cc32', 1200),
+      u('photo-1574375927938-d5a98e8ffe85', 1200),
+    ],
+    cover: u('photo-1516035069371-29a1b244cc32', 1200),
+    rating: 4.87, reviewCount: 96,
+    description: 'Editing video on-demand untuk durasi 10–15 menit: multicam sync, color correction dasar, motion graphic/title, sound mix, dan delivery 4K. Cocok untuk konten YouTube, dokumentasi event, dan brand video ringan.',
   },
 ];
 

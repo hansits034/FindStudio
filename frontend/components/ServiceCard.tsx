@@ -4,10 +4,15 @@ import { Star, Clock, Sparkles } from 'lucide-react';
 import { Service, formatIDR, getVendor } from '@/lib/mockData';
 
 const typeLabel: Record<Service['type'], string> = {
-  'editor-photo': 'Editor Foto',
-  'editor-video': 'Editor Video',
-  colorist: 'Colorist',
-  sound: 'Sound Engineer',
+  'fotografer-ecommerce':  'Fotografer E-commerce',
+  'fotografer-potret':     'Fotografer Potret',
+  'fotografer-produk':     'Fotografer Produk',
+  'videografer-wedding':   'Videografer Wedding',
+  'videografer-commercial':'Videografer Commercial',
+  'editor-video':          'Editor Video',
+  'editor-photo':          'Editor Foto',
+  colorist:                'Colorist',
+  sound:                   'Sound Engineer',
 };
 
 export default function ServiceCard({ item }: { item: Service }) {

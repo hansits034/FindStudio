@@ -4,35 +4,57 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { categories } from '@/lib/mockData';
 import { SURABAYA_AREAS, SERVICE_DETAIL } from '@/lib/search';
-import { MapPin, Calendar, Sliders, Star } from 'lucide-react';
+import { MapPin, Calendar, Sliders } from 'lucide-react';
 
 export default function FilterSidebar({ activeCategory = 'all' }: { activeCategory?: string }) {
   const router = useRouter();
   const [cat, setCat] = useState(activeCategory);
   const [area, setArea] = useState('');
   const [maxPrice, setMaxPrice] = useState(2000000);
-  const [rating, setRating] = useState<number | null>(null);
+  const [selectedSpecs, setSelectedSpecs] = useState<string[]>([]);
 
-  const detail = SERVICE_DETAIL[cat as keyof typeof SERVICE_DETAIL];
+  const groups = SERVICE_DETAIL[cat] ?? [];
+
+  function handleCatChange(newCat: string) {
+    setCat(newCat);
+    setSelectedSpecs([]);
+  }
+
+  function toggleSpec(spec: string) {
+    setSelectedSpecs((prev) =>
+      prev.includes(spec) ? prev.filter((s) => s !== spec) : [...prev, spec]
+    );
+  }
 
   function apply() {
     const sp = new URLSearchParams();
     if (cat && cat !== 'all') sp.set('cat', cat);
     if (area) sp.set('loc', area);
     if (maxPrice < 2000000) sp.set('max', String(maxPrice));
-    if (rating) sp.set('rating', String(rating));
+    if (selectedSpecs.length > 0) sp.set('specs', selectedSpecs.join(','));
     router.push(`/browse${sp.toString() ? `?${sp.toString()}` : ''}`);
   }
 
   return (
-    <aside className="space-y-6 lg:sticky lg:top-28 self-start">
-      <div className="card p-5">
-        <div className="flex items-center gap-2 mb-4">
-          <Sliders className="w-4 h-4 text-amber-400" />
-          <h3 className="font-display text-lg">Filter</h3>
+    <aside className="lg:sticky lg:top-28 self-start">
+      <div className="card p-5 flex flex-col max-h-[calc(100vh-8rem)]">
+        <div className="flex items-center justify-between mb-4 shrink-0">
+          <div className="flex items-center gap-2">
+            <Sliders className="w-4 h-4 text-amber-400" />
+            <h3 className="font-display text-lg">Filter</h3>
+          </div>
+          {selectedSpecs.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setSelectedSpecs([])}
+              className="text-[0.65rem] text-ink-400 hover:text-amber-400 transition"
+            >
+              Reset spesifikasi ({selectedSpecs.length})
+            </button>
+          )}
         </div>
 
-        <div className="space-y-5">
+        <div className="space-y-5 overflow-y-auto flex-1 pr-1 pb-2">
           {/* Jenis layanan / kategori */}
           <div>
             <label className="eyebrow text-ink-400 block mb-2">Jenis Layanan</label>
@@ -45,7 +67,7 @@ export default function FilterSidebar({ activeCategory = 'all' }: { activeCatego
                       name="cat"
                       className="accent-amber-400"
                       checked={cat === c.key}
-                      onChange={() => setCat(c.key)}
+                      onChange={() => handleCatChange(c.key)}
                     />
                     <span className="group-hover:text-amber-400 transition">{c.label}</span>
                   </span>
@@ -55,25 +77,30 @@ export default function FilterSidebar({ activeCategory = 'all' }: { activeCatego
             </div>
           </div>
 
-          {/* Detail sesuai kategori */}
-          {detail && (
-            <div>
-              <label className="eyebrow text-ink-400 block mb-2">{detail.label}</label>
+          {/* Spesifikasi sesuai kategori */}
+          {groups.map((group, gi) => (
+            <div key={gi}>
+              <label className="eyebrow text-ink-400 block mb-2">{group.label}</label>
               <div className="flex flex-wrap gap-1.5">
-                {detail.options.map((opt) => (
+                {group.options.map((opt) => (
                   <button
                     key={opt}
                     type="button"
-                    className="text-[0.7rem] px-2.5 py-1 rounded-full border border-ink-700/40 hover:border-amber-400/60 hover:text-amber-400 transition"
+                    onClick={() => toggleSpec(opt)}
+                    className={`text-[0.7rem] px-2.5 py-1 rounded-full border transition ${
+                      selectedSpecs.includes(opt)
+                        ? 'bg-amber-400 text-ink-900 border-amber-400'
+                        : 'border-ink-700/40 hover:border-amber-400/60 hover:text-amber-400'
+                    }`}
                   >
                     {opt}
                   </button>
                 ))}
               </div>
             </div>
-          )}
+          ))}
 
-          <div className="divider" />
+          {groups.length > 0 && <div className="divider" />}
 
           {/* Lokasi (Surabaya) */}
           <div>
@@ -116,28 +143,9 @@ export default function FilterSidebar({ activeCategory = 'all' }: { activeCatego
               className="w-full accent-amber-400"
             />
           </div>
+        </div>
 
-          {/* Rating */}
-          <div>
-            <label className="eyebrow text-ink-400 block mb-2">Rating minimal</label>
-            <div className="flex gap-1.5">
-              {[4.0, 4.5, 4.8].map((r) => (
-                <button
-                  key={r}
-                  type="button"
-                  onClick={() => setRating(rating === r ? null : r)}
-                  className={`flex-1 py-2 text-xs rounded-full border transition tabular inline-flex items-center justify-center gap-1 ${
-                    rating === r
-                      ? 'bg-amber-400 text-ink-900 border-amber-400'
-                      : 'border-ink-700/40 hover:border-amber-400/60 hover:text-amber-400'
-                  }`}
-                >
-                  <Star className="w-3 h-3" /> {r}+
-                </button>
-              ))}
-            </div>
-          </div>
-
+        <div className="pt-4 border-t border-ink-700/30 shrink-0 mt-2">
           <button onClick={apply} className="btn-primary w-full justify-center">Terapkan Filter</button>
         </div>
       </div>

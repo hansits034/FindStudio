@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Fraunces, DM_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import ChatButton from '@/components/ChatButton';
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -38,6 +39,7 @@ export default function RootLayout({
     <html lang="id" className={`${fraunces.variable} ${dmSans.variable} ${jetbrains.variable}`}>
       <body className="grain min-h-screen antialiased">
         {children}
+        <ChatButton />
       </body>
     </html>
   );

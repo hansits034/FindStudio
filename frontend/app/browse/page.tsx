@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useMemo, Suspense } from 'react';
+import { useMemo, useState, Suspense } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import EquipmentCard from '@/components/EquipmentCard';
@@ -10,8 +10,8 @@ import ServiceCard from '@/components/ServiceCard';
 import SmartSearch from '@/components/SmartSearch';
 import FilterSidebar from '@/components/FilterSidebar';
 import { equipment, studios, services, categories, categoryLabel } from '@/lib/mockData';
-import { areaOf, AREA_COORDS, distanceKm, type SurabayaArea } from '@/lib/search';
-import { ArrowUpDown, Grid3x3, MapPin } from 'lucide-react';
+import { areaOf, AREA_COORDS, distanceKm, computeRelevance, type SurabayaArea } from '@/lib/search';
+import { ArrowUpDown, ArrowUp, ArrowDown, ChevronDown, MapPin, Brain, Sparkles } from 'lucide-react';
 
 function matchesText(haystack: string, q: string) {
   return haystack.toLowerCase().includes(q.toLowerCase());
@@ -19,20 +19,37 @@ function matchesText(haystack: string, q: string) {
 
 function BrowseInner() {
   const params = useSearchParams();
-  const cat = params.get('cat') ?? 'all';
-  const q = params.get('q') ?? '';
-  const loc = (params.get('loc') as SurabayaArea | null) ?? undefined;
-  const near = params.get('near') === '1';
-  const maxPrice = params.get('max') ? Number(params.get('max')) : undefined;
-  const minPrice = params.get('min') ? Number(params.get('min')) : undefined;
+  const cat      = params.get('cat') ?? 'all';
+  const q        = params.get('q') ?? '';
+  const loc      = (params.get('loc') as SurabayaArea | null) ?? undefined;
+  const near     = params.get('near') === '1';
+  const maxPrice = params.get('max')    ? Number(params.get('max'))    : undefined;
+  const minPrice = params.get('min')    ? Number(params.get('min'))    : undefined;
   const minRating = params.get('rating') ? Number(params.get('rating')) : undefined;
+  const useCase  = params.get('usecase') ?? '';
+  const specKeywords = params.get('specs')?.split(',').filter(Boolean) ?? [];
+  const sortBy = params.get('sort') ?? 'relevant';
 
-  // Origin untuk hitung jarak (kalau "terdekat" tanpa area spesifik → pusat Gubeng)
+  function sortUrl(key: string) {
+    const sp = new URLSearchParams();
+    if (cat !== 'all') sp.set('cat', cat);
+    if (q) sp.set('q', q);
+    if (loc) sp.set('loc', loc);
+    if (near) sp.set('near', '1');
+    if (maxPrice !== undefined) sp.set('max', String(maxPrice));
+    if (minPrice !== undefined) sp.set('min', String(minPrice));
+    if (minRating !== undefined) sp.set('rating', String(minRating));
+    if (useCase) sp.set('usecase', useCase);
+    const specsStr = params.get('specs');
+    if (specsStr) sp.set('specs', specsStr);
+    if (key !== 'relevant') sp.set('sort', key);
+    return `/browse?${sp.toString()}`;
+  }
+
   const origin = loc ? AREA_COORDS[loc] : near ? AREA_COORDS['Gubeng'] : undefined;
-
   const chips = [{ key: 'all', label: 'Semua' }, ...categories];
 
-  // Filter summary chips
+  // Build active filter display chips
   const activeFilters: string[] = [];
   if (cat !== 'all') activeFilters.push(categoryLabel(cat));
   if (loc) activeFilters.push(`Area ${loc}`);
@@ -46,48 +63,83 @@ function BrowseInner() {
     if (cat !== 'all' && cat !== 'studio' && cat !== 'service') {
       list = list.filter((e) => e.category === cat);
     }
-    if (loc) list = list.filter((e) => areaOf(e.location) === loc);
-    if (maxPrice) list = list.filter((e) => e.pricePerDay <= maxPrice);
-    if (minPrice) list = list.filter((e) => e.pricePerDay >= minPrice);
+    if (loc)       list = list.filter((e) => areaOf(e.location) === loc);
+    if (maxPrice)  list = list.filter((e) => e.pricePerDay <= maxPrice);
+    if (minPrice)  list = list.filter((e) => e.pricePerDay >= minPrice);
     if (minRating) list = list.filter((e) => e.rating >= minRating);
-    if (q) list = list.filter((e) => matchesText(e.name, q) || matchesText(e.brand, q) || matchesText(e.location, q) || matchesText(e.category, q));
+    if (q) {
+      list = list.filter((e) =>
+        matchesText(e.name, q) || matchesText(e.brand, q) ||
+        matchesText(e.location, q) || matchesText(e.category, q) ||
+        matchesText(e.description, q) ||
+        e.specs.some((s) => matchesText(`${s.label} ${s.value}`, q))
+      );
+    }
 
+    // Sort: geo distance → explicit price sort → AI relevance → default
     if (origin) {
       list = [...list].sort((a, b) => {
         const da = AREA_COORDS[areaOf(a.location) ?? 'Gubeng'];
         const db = AREA_COORDS[areaOf(b.location) ?? 'Gubeng'];
         return distanceKm(origin, da) - distanceKm(origin, db);
       });
+    } else if (sortBy === 'price_asc') {
+      list = [...list].sort((a, b) => a.pricePerDay - b.pricePerDay);
+    } else if (sortBy === 'price_desc') {
+      list = [...list].sort((a, b) => b.pricePerDay - a.pricePerDay);
+    } else if (specKeywords.length > 0) {
+      list = [...list].sort(
+        (a, b) => computeRelevance(b, specKeywords) - computeRelevance(a, specKeywords)
+      );
     }
     return list;
-  }, [cat, loc, near, maxPrice, minPrice, minRating, q, origin]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cat, loc, near, maxPrice, minPrice, minRating, q, origin, sortBy, params.get('specs')]);
 
   const filteredStudios = useMemo(() => {
     let list = studios;
-    if (loc) list = list.filter((s) => areaOf(s.location) === loc);
-    if (maxPrice) list = list.filter((s) => s.pricePerHour <= maxPrice);
+    if (loc)       list = list.filter((s) => areaOf(s.location) === loc);
+    if (maxPrice)  list = list.filter((s) => s.pricePerHour <= maxPrice);
     if (minRating) list = list.filter((s) => s.rating >= minRating);
-    if (q) list = list.filter((s) => matchesText(s.name, q) || matchesText(s.location, q));
+    if (q)         list = list.filter((s) => matchesText(s.name, q) || matchesText(s.location, q));
+    if (sortBy === 'price_asc') list = [...list].sort((a, b) => a.pricePerHour - b.pricePerHour);
+    if (sortBy === 'price_desc') list = [...list].sort((a, b) => b.pricePerHour - a.pricePerHour);
     return list;
-  }, [loc, maxPrice, minRating, q]);
+  }, [loc, maxPrice, minRating, q, sortBy]);
 
   const filteredServices = useMemo(() => {
     let list = services;
-    if (maxPrice) list = list.filter((s) => s.pricePerProject <= maxPrice);
+    if (maxPrice)  list = list.filter((s) => s.pricePerProject <= maxPrice);
     if (minRating) list = list.filter((s) => s.rating >= minRating);
-    if (q) list = list.filter((s) => matchesText(s.name, q) || matchesText(s.description, q));
+    if (q)         list = list.filter((s) => matchesText(s.name, q) || matchesText(s.description, q));
+    if (sortBy === 'price_asc') list = [...list].sort((a, b) => a.pricePerProject - b.pricePerProject);
+    if (sortBy === 'price_desc') list = [...list].sort((a, b) => b.pricePerProject - a.pricePerProject);
     return list;
-  }, [maxPrice, minRating, q]);
+  }, [maxPrice, minRating, q, sortBy]);
 
-  const showStudios = cat === 'all' || cat === 'studio';
+  const showStudios  = cat === 'all' || cat === 'studio';
   const showServices = cat === 'all' || cat === 'service';
   const showEquipment = !(cat === 'studio' || cat === 'service');
 
   const totalCount =
     (showEquipment ? filteredEquipment.length : 0) +
-    (cat === 'studio' ? filteredStudios.length : 0) +
+    (cat === 'studio'  ? filteredStudios.length : 0) +
     (cat === 'service' ? filteredServices.length : 0) +
     (cat === 'all' ? Math.min(filteredStudios.length, 3) + Math.min(filteredServices.length, 3) : 0);
+
+  const isAISearch = specKeywords.length > 0 || !!useCase;
+  const [sortOpen, setSortOpen] = useState(false);
+
+  const SORT_CYCLE: Record<string, string> = {
+    relevant: 'price_asc',
+    price_asc: 'price_desc',
+    price_desc: 'relevant',
+  };
+  const SORT_LABELS: Record<string, string> = {
+    relevant: loc || near ? 'Terdekat' : isAISearch ? 'Paling sesuai AI' : 'Paling sesuai',
+    price_asc: 'Harga terendah',
+    price_desc: 'Harga tertinggi',
+  };
 
   return (
     <>
@@ -106,9 +158,33 @@ function BrowseInner() {
             <SmartSearch variant="hero" initialValue={q} />
           </div>
 
-          {/* Active filters */}
+          {/* AI insight banner */}
+          {isAISearch && (
+            <div className="mt-5 max-w-3xl card !bg-amber-400/5 !border-amber-400/20 p-4 flex items-start gap-3">
+              <Brain className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              <div>
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="eyebrow text-amber-400">Analisis AI</span>
+                  {useCase && (
+                    <span className="pill !bg-amber-400/20 !border-amber-400/40 !text-amber-300 !text-[0.65rem] !py-0.5">
+                      <Sparkles className="w-2.5 h-2.5" />
+                      {params.get('usecase')?.replace(/-/g, ' ')}
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-ink-300 leading-relaxed">
+                  Hasil diurutkan berdasarkan kesesuaian spesifikasi dengan kebutuhanmu.
+                  {specKeywords.length > 0 && (
+                    <> Kata kunci cocok: <span className="text-amber-400">{specKeywords.slice(0, 4).join(', ')}</span>.</>
+                  )}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Active filter chips */}
           {activeFilters.length > 0 && (
-            <div className="flex flex-wrap items-center gap-1.5 mt-5">
+            <div className="flex flex-wrap items-center gap-1.5 mt-4">
               <span className="eyebrow text-ink-400 mr-1">Filter aktif:</span>
               {activeFilters.map((f, i) => (
                 <span key={i} className="pill !text-[0.65rem] !py-1">{f}</span>
@@ -140,9 +216,7 @@ function BrowseInner() {
                   }`}
                 >
                   {c.label}
-                  <span className={`text-[0.65rem] tabular ${active ? 'text-ink-900/60' : 'text-ink-400'}`}>
-                    {count}
-                  </span>
+                  <span className={`text-[0.65rem] tabular ${active ? 'text-ink-900/60' : 'text-ink-400'}`}>{count}</span>
                 </a>
               );
             })}
@@ -159,17 +233,60 @@ function BrowseInner() {
                 {(loc || near) && (
                   <span className="text-ink-400"> · diurutkan dari yang <span className="text-amber-400">terdekat</span></span>
                 )}
+                {isAISearch && !loc && !near && sortBy === 'relevant' && (
+                  <span className="text-ink-400"> · diurutkan berdasarkan <span className="text-amber-400">kesesuaian AI</span></span>
+                )}
+                {sortBy === 'price_asc' && (
+                  <span className="text-ink-400"> · <span className="text-amber-400">harga terendah</span> dulu</span>
+                )}
+                {sortBy === 'price_desc' && (
+                  <span className="text-ink-400"> · <span className="text-amber-400">harga tertinggi</span> dulu</span>
+                )}
               </div>
-              <div className="flex items-center gap-2">
-                <button className="btn-ghost !py-2 !px-3.5 text-xs">
-                  <ArrowUpDown className="w-3.5 h-3.5" />
-                  {loc || near ? 'Terdekat' : 'Paling sesuai'}
+              <div className="relative">
+                <button
+                  onClick={() => setSortOpen((o) => !o)}
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs rounded-full border transition whitespace-nowrap ${
+                    sortBy !== 'relevant'
+                      ? 'bg-amber-400/10 border-amber-400/40 text-amber-300'
+                      : 'border-ink-700/40 hover:border-amber-400/60 text-ink-200'
+                  }`}
+                >
+                  {sortBy === 'price_asc' ? <ArrowUp className="w-3 h-3" />
+                    : sortBy === 'price_desc' ? <ArrowDown className="w-3 h-3" />
+                    : <ArrowUpDown className="w-3 h-3" />}
+                  {SORT_LABELS[sortBy] ?? 'Paling sesuai'}
+                  <ChevronDown className={`w-3 h-3 transition-transform duration-150 ${sortOpen ? 'rotate-180' : ''}`} />
                 </button>
-                <div className="flex border border-ink-700/40 rounded-full overflow-hidden">
-                  <button className="px-3 py-2 bg-amber-400 text-ink-900">
-                    <Grid3x3 className="w-3.5 h-3.5" />
-                  </button>
-                </div>
+
+                {sortOpen && (
+                  <>
+                    <button
+                      className="fixed inset-0 z-10 cursor-default"
+                      onClick={() => setSortOpen(false)}
+                      aria-hidden="true"
+                    />
+                    <div className="absolute right-0 top-full mt-2 z-20 min-w-[170px] card py-1 shadow-2xl overflow-hidden">
+                      {(['relevant', 'price_asc', 'price_desc'] as const).map((key) => (
+                        <a
+                          key={key}
+                          href={sortUrl(key)}
+                          onClick={() => setSortOpen(false)}
+                          className={`flex items-center gap-2.5 px-4 py-2.5 text-xs transition ${
+                            sortBy === key
+                              ? 'text-amber-400 bg-amber-400/10'
+                              : 'text-ink-200 hover:bg-ink-700/30 hover:text-white'
+                          }`}
+                        >
+                          {key === 'price_asc' ? <ArrowUp className="w-3 h-3" />
+                            : key === 'price_desc' ? <ArrowDown className="w-3 h-3" />
+                            : <ArrowUpDown className="w-3 h-3" />}
+                          {SORT_LABELS[key]}
+                        </a>
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
@@ -187,7 +304,18 @@ function BrowseInner() {
 
             {showEquipment && filteredEquipment.length > 0 && (
               <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
-                {filteredEquipment.map((item) => <EquipmentCard key={item.id} item={item} />)}
+                {filteredEquipment.map((item, i) => (
+                  <div key={item.id} className="relative">
+                    {isAISearch && i === 0 && specKeywords.length > 0 && (
+                      <div className="absolute -top-2 left-3 z-10">
+                        <span className="pill !bg-amber-400 !text-ink-900 !border-amber-400 !text-[0.6rem] !py-0.5 shadow-lg">
+                          <Sparkles className="w-2.5 h-2.5" /> Paling sesuai
+                        </span>
+                      </div>
+                    )}
+                    <EquipmentCard item={item} />
+                  </div>
+                ))}
               </div>
             )}
 
@@ -195,9 +323,7 @@ function BrowseInner() {
               <>
                 <div className="mt-16 mb-6 flex items-center gap-2">
                   <MapPin className="w-5 h-5 text-amber-400" />
-                  <div>
-                    <h2 className="font-display text-3xl">Studio di Surabaya</h2>
-                  </div>
+                  <h2 className="font-display text-3xl">Studio di Surabaya</h2>
                 </div>
                 <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
                   {filteredStudios.slice(0, 3).map((s) => <StudioCard key={s.id} item={s} />)}
@@ -209,7 +335,7 @@ function BrowseInner() {
               <>
                 <div className="mt-16 mb-6">
                   <h2 className="font-display text-3xl mb-2">Jasa profesional</h2>
-                  <p className="text-sm text-ink-400">Editor, colorist, sound engineer bersertifikat.</p>
+                  <p className="text-sm text-ink-400">Fotografer, videografer & editor bersertifikat.</p>
                 </div>
                 <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
                   {filteredServices.slice(0, 3).map((s) => <ServiceCard key={s.id} item={s} />)}
