@@ -523,14 +523,20 @@ export default function HomePage() {
         <div className="grid md:grid-cols-2 gap-5">
 
           {/* Vendor CTA */}
-          <div className="card p-10 lg:p-12 relative overflow-hidden">
-            <div className="absolute -left-16 -bottom-16 w-72 h-72 bg-ink-500/20 blur-[80px] rounded-full" />
+          <div
+            className="p-10 lg:p-12 relative overflow-hidden rounded-2xl border"
+            style={{
+              background: 'linear-gradient(160deg, rgba(103,111,157,0.28) 0%, rgba(45,50,80,0.55) 100%)',
+              borderColor: 'rgba(139,145,184,0.35)',
+            }}
+          >
+            <div className="absolute -left-16 -bottom-16 w-80 h-80 bg-[#8b91b8]/25 blur-[90px] rounded-full" />
             <div className="relative">
-              <div className="eyebrow text-ink-400 mb-3">Untuk Vendor & Provider</div>
+              <div className="eyebrow text-[#b3b8da] mb-3">Untuk Vendor & Provider</div>
               <h2 className="headline text-4xl lg:text-5xl mb-4">
                 Ubah Aset Nganggur
                 <br />
-                <span className="italic font-light" style={{ color: '#8b91b8' }}>Jadi Passive Income.</span>
+                <span className="italic font-light" style={{ color: '#b3b8da' }}>Jadi Passive Income.</span>
               </h2>
               <p className="text-ink-300 text-sm leading-relaxed mb-8 max-w-sm">
                 Daftarkan studio, alat, dan jasamu. Jangkau ribuan kreator dengan sistem
@@ -538,8 +544,7 @@ export default function HomePage() {
               </p>
               <Link
                 href="/register?role=vendor"
-                className="inline-flex items-center gap-2 py-3 px-6 rounded-full border text-sm transition hover:border-amber-400/60 hover:text-amber-400"
-                style={{ borderColor: '#676f9d', color: '#8b91b8' }}
+                className="inline-flex items-center gap-2 py-3.5 px-6 rounded-full text-sm font-medium text-ink-900 bg-[#8b91b8] transition-all duration-300 hover:bg-[#a3a8d4] hover:shadow-lg hover:shadow-[#8b91b8]/30 hover:-translate-y-0.5"
               >
                 Daftarkan Asetmu
                 <ArrowUpRight className="w-4 h-4" />
