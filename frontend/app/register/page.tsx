@@ -92,7 +92,7 @@ function RegisterInner() {
         </h1>
         <p className="text-ink-300 mb-10 max-w-xl">
           {forcedVendor
-            ? 'Daftarkan kamera, drone, lighting, studio, atau jasa Anda, mulai hasilkan dari aset yang menganggur di Surabaya.'
+            ? 'Daftarkan kamera, lensa, lighting, drone & aksesoris, studio, atau jasa Anda, mulai hasilkan dari aset yang menganggur di Surabaya.'
             : 'Mulai sebagai kreator yang menyewa, atau vendor yang menghasilkan dari aset Anda.'}
         </p>
 

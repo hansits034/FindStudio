@@ -1,4 +1,4 @@
-export type Category = 'camera' | 'lens' | 'drone' | 'lighting' | 'audio' | 'gimbal' | 'studio' | 'service';
+export type Category = 'camera' | 'lens' | 'lighting' | 'audio' | 'gimbal' | 'studio' | 'accessory' | 'service';
 
 export interface Equipment {
   id: string;
@@ -186,7 +186,8 @@ export const vendors: Vendor[] = [
   },
 ];
 
-// ---- EQUIPMENT (32 items across 6 categories) -------------------------------
+// ---- EQUIPMENT (35 items across Kamera, Lensa & Filter, Lighting & Grip, ----
+// ---- Audio, Stabilizer & Support, dan Aksesoris & Properti) -----------------
 export const equipment: Equipment[] = [
   // ==================== CAMERAS (6) ====================
   {
@@ -344,58 +345,23 @@ export const equipment: Equipment[] = [
     description: 'Ultra-wide zoom untuk landscape, architecture, dan vlogging.',
     has3d: false, bookedDates: [],
   },
-
-  // ==================== DRONES (4) ====================
   {
-    id: 'e13', slug: 'dji-mavic-3-pro', name: 'DJI Mavic 3 Pro Cine', brand: 'DJI', category: 'drone',
-    pricePerDay: 750000, weekendMultiplier: 1.25, deposit: 5000000, protection: true,
-    rating: 4.94, reviewCount: 96, vendorId: 'v3', location: 'Surabaya, Rungkut', available: true,
-    image: u('photo-1473968512647-3e447244af8f'),
-    gallery: [u('photo-1473968512647-3e447244af8f', 1600), u('photo-1521405924368-64c5b84bec60', 1600)],
+    id: 'e31', slug: 'nisi-vnd-cpl-kit', name: 'NiSi Filter Kit (Variable ND + CPL) 82mm', brand: 'NiSi', category: 'lens',
+    pricePerDay: 90000, weekendMultiplier: 1.1, deposit: 600000, protection: false,
+    rating: 4.82, reviewCount: 27, vendorId: 'v1', location: 'Surabaya, Gubeng', available: true,
+    image: u('photo-1495707902641-75cac588d2e9'),
+    gallery: [u('photo-1495707902641-75cac588d2e9', 1600)],
     specs: [
-      { label: 'Kamera', value: 'Hasselblad 4/3 CMOS + Tele 70mm + 166mm' },
-      { label: 'Video', value: '5.1K Apple ProRes' },
-      { label: 'Range', value: 'O4+ 28 km' },
+      { label: 'Variable ND', value: 'ND2 – ND32 (1–5 stop)' },
+      { label: 'CPL', value: 'Circular Polarizer terpisah' },
+      { label: 'Thread', value: '82mm + step ring 67–77mm' },
+      { label: 'Material', value: 'Optical glass multi-coating' },
     ],
-    description: 'Drone tri-kamera untuk aerial sinematik. Termasuk RC Pro, 3 baterai, ND filter set.',
-    has3d: true, bookedDates: ['2026-06-10', '2026-06-11'],
-  },
-  {
-    id: 'e14', slug: 'dji-mini-4-pro', name: 'DJI Mini 4 Pro Fly More', brand: 'DJI', category: 'drone',
-    pricePerDay: 280000, weekendMultiplier: 1.15, deposit: 1800000, protection: true,
-    rating: 4.86, reviewCount: 62, vendorId: 'v3', location: 'Surabaya, Rungkut', available: true,
-    image: u('photo-1508614589041-895b88991e3e'),
-    gallery: [u('photo-1508614589041-895b88991e3e', 1600)],
-    specs: [{ label: 'Weight', value: '< 249g' }, { label: 'Video', value: '4K HDR' }, { label: 'Range', value: '20 km' }],
-    description: 'Drone sub-249g — bebas izin di banyak lokasi. Pilihan favorit travel creator.',
-    has3d: false, bookedDates: [],
-  },
-  {
-    id: 'e15', slug: 'dji-inspire-3', name: 'DJI Inspire 3 (Pro)', brand: 'DJI', category: 'drone',
-    pricePerDay: 2500000, weekendMultiplier: 1.3, deposit: 25000000, protection: true,
-    rating: 4.95, reviewCount: 18, vendorId: 'v3', location: 'Surabaya, Rungkut', available: true,
-    image: u('photo-1521405924368-64c5b84bec60'),
-    gallery: [u('photo-1521405924368-64c5b84bec60', 1600)],
-    specs: [
-      { label: 'Kamera', value: 'X9-8K Air' },
-      { label: 'Video', value: '8K 25p / 4K 120p ProRes RAW' },
-      { label: 'Setup', value: 'Dual operator (pilot + camera)' },
-    ],
-    description: 'Drone profesional kelas film & commercial. Wajib dual-operator. Termasuk ND set + 3 TB-30.',
-    has3d: false, bookedDates: [],
-  },
-  {
-    id: 'e16', slug: 'fpv-custom-cinewhoop', name: 'FPV Cinewhoop Custom', brand: 'Custom', category: 'drone',
-    pricePerDay: 450000, weekendMultiplier: 1.2, deposit: 3500000, protection: true,
-    rating: 4.79, reviewCount: 24, vendorId: 'v3', location: 'Surabaya, Rungkut', available: true,
-    image: u('photo-1579829366248-204fe8413f31'),
-    gallery: [u('photo-1579829366248-204fe8413f31', 1600)],
-    specs: [{ label: 'Cam', value: 'GoPro Hero 11 mount' }, { label: 'Frame', value: '3" ducted' }],
-    description: 'Cinewhoop indoor / venue dengan operator on-demand. Termasuk goggles & radio.',
+    description: 'Kit filter step-up untuk kontrol exposure & refleksi. Variable ND menjaga shutter speed sinematik di siang hari, CPL meredam pantulan kaca/air. Wajib untuk lensa wide & standard zoom.',
     has3d: false, bookedDates: [],
   },
 
-  // ==================== LIGHTING (5) ====================
+  // ==================== LIGHTING & GRIP (6) ====================
   {
     id: 'e17', slug: 'aputure-600d', name: 'Aputure LS 600d Pro', brand: 'Aputure', category: 'lighting',
     pricePerDay: 400000, weekendMultiplier: 1.2, deposit: 2000000, protection: true,
@@ -444,6 +410,21 @@ export const equipment: Equipment[] = [
     gallery: [u('photo-1551817958-d9d86fb29431', 1600)],
     specs: [{ label: 'Output', value: '500Ws + 2500lm LED modeling' }, { label: 'Battery', value: '3 hours' }],
     description: 'Strobe wireless premium untuk on-location commercial. Quality of light kelas dewa.',
+    has3d: false, bookedDates: [],
+  },
+  {
+    id: 'e32', slug: 'grip-kit-lengkap', name: 'Grip Kit Lengkap (C-Stand + Flag + Sandbag)', brand: 'Matthews', category: 'lighting',
+    pricePerDay: 150000, weekendMultiplier: 1.1, deposit: 1000000, protection: false,
+    rating: 4.8, reviewCount: 22, vendorId: 'v6', location: 'Surabaya, Tegalsari', available: true,
+    image: u('photo-1581235720704-06d3acfcb36f'),
+    gallery: [u('photo-1581235720704-06d3acfcb36f', 1600)],
+    specs: [
+      { label: 'C-Stand', value: '2× 40" dengan turtle base' },
+      { label: 'Flag set', value: '24"×36" solid, silk, net' },
+      { label: 'Sandbag', value: '2× 4kg' },
+      { label: 'Arm', value: '2× grip arm + clamp' },
+    ],
+    description: 'Paket grip standar untuk set lighting profesional: menahan flag/diffuser, menambah boom mic, atau mengamankan light stand dari angin saat shoot outdoor.',
     has3d: false, bookedDates: [],
   },
 
@@ -502,7 +483,7 @@ export const equipment: Equipment[] = [
     has3d: false, bookedDates: [],
   },
 
-  // ==================== GIMBAL / RIG (4) ====================
+  // ==================== STABILIZER & SUPPORT (5) ====================
   {
     id: 'e27', slug: 'dji-rs3-pro', name: 'DJI RS 3 Pro Gimbal', brand: 'DJI', category: 'gimbal',
     pricePerDay: 250000, weekendMultiplier: 1.15, deposit: 1500000, protection: true,
@@ -541,6 +522,109 @@ export const equipment: Equipment[] = [
     gallery: [u('photo-1542038784456-1ea8e935640e', 1600)],
     specs: [{ label: 'Bundle', value: 'Cage + matte box + follow focus + top handle' }],
     description: 'Cage rig lengkap untuk transform mirrorless jadi rig cinema.',
+    has3d: false, bookedDates: [],
+  },
+  {
+    id: 'e33', slug: 'manfrotto-tripod-slider', name: 'Manfrotto Tripod Video + Slider 100cm', brand: 'Manfrotto', category: 'gimbal',
+    pricePerDay: 120000, weekendMultiplier: 1.1, deposit: 900000, protection: false,
+    rating: 4.85, reviewCount: 39, vendorId: 'v1', location: 'Surabaya, Gubeng', available: true,
+    image: u('photo-1542038784456-1ea8e935640e'),
+    gallery: [u('photo-1542038784456-1ea8e935640e', 1600)],
+    specs: [
+      { label: 'Tripod head', value: 'Fluid head, drag adjustable' },
+      { label: 'Payload', value: '5 kg' },
+      { label: 'Slider', value: 'Carbon 100cm, geared belt' },
+      { label: 'Tinggi', value: '70–160 cm' },
+    ],
+    description: 'Kombinasi tripod video fluid head dan slider carbon untuk shot statis premium dan pergerakan halus tanpa gimbal motorized. Cocok untuk interview & product shot.',
+    has3d: false, bookedDates: [],
+  },
+
+  // ==================== AKSESORIS & PROPERTI (6) ====================
+  {
+    id: 'e13', slug: 'dji-mavic-3-pro', name: 'DJI Mavic 3 Pro Cine', brand: 'DJI', category: 'accessory',
+    pricePerDay: 750000, weekendMultiplier: 1.25, deposit: 5000000, protection: true,
+    rating: 4.94, reviewCount: 96, vendorId: 'v3', location: 'Surabaya, Rungkut', available: true,
+    image: u('photo-1473968512647-3e447244af8f'),
+    gallery: [u('photo-1473968512647-3e447244af8f', 1600), u('photo-1521405924368-64c5b84bec60', 1600)],
+    specs: [
+      { label: 'Kategori', value: 'Drone & Aerial' },
+      { label: 'Kamera', value: 'Hasselblad 4/3 CMOS + Tele 70mm + 166mm' },
+      { label: 'Video', value: '5.1K Apple ProRes' },
+      { label: 'Range', value: 'O4+ 28 km' },
+    ],
+    description: 'Drone tri-kamera untuk aerial sinematik. Termasuk RC Pro, 3 baterai, dan ND filter set.',
+    has3d: true, bookedDates: ['2026-06-10', '2026-06-11'],
+  },
+  {
+    id: 'e14', slug: 'dji-mini-4-pro', name: 'DJI Mini 4 Pro Fly More', brand: 'DJI', category: 'accessory',
+    pricePerDay: 280000, weekendMultiplier: 1.15, deposit: 1800000, protection: true,
+    rating: 4.86, reviewCount: 62, vendorId: 'v3', location: 'Surabaya, Rungkut', available: true,
+    image: u('photo-1508614589041-895b88991e3e'),
+    gallery: [u('photo-1508614589041-895b88991e3e', 1600)],
+    specs: [
+      { label: 'Kategori', value: 'Drone & Aerial' },
+      { label: 'Weight', value: '< 249g' }, { label: 'Video', value: '4K HDR' }, { label: 'Range', value: '20 km' },
+    ],
+    description: 'Drone sub-249g — bebas izin di banyak lokasi. Pilihan favorit travel creator.',
+    has3d: false, bookedDates: [],
+  },
+  {
+    id: 'e15', slug: 'dji-inspire-3', name: 'DJI Inspire 3 (Pro)', brand: 'DJI', category: 'accessory',
+    pricePerDay: 2500000, weekendMultiplier: 1.3, deposit: 25000000, protection: true,
+    rating: 4.95, reviewCount: 18, vendorId: 'v3', location: 'Surabaya, Rungkut', available: true,
+    image: u('photo-1521405924368-64c5b84bec60'),
+    gallery: [u('photo-1521405924368-64c5b84bec60', 1600)],
+    specs: [
+      { label: 'Kategori', value: 'Drone & Aerial' },
+      { label: 'Kamera', value: 'X9-8K Air' },
+      { label: 'Video', value: '8K 25p / 4K 120p ProRes RAW' },
+      { label: 'Setup', value: 'Dual operator (pilot + camera)' },
+    ],
+    description: 'Drone profesional kelas film & commercial. Wajib dual-operator. Termasuk ND set + 3 TB-30.',
+    has3d: false, bookedDates: [],
+  },
+  {
+    id: 'e16', slug: 'fpv-custom-cinewhoop', name: 'FPV Cinewhoop Custom', brand: 'Custom', category: 'accessory',
+    pricePerDay: 450000, weekendMultiplier: 1.2, deposit: 3500000, protection: true,
+    rating: 4.79, reviewCount: 24, vendorId: 'v3', location: 'Surabaya, Rungkut', available: true,
+    image: u('photo-1579829366248-204fe8413f31'),
+    gallery: [u('photo-1579829366248-204fe8413f31', 1600)],
+    specs: [
+      { label: 'Kategori', value: 'Drone & Aerial' },
+      { label: 'Cam', value: 'GoPro Hero 11 mount' }, { label: 'Frame', value: '3" ducted' },
+    ],
+    description: 'Cinewhoop indoor / venue dengan operator on-demand. Termasuk goggles & radio.',
+    has3d: false, bookedDates: [],
+  },
+  {
+    id: 'e34', slug: 'power-storage-kit', name: 'Power & Storage Kit (V-Mount + SSD + Card Reader)', brand: 'SmallRig', category: 'accessory',
+    pricePerDay: 100000, weekendMultiplier: 1.1, deposit: 1500000, protection: true,
+    rating: 4.83, reviewCount: 31, vendorId: 'v6', location: 'Surabaya, Tegalsari', available: true,
+    image: u('photo-1518131672697-613becd4fab5'),
+    gallery: [u('photo-1518131672697-613becd4fab5', 1600)],
+    specs: [
+      { label: 'Kategori', value: 'Storage & Power' },
+      { label: 'Baterai', value: 'V-Mount 99Wh × 2 + charger dual' },
+      { label: 'Storage', value: 'SSD 2TB + SD card 256GB × 2' },
+      { label: 'Card reader', value: 'CFexpress + SD multi-slot' },
+    ],
+    description: 'Paket daya dan penyimpanan cadangan untuk shooting full-day tanpa khawatir baterai habis atau storage penuh. Penting untuk produksi multi-kamera atau RAW recording.',
+    has3d: false, bookedDates: [],
+  },
+  {
+    id: 'e35', slug: 'properti-backdrop-set', name: 'Properti & Backdrop Set (Seamless + Furnitur Minimalis)', brand: 'Generic', category: 'accessory',
+    pricePerDay: 180000, weekendMultiplier: 1.15, deposit: 800000, protection: false,
+    rating: 4.75, reviewCount: 17, vendorId: 'v2', location: 'Surabaya, Sukolilo', available: true,
+    image: u('photo-1556761175-5973dc0f32e7'),
+    gallery: [u('photo-1556761175-5973dc0f32e7', 1600)],
+    specs: [
+      { label: 'Kategori', value: 'Set & Properti' },
+      { label: 'Backdrop', value: 'Seamless paper 2.7m × 3 warna' },
+      { label: 'Furnitur', value: 'Side table + kursi minimalis × 2' },
+      { label: 'Properti', value: 'Vas, buku, dekorasi tematik' },
+    ],
+    description: 'Set properti siap pakai untuk konten still life, product flat-lay, dan portrait minimalis. Tinggal datang dan styling, tanpa beli properti sendiri.',
     has3d: false, bookedDates: [],
   },
 ];
@@ -719,12 +803,12 @@ export const cartItems = [
 // ---- Categories with real counts -------------------------------------------
 export const categories = [
   { key: 'camera', label: 'Kamera' },
-  { key: 'lens', label: 'Lensa' },
-  { key: 'drone', label: 'Drone' },
-  { key: 'lighting', label: 'Lighting' },
+  { key: 'lens', label: 'Lensa & Filter' },
+  { key: 'lighting', label: 'Lighting & Grip' },
   { key: 'audio', label: 'Audio' },
-  { key: 'gimbal', label: 'Gimbal & Rig' },
-  { key: 'studio', label: 'Studio' },
+  { key: 'gimbal', label: 'Stabilizer & Support' },
+  { key: 'studio', label: 'Studio & Set' },
+  { key: 'accessory', label: 'Aksesoris & Properti' },
   { key: 'service', label: 'Jasa Profesional' },
 ].map((c) => ({
   ...c,

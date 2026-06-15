@@ -6,18 +6,18 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   Search, ShoppingBag, Menu, X, User, LogOut, LayoutDashboard,
-  ChevronDown, Camera, Aperture, Plane, Lightbulb, Mic, Box, MapPin, Sparkles, MessageCircle, CalendarCheck,
+  ChevronDown, Camera, Aperture, Package, Lightbulb, Mic, Box, MapPin, Sparkles, MessageCircle, CalendarCheck,
 } from 'lucide-react';
 import { getUser, clearSession, type AuthUser } from '@/lib/api';
 
 const EXPLORE = [
   { key: 'camera', label: 'Kamera', icon: Camera },
-  { key: 'lens', label: 'Lensa', icon: Aperture },
-  { key: 'drone', label: 'Drone', icon: Plane },
-  { key: 'lighting', label: 'Lighting', icon: Lightbulb },
+  { key: 'lens', label: 'Lensa & Filter', icon: Aperture },
+  { key: 'lighting', label: 'Lighting & Grip', icon: Lightbulb },
   { key: 'audio', label: 'Audio', icon: Mic },
-  { key: 'gimbal', label: 'Gimbal & Rig', icon: Box },
-  { key: 'studio', label: 'Studio', icon: MapPin },
+  { key: 'gimbal', label: 'Stabilizer & Support', icon: Box },
+  { key: 'studio', label: 'Studio & Set', icon: MapPin },
+  { key: 'accessory', label: 'Aksesoris & Properti', icon: Package },
   { key: 'service', label: 'Jasa Profesional', icon: Sparkles },
 ];
 

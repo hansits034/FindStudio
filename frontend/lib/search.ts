@@ -67,9 +67,9 @@ const USE_CASE_META: Record<string, UseCaseMeta> = {
   },
   aerial: {
     label: 'Aerial / Drone Shot',
-    primaryCat: 'drone',
-    categories: ['drone'],
-    specKeywords: ['Mavic', 'Inspire', 'cinematic', 'Hasselblad', '4K', 'omnidirectional', 'obstacle'],
+    primaryCat: 'accessory',
+    categories: ['accessory'],
+    specKeywords: ['Mavic', 'Inspire', 'cinematic', 'Hasselblad', '4K', 'omnidirectional', 'obstacle', 'drone', 'aerial'],
   },
   commercial: {
     label: 'Video Brand Commercial',
@@ -128,12 +128,12 @@ function detectUseCase(text: string): string | undefined {
 
 const CATEGORY_KEYWORDS: Record<Category, string[]> = {
   camera:   ['kamera', 'camera', 'mirrorless', 'dslr', 'bodi', 'body', 'sony', 'canon', 'fujifilm', 'fuji', 'leica', 'blackmagic', 'a7', 'fx3', 'r5'],
-  lens:     ['lensa', 'lens', 'prime', 'fix', 'tele', 'wide', 'sigma', 'tamron', '24-70', '70-200', '16-35'],
-  drone:    ['drone', 'mavic', 'aerial', 'udara', 'fpv', 'inspire', 'dji mini'],
-  lighting: ['lighting', 'lampu', 'light', 'led', 'softbox', 'strobe', 'aputure', 'godox', 'profoto', 'nanlite', 'cahaya'],
+  lens:     ['lensa', 'lens', 'prime', 'fix', 'tele', 'wide', 'sigma', 'tamron', '24-70', '70-200', '16-35', 'filter', 'nd filter', 'cpl', 'polarizer', 'nisi'],
+  lighting: ['lighting', 'lampu', 'light', 'led', 'softbox', 'strobe', 'aputure', 'godox', 'profoto', 'nanlite', 'cahaya', 'grip', 'c-stand', 'c stand', 'flag', 'sandbag', 'boom arm'],
   audio:    ['audio', 'mic', 'microphone', 'mikrofon', 'rode', 'recorder', 'sound', 'suara', 'wireless mic', 'clip on', 'zoom h'],
-  gimbal:   ['gimbal', 'stabilizer', 'ronin', 'rig', 'crane', 'zhiyun', 'tilta', 'rs 3', 'rs3'],
+  gimbal:   ['gimbal', 'stabilizer', 'ronin', 'rig', 'crane', 'zhiyun', 'tilta', 'rs 3', 'rs3', 'tripod', 'slider', 'manfrotto', 'monopod'],
   studio:   ['studio', 'ruang', 'cyc', 'cyclorama', 'greenscreen', 'green screen', 'livestream', 'live stream', 'podcast', 'daylight'],
+  accessory: ['drone', 'mavic', 'aerial', 'udara', 'fpv', 'inspire', 'dji mini', 'aksesoris', 'properti', 'backdrop', 'baterai', 'battery', 'v-mount', 'power bank', 'storage', 'ssd', 'memory card', 'card reader', 'properti set'],
   service:  ['jasa', 'editor', 'edit', 'editing', 'color', 'grading', 'colorist', 'retouch', 'mixing', 'mastering', 'sound engineer', 'videografer', 'fotografer'],
 };
 
@@ -152,18 +152,14 @@ export const SERVICE_DETAIL: Record<string, FilterGroup[]> = {
     { label: 'Aperture max', options: ['f/1.2–f/1.4', 'f/1.8–f/2', 'f/2.8', 'f/4+'] },
     { label: 'Jenis', options: ['Prime', 'Zoom', 'Cine lens', 'Anamorphic'] },
     { label: 'Mount', options: ['Sony E-mount', 'Canon RF', 'Nikon Z', 'Fuji X', 'L-mount'] },
-  ],
-  drone: [
-    { label: 'Kelas', options: ['Sub-249g (tanpa SIM)', 'Prosumer', 'Cinema Pro', 'FPV'] },
-    { label: 'Resolusi kamera', options: ['4K 30fps', '4K 60fps', '5.1K', '6K+'] },
-    { label: 'Flight time', options: ['< 20 menit', '20–30 menit', '30+ menit'] },
-    { label: 'Fitur', options: ['Obstacle avoidance', 'Active Track', 'RTH otomatis', 'ND Filter set', 'Raw video'] },
+    { label: 'Filter', options: ['ND Filter (fixed)', 'Variable ND', 'Polarizer (CPL)', 'UV Protector', 'Filter set/kit'] },
   ],
   lighting: [
     { label: 'Tipe', options: ['LED panel', 'Bi-color LED', 'RGB LED', 'Strobe / Flash', 'Ring light', 'COB spotlight'] },
     { label: 'Suhu warna', options: ['Daylight 5600K', 'Tungsten 3200K', 'Bi-color 3200–5600K', 'RGB full spectrum'] },
     { label: 'Output', options: ['< 100W', '100–200W', '200–500W', '500W+'] },
-    { label: 'Aksesoris', options: ['Softbox', 'Umbrella', 'Beauty dish', 'Grid', 'Barndoor'] },
+    { label: 'Modifier', options: ['Softbox', 'Umbrella', 'Beauty dish', 'Grid', 'Barndoor'] },
+    { label: 'Grip', options: ['C-Stand', 'Light Stand', 'Boom Arm', 'Sandbag', 'Flag & Diffusion', 'Clamp & Grip Head'] },
   ],
   audio: [
     { label: 'Tipe', options: ['Wireless lavalier', 'Shotgun mic', 'Boom mic', 'Recorder portable', 'Mixer / interface'] },
@@ -172,16 +168,23 @@ export const SERVICE_DETAIL: Record<string, FilterGroup[]> = {
     { label: 'Fitur', options: ['32-bit float', 'Noise cancelling', 'Directional (cardioid)', 'Omnidirectional'] },
   ],
   gimbal: [
+    { label: 'Tipe Support', options: ['Gimbal motorized', 'Tripod video', 'Slider', 'Jib / Crane', 'Monopod', 'Shoulder rig'] },
     { label: 'Kompatibilitas', options: ['Smartphone', 'Mirrorless ringan', 'Mirrorless + lensa besar', 'DSLR', 'Cinema / C70+', 'Action cam'] },
     { label: 'Payload maks.', options: ['< 1 kg', '1–2 kg', '2–3.5 kg', '3.5 kg+'] },
-    { label: 'Fitur', options: ['Follow mode', 'Active Track', 'POV mode', '360° pan', 'Underslung mode'] },
+    { label: 'Fitur', options: ['Follow mode', 'Active Track', 'POV mode', '360° pan', 'Underslung mode', 'Geared belt slider'] },
     { label: 'Aksesoris', options: ['Cage rig', 'Follow focus', 'Monitor holder', 'Extension arm'] },
   ],
   studio: [
     { label: 'Tipe', options: ['Cyclorama (infinity wall)', 'Daylight studio', 'Podcast / talkshow', 'Livestream setup', 'Tabletop product', 'Green screen'] },
+    { label: 'Set & Properti', options: ['Backdrop seamless', 'Properti furnitur', 'Set custom tematik', 'Greenscreen', 'Cyclorama'] },
     { label: 'Fasilitas', options: ['AC', 'Wi-Fi', 'Makeup area', 'Changing room', 'Parkir', 'Monitor review'] },
     { label: 'Kapasitas', options: ['1–3 orang', '4–10 orang', '10–25 orang', '25+ orang'] },
     { label: 'Akses', options: ['Ground floor', 'Akses lift', 'Parkir motor', 'Parkir mobil'] },
+  ],
+  accessory: [
+    { label: 'Jenis', options: ['Drone & Aerial', 'Tripod & Support', 'Filter & Optik', 'Storage & Power', 'Properti & Backdrop'] },
+    { label: 'Brand', options: ['DJI', 'Manfrotto', 'SmallRig', 'NiSi', 'Generic'] },
+    { label: 'Fitur', options: ['Portable', 'Heavy-duty', 'Quick-release', 'Weather-resistant', 'Termasuk operator'] },
   ],
   service: [
     { label: 'Spesialisasi', options: ['Fotografer E-commerce', 'Fotografer Potret', 'Fotografer Produk', 'Videografer Wedding', 'Videografer Commercial', 'Editor Video'] },
@@ -308,8 +311,9 @@ export function parseQuery(raw: string): ParsedQuery {
   // Category label at front of summary
   if (result.category) {
     const catLabel: Record<Category, string> = {
-      camera: 'Kamera', lens: 'Lensa', drone: 'Drone', lighting: 'Lighting',
-      audio: 'Audio', gimbal: 'Gimbal & Rig', studio: 'Studio', service: 'Jasa profesional',
+      camera: 'Kamera', lens: 'Lensa & Filter', lighting: 'Lighting & Grip',
+      audio: 'Audio', gimbal: 'Stabilizer & Support', studio: 'Studio & Set',
+      accessory: 'Aksesoris & Properti', service: 'Jasa profesional',
     };
     result.summary.unshift(catLabel[result.category]);
   }

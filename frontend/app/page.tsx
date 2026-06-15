@@ -10,7 +10,7 @@ import {
   ArrowUpRight,
   Camera,
   Aperture,
-  Plane,
+  Package,
   Lightbulb,
   Mic,
   Box,
@@ -153,14 +153,14 @@ export default function HomePage() {
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 lg:gap-4">
           {[
-            { icon: Camera,    title: 'Kamera',        desc: 'Mirrorless, cinema, hybrid.',  cat: 'camera'   },
-            { icon: Aperture,  title: 'Lensa',         desc: 'Prime, zoom, cine set.',        cat: 'lens'     },
-            { icon: Plane,     title: 'Drone',         desc: 'Mavic, Inspire, FPV custom.',  cat: 'drone'    },
-            { icon: Lightbulb, title: 'Lighting',      desc: 'LED, strobe, RGB modifier.',   cat: 'lighting' },
-            { icon: Mic,       title: 'Audio',         desc: 'Wireless mic, recorder, mixer.',cat: 'audio'   },
-            { icon: Box,       title: 'Gimbal & Rig',  desc: 'Stabilizer, cage, heavy-duty.',cat: 'gimbal'   },
-            { icon: MapPin,    title: 'Studio',        desc: 'Cyc, daylight, livestream.',   cat: 'studio'   },
-            { icon: Sparkles,  title: 'Jasa Profesional', desc: 'Fotografer, videografer, editor.', cat: 'service' },
+            { icon: Camera,    title: 'Kamera',              desc: 'Mirrorless, cinema, hybrid.',          cat: 'camera'    },
+            { icon: Aperture,  title: 'Lensa & Filter',      desc: 'Prime, zoom, ND & CPL filter.',         cat: 'lens'      },
+            { icon: Lightbulb, title: 'Lighting & Grip',     desc: 'LED, strobe, C-stand, flag.',           cat: 'lighting'  },
+            { icon: Mic,       title: 'Audio',               desc: 'Wireless mic, recorder, mixer.',        cat: 'audio'     },
+            { icon: Box,       title: 'Stabilizer & Support',desc: 'Gimbal, tripod, slider.',               cat: 'gimbal'    },
+            { icon: MapPin,    title: 'Studio & Set',        desc: 'Cyc, daylight, set & properti.',        cat: 'studio'    },
+            { icon: Package,   title: 'Aksesoris & Properti',desc: 'Drone, storage, power, properti.',      cat: 'accessory' },
+            { icon: Sparkles,  title: 'Jasa Profesional',    desc: 'Fotografer, videografer, editor.',      cat: 'service'   },
           ].map((c, i) => (
             <Link key={i} href={`/browse?cat=${c.cat}`} className="card p-5 lg:p-7 lift group relative overflow-hidden">
               <div className="absolute -right-6 -bottom-6 opacity-5 group-hover:opacity-20 transition-opacity">
@@ -433,10 +433,10 @@ export default function HomePage() {
 
               <div className="space-y-2.5 mb-8">
                 {[
-                  { ch: '#lounge-kreator', desc: 'Ngobrol bebas, share hasil karya, minta feedback' },
-                  { ch: '#cari-tim-shoot', desc: 'Cari DP, kameraman, editor, MUA untuk kolaborasi' },
-                  { ch: '#info-promo',     desc: 'Notifikasi diskon, kode promo & alat baru dari vendor' },
-                  { ch: '#vendor-lounge',  desc: 'Khusus vendor: tips listing, pricing & cerita sukses' },
+                  { ch: 'lounge-kreator', desc: 'Ngobrol bebas, share hasil karya, minta feedback' },
+                  { ch: 'cari-tim-shoot', desc: 'Cari DP, kameraman, editor, MUA untuk kolaborasi' },
+                  { ch: 'info-promo',     desc: 'Notifikasi diskon, kode promo & alat baru dari vendor' },
+                  { ch: 'vendor-lounge',  desc: 'Khusus vendor: tips listing, pricing & cerita sukses' },
                 ].map((c, i) => (
                   <div key={i} className="flex items-center gap-3 text-sm">
                     <Hash className="w-3.5 h-3.5 text-ink-500 shrink-0" />
@@ -459,7 +459,6 @@ export default function HomePage() {
                   </svg>
                   Gabung Discord Sekarang
                 </a>
-                <span className="text-sm text-ink-400">Langsung aktif</span>
               </div>
             </div>
 
@@ -552,7 +551,7 @@ export default function HomePage() {
           <div className="card p-10 lg:p-12 relative overflow-hidden">
             <div className="absolute -right-16 -top-16 w-72 h-72 bg-amber-400/10 blur-[80px] rounded-full" />
             <div className="relative">
-              <div className="eyebrow text-amber-400 mb-3">Untuk Kreator & Content Creator</div>
+              <div className="eyebrow text-amber-400 mb-3">Untuk Kreator</div>
               <h2 className="headline text-4xl lg:text-5xl mb-4">
                 Gak Harus Punya
                 <br />
