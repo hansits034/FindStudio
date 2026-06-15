@@ -60,7 +60,7 @@ export default function EquipmentCard({ item }: { item: Equipment }) {
             <div className="eyebrow text-ink-400 mt-1">per hari</div>
           </div>
           <span className="text-xs text-ink-300 group-hover:text-amber-400 transition-colors">
-            Lihat →
+            Sewa →
           </span>
         </div>
       </div>

@@ -224,18 +224,20 @@ export default function HomePage() {
               <div className="card !bg-amber-400/5 !border-amber-400/40 p-4 mb-6 flex items-start gap-3 max-w-xl">
                 <Shield className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                 <p className="text-sm text-ink-200 leading-relaxed">
-                  <strong className="text-amber-400">Biaya kecil, perlindungan besar.</strong>{' '}
-                  Tambahkan Proteksi Alat saat checkout, hanya 5% dari nilai sewa. Jika alat
-                  mengalami kerusakan selama masa penyewaan, biaya perbaikan ditanggung tanpa perlu
-                  negosiasi dengan siapapun.
+                  <strong className="text-amber-400">Proteksi melekat di alat, bukan di kamu.</strong>{' '}
+                  Alat bertanda <span className="pill !text-[0.65rem] !py-0.5 !px-2 inline align-middle"><Shield className="w-3 h-3 inline -mt-0.5" /> Proteksi</span>{' '}
+                  sudah dilindungi Dana Proteksi FindStudio karena vendornya sendiri yang
+                  mengaktifkannya. Kamu cukup bayar harga sewa + biaya layanan, tidak ada opsi
+                  tambahan dan tidak ada biaya tersembunyi di checkout.
                 </p>
               </div>
 
               <p className="text-lg text-ink-300 max-w-xl mb-4 leading-relaxed">
-                Cukup aktifkan proteksi di halaman checkout. Jika terjadi kerusakan, vendor mengajukan
-                klaim di dashboard, upload foto kondisi alat. Tim FindStudio memverifikasi dan
-                memastikan biaya perbaikan ditanggung dalam kurang dari 4 jam, maksimal senilai
-                harga alat yang terdaftar.
+                Jika alat bertanda Proteksi mengalami kerusakan selama masa sewa, vendor mengajukan
+                klaim di dashboard, upload foto kondisi alat sebelum & sesudah. Tim FindStudio
+                memverifikasi dan memastikan biaya perbaikan ditanggung dalam kurang dari 4 jam,
+                maksimal senilai harga alat yang terdaftar, tanpa drama, tanpa saling lempar tanggung
+                jawab.
               </p>
 
               <p className="text-xs text-ink-400/60 italic max-w-xl mb-8 leading-relaxed">
@@ -273,20 +275,19 @@ export default function HomePage() {
                     <div className="eyebrow text-amber-400">Contoh checkout</div>
                     <div className="font-display text-2xl mt-1">Sony A7 IV, 1 hari sewa</div>
                   </div>
-                  <span className="pill">+ Proteksi</span>
+                  <span className="pill"><Shield className="w-3 h-3" /> Proteksi aktif</span>
                 </div>
                 <div className="space-y-3 text-sm relative">
                   <Row label="Harga sewa per hari" value="Rp 500.000" />
-                  <Row label="Biaya layanan platform" value="Rp 10.000" muted />
-                  <Row label="Proteksi Alat (5%)" value="+ Rp 25.000" highlight />
+                  <Row label="Biaya layanan platform" value="Rp 25.000" muted />
                   <div className="divider my-2" />
-                  <Row label="Total yang dibayar klien" value="Rp 535.000" bold />
-                  <Row label="Vendor menerima" value="Rp 490.000" bold accent />
+                  <Row label="Total yang dibayar klien" value="Rp 525.000" bold />
+                  <Row label="Vendor menerima" value="Rp 475.000" bold accent />
                 </div>
                 <div className="mt-6 pt-6 border-t border-ink-700/40 flex items-center gap-3">
                   <Shield className="w-5 h-5 text-amber-400 shrink-0" strokeWidth={1.5} />
                   <p className="text-xs text-ink-300 leading-relaxed">
-                    Alat rusak saat disewa? Vendor tekan{' '}
+                    Alat ini bertanda Proteksi, jika rusak saat disewa, vendor tekan{' '}
                     <span className="text-amber-400">Klaim Proteksi</span>, biaya perbaikan
                     ditanggung platform tanpa dispute.
                   </p>

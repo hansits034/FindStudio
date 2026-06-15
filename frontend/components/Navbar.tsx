@@ -147,15 +147,10 @@ export default function Navbar() {
               </button>
             </>
           ) : (
-            <>
-              <Link href="/login" className="hidden md:inline-flex btn-ghost !py-2 !px-4 text-sm">
-                <User className="w-4 h-4" />
-                Masuk
-              </Link>
-              <Link href="/register?role=vendor" className="hidden md:inline-flex btn-primary !py-2 !px-4 text-sm">
-                Jadi Vendor
-              </Link>
-            </>
+            <Link href="/login" className="hidden md:inline-flex btn-primary !py-2 !px-4 text-sm">
+              <User className="w-4 h-4" />
+              Masuk
+            </Link>
           )}
 
           <button
@@ -193,10 +188,7 @@ export default function Navbar() {
                   <button onClick={handleLogout} className="btn-primary flex-1 justify-center">Keluar</button>
                 </>
               ) : (
-                <>
-                  <Link href="/login" className="btn-ghost flex-1 justify-center">Masuk</Link>
-                  <Link href="/register?role=vendor" className="btn-primary flex-1 justify-center">Jadi Vendor</Link>
-                </>
+                <Link href="/login" className="btn-primary flex-1 justify-center">Masuk</Link>
               )}
             </div>
           </div>
