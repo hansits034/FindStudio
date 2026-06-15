@@ -213,7 +213,7 @@ export default function HomePage() {
         <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-6">
-              <div className="eyebrow text-amber-400 mb-3">03. Dana proteksi internal</div>
+              <div className="eyebrow text-amber-400 mb-3">03. Dana proteksi</div>
               <h2 className="headline text-5xl lg:text-7xl mb-6">
                 Sewa tenang.
                 <br />
@@ -224,7 +224,7 @@ export default function HomePage() {
               <div className="card !bg-amber-400/5 !border-amber-400/40 p-4 mb-6 flex items-start gap-3 max-w-xl">
                 <Shield className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                 <p className="text-sm text-ink-200 leading-relaxed">
-                  <strong className="text-amber-400">Proteksi melekat di alat, bukan di kamu.</strong>{' '}
+                  <strong className="text-amber-400">Proteksi melekat di alat.</strong>{' '}
                   Alat bertanda <span className="pill !text-[0.65rem] !py-0.5 !px-2 inline align-middle"><Shield className="w-3 h-3 inline -mt-0.5" /> Proteksi</span>{' '}
                   sudah dilindungi Dana Proteksi FindStudio karena vendornya sendiri yang
                   mengaktifkannya. Kamu cukup bayar harga sewa + biaya layanan, tidak ada opsi
@@ -316,10 +316,10 @@ export default function HomePage() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-ink-700/40 rounded-2xl overflow-hidden">
           {[
-            { n: '01', title: 'Cari & saring', desc: 'Pencarian bahasa biasa: lokasi, harga, jenis layanan, rating, langsung dibedah.' },
+            { n: '01', title: 'Cari & saring', desc: 'Pencarian bahasa biasa: bahasa manusia akan langsung dibedah oleh sistem.' },
             { n: '02', title: 'Pesan & jadwalkan', desc: 'Kalender real-time, deteksi konflik double-booking, chat langsung dengan vendor.' },
             { n: '03', title: 'Bayar via escrow', desc: 'Dana ditahan platform hingga alat dikembalikan / jasa selesai.' },
-            { n: '04', title: 'Review dua arah', desc: 'Vendor & klien saling menilai. Reputasi terbangun tiap transaksi.' },
+            { n: '04', title: 'Review', desc: 'Klien dapat menilai vendor. Reputasi dapat terbangun tiap transaksi.' },
           ].map((step, i) => (
             <div key={i} className="bg-ink-900 p-8 lg:p-10 relative group hover:bg-ink-800/50 transition">
               <div className="font-display text-7xl text-amber-400/30 group-hover:text-amber-400/60 transition mb-6 leading-none">{step.n}</div>
@@ -356,13 +356,9 @@ export default function HomePage() {
               <div className="card p-6 lg:p-8 backdrop-blur-xl">
                 <div className="flex items-center gap-2 mb-5">
                   <div className="w-2 h-2 rounded-full bg-amber-400 animate-shimmer" />
-                  <span className="eyebrow text-amber-400">Coba sekarang, langsung jalan</span>
+                  <span className="eyebrow text-amber-400">Coba sekarang!</span>
                 </div>
                 <SmartSearch variant="hero" placeholder="Tulis kebutuhanmu, mis. 'lighting LED untuk wedding di Manyar rating 4.5'…" />
-                <p className="text-xs text-ink-400 mt-4 leading-relaxed">
-                  Catatan jujur: ini parser berbasis aturan (rule-based), belum model NLP penuh,
-                  tapi sudah bisa mengenali lokasi, harga, jenis layanan, dan rating dari kalimatmu.
-                </p>
               </div>
             </div>
           </div>
@@ -419,7 +415,7 @@ export default function HomePage() {
                 </div>
                 <div>
                   <div className="font-display text-xl leading-tight">FindStudio Community</div>
-                  <div className="eyebrow text-ink-400 mt-0.5">Server Discord resmi · Gratis</div>
+                  <div className="eyebrow text-ink-400 mt-0.5">Server Discord resmi</div>
                 </div>
               </div>
 
@@ -463,7 +459,7 @@ export default function HomePage() {
                   </svg>
                   Gabung Discord Sekarang
                 </a>
-                <span className="text-sm text-ink-400">Gratis · Langsung aktif</span>
+                <span className="text-sm text-ink-400">Langsung aktif</span>
               </div>
             </div>
 
