@@ -9,28 +9,43 @@ import { register as apiRegister } from '@/lib/api';
 
 type Role = 'client' | 'vendor';
 
+const DEMO: Record<Role, { email: string; password: string; name: string }> = {
+  client: { email: 'rakha@kreator.com', password: 'password123', name: 'Rakha Pratama' },
+  vendor: { email: 'aperture@vendor.com', password: 'password123', name: 'Aperture Rental Co.' },
+};
+
 const SURABAYA_AREAS = ['Gubeng', 'Manyar', 'Sukolilo', 'Rungkut', 'Wonokromo', 'Tegalsari', 'Darmo', 'Mulyorejo', 'Wiyung'];
 
 function RegisterInner() {
   const router = useRouter();
   const params = useSearchParams();
-  // "Jadi Vendor" mengarah ke /register?role=vendor → langsung mode vendor, tanpa toggle.
   const forcedVendor = params.get('role') === 'vendor';
 
-  const [role, setRole] = useState<Role>(forcedVendor ? 'vendor' : 'client');
-  const isVendor = role === 'vendor';
-  // Sistem warna: vendor = indigo, kreator/customer = amber.
-  const accent = isVendor ? 'ink-500' : 'amber-400';
+  const initialRole: Role = forcedVendor ? 'vendor' : 'client';
+  const initialDemo = DEMO[initialRole];
 
-  const [fullName, setFullName] = useState('');
+  const [role, setRole] = useState<Role>(initialRole);
+  const isVendor = role === 'vendor';
+
+  const [fullName, setFullName] = useState(initialDemo.name);
   const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
+  const [email, setEmail] = useState(initialDemo.email);
+  const [password, setPassword] = useState(initialDemo.password);
+  const [confirm, setConfirm] = useState(initialDemo.password);
   const [area, setArea] = useState('Gubeng');
   const [agreed, setAgreed] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  function handleRoleChange(newRole: Role) {
+    setRole(newRole);
+    const d = DEMO[newRole];
+    setEmail(d.email);
+    setPassword(d.password);
+    setConfirm(d.password);
+    setFullName(d.name);
+    setError(null);
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -72,7 +87,7 @@ function RegisterInner() {
       </header>
 
       <div className="max-w-3xl mx-auto px-6 lg:px-10 py-10 lg:py-16">
-        <div className={`eyebrow mb-3 ${isVendor ? 'text-ink-400' : 'text-amber-400'}`}>
+        <div className={`eyebrow mb-3 ${isVendor ? 'text-[#818cf8]' : 'text-amber-400'}`}>
           {forcedVendor ? 'Pendaftaran Vendor' : 'Buat akun baru'}
         </div>
         <h1 className="headline text-5xl lg:text-7xl mb-3">
@@ -80,7 +95,7 @@ function RegisterInner() {
             <>
               Daftar sebagai
               <br />
-              <span className="italic font-light" style={{ color: '#8b91b8' }}>Vendor.</span>
+              <span className="italic font-light" style={{ color: '#818cf8' }}>Vendor.</span>
             </>
           ) : (
             <>
@@ -102,7 +117,7 @@ function RegisterInner() {
             <RoleCard
               active={role === 'client'}
               variant="client"
-              onClick={() => setRole('client')}
+              onClick={() => handleRoleChange('client')}
               icon={<Camera className="w-6 h-6" />}
               title="Saya Kreator"
               desc="Saya butuh sewa alat, studio, atau jasa editor."
@@ -111,7 +126,7 @@ function RegisterInner() {
             <RoleCard
               active={role === 'vendor'}
               variant="vendor"
-              onClick={() => setRole('vendor')}
+              onClick={() => handleRoleChange('vendor')}
               icon={<Store className="w-6 h-6" />}
               title="Saya Vendor"
               desc="Saya punya alat, studio, atau jasa untuk disewakan."
@@ -208,10 +223,10 @@ function RegisterInner() {
           </div>
 
           {isVendor && (
-            <div className="card !bg-ink-500/10 !border-ink-500/40 p-5 space-y-2">
+            <div className="card !bg-[#818cf8]/08 !border-[#818cf8]/25 p-5 space-y-2">
               <div className="flex items-center gap-2 mb-1">
-                <Check className="w-4 h-4" style={{ color: '#8b91b8' }} />
-                <span className="eyebrow" style={{ color: '#8b91b8' }}>Verifikasi vendor (langkah berikutnya)</span>
+                <Check className="w-4 h-4" style={{ color: '#818cf8' }} />
+                <span className="eyebrow" style={{ color: '#818cf8' }}>Verifikasi vendor (langkah berikutnya)</span>
               </div>
               <p className="text-xs text-ink-300 leading-relaxed">
                 Setelah daftar, Anda akan diminta upload KTP dan menjalani verifikasi biometrik
@@ -236,17 +251,13 @@ function RegisterInner() {
           <button
             type="submit"
             disabled={loading}
-            className="btn-primary w-full justify-center text-base mt-3 disabled:opacity-60"
-            style={isVendor ? { background: '#676f9d', color: '#ffffff' } : undefined}
+            className="btn-primary w-full justify-center text-base mt-3 disabled:opacity-60 transition-all duration-200"
+            style={isVendor ? { background: '#818cf8', color: '#1a1c2e', boxShadow: '0 0 24px rgba(129,140,248,0.3)' } : undefined}
           >
             {loading ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" /> Memproses…
-              </>
+              <><Loader2 className="w-4 h-4 animate-spin" /> Memproses…</>
             ) : (
-              <>
-                Buat Akun {isVendor ? 'Vendor' : 'Kreator'} <ArrowRight className="w-4 h-4" />
-              </>
+              <>Buat Akun {isVendor ? 'Vendor' : 'Kreator'} <ArrowRight className="w-4 h-4" /></>
             )}
           </button>
         </form>
@@ -263,26 +274,31 @@ export default function RegisterPage() {
   );
 }
 
-function RoleCard({ active, onClick, icon, title, desc, badges, variant }: { active: boolean; onClick: () => void; icon: React.ReactNode; title: string; desc: string; badges: string[]; variant: 'client' | 'vendor'; }) {
+function RoleCard({ active, onClick, icon, title, desc, badges, variant }: {
+  active: boolean; onClick: () => void; icon: React.ReactNode;
+  title: string; desc: string; badges: string[]; variant: 'client' | 'vendor';
+}) {
   const isVendor = variant === 'vendor';
+  const vendorColor = '#818cf8';
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`card p-6 text-left transition relative ${
+      className={`card p-6 text-left transition-all duration-200 relative focus:outline-none ${
         active
           ? isVendor
-            ? 'border-ink-500 bg-ink-500/10'
+            ? 'border-[#818cf8]/60 bg-[#818cf8]/08'
             : 'border-amber-400 bg-amber-400/5'
           : 'hover:border-amber-400/40'
       }`}
+      style={active && isVendor ? { boxShadow: '0 0 24px rgba(129,140,248,0.15)' } : undefined}
     >
       <div
         className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
         style={
           active
-            ? { background: isVendor ? '#676f9d' : '#f9b17a', color: isVendor ? '#fff' : '#2d3250' }
-            : { background: 'rgba(103,111,157,0.25)', color: isVendor ? '#8b91b8' : '#f9b17a' }
+            ? { background: isVendor ? vendorColor : '#f9b17a', color: '#1a1c2e' }
+            : { background: 'rgba(103,111,157,0.25)', color: isVendor ? vendorColor : '#f9b17a' }
         }
       >
         {icon}
@@ -299,9 +315,9 @@ function RoleCard({ active, onClick, icon, title, desc, badges, variant }: { act
       {active && (
         <div
           className="absolute top-4 right-4 w-6 h-6 rounded-full flex items-center justify-center"
-          style={{ background: isVendor ? '#676f9d' : '#f9b17a' }}
+          style={{ background: isVendor ? vendorColor : '#f9b17a' }}
         >
-          <Check className="w-3.5 h-3.5" style={{ color: isVendor ? '#fff' : '#2d3250' }} />
+          <Check className="w-3.5 h-3.5" style={{ color: '#1a1c2e' }} />
         </div>
       )}
     </button>

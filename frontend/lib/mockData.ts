@@ -60,7 +60,9 @@ export interface Booking {
   equipmentId?: string;
   studioId?: string;
   serviceId?: string;
-  status: 'pending' | 'confirmed' | 'ongoing' | 'returned' | 'completed' | 'claimed';
+  status: 'pending' | 'confirmed' | 'ongoing' | 'returned' | 'completed' | 'claimed' | 'cancelled';
+  bookingCode?: string;
+  reviewed?: boolean;
   startDate: string;
   endDate: string;
   total: number;
@@ -762,22 +764,32 @@ export const myBookings: Booking[] = [
   {
     id: 'bk1', equipmentId: 'e1', status: 'ongoing', startDate: '2026-05-26', endDate: '2026-05-28',
     total: 1500000, vendorName: 'Aperture Rental Co.', itemName: 'Sony A7 IV Body',
-    itemImage: u('photo-1502920917128-1aa500764cbd', 400),
+    itemImage: u('photo-1502920917128-1aa500764cbd', 400), bookingCode: 'FS-BK1029',
   },
   {
     id: 'bk2', studioId: 's1', status: 'confirmed', startDate: '2026-06-02', endDate: '2026-06-02',
     total: 1800000, vendorName: 'Roll House Studio', itemName: 'Roll House — Cyc White 8×5m',
-    itemImage: u('photo-1492691527719-9d1e07e534b4', 400),
+    itemImage: u('photo-1492691527719-9d1e07e534b4', 400), bookingCode: 'FS-BK1031',
   },
   {
     id: 'bk3', equipmentId: 'e13', status: 'completed', startDate: '2026-04-12', endDate: '2026-04-15',
     total: 2812500, vendorName: 'Skyborne Aerials', itemName: 'DJI Mavic 3 Pro Cine',
-    itemImage: u('photo-1473968512647-3e447244af8f', 400),
+    itemImage: u('photo-1473968512647-3e447244af8f', 400), bookingCode: 'FS-BK0987', reviewed: true,
   },
   {
     id: 'bk4', serviceId: 'srv1', status: 'pending', startDate: '2026-06-10', endDate: '2026-06-15',
     total: 2500000, vendorName: 'Tone Collective', itemName: 'Color Grading Sinematik',
-    itemImage: u('photo-1574375927938-d5a98e8ffe85', 400),
+    itemImage: u('photo-1574375927938-d5a98e8ffe85', 400), bookingCode: 'FS-BK1042',
+  },
+  {
+    id: 'bk5', equipmentId: 'e19', status: 'completed', startDate: '2026-03-08', endDate: '2026-03-10',
+    total: 500000, vendorName: 'Roll House Studio', itemName: 'Godox AD600 Pro × 2',
+    itemImage: u('photo-1581235720704-06d3acfcb36f', 400), bookingCode: 'FS-BK0912', reviewed: false,
+  },
+  {
+    id: 'bk6', equipmentId: 'e9', status: 'cancelled', startDate: '2026-05-02', endDate: '2026-05-03',
+    total: 396000, vendorName: 'Lumen Broadcast', itemName: 'Sigma 35mm f/1.4 Art',
+    itemImage: u('photo-1495707902641-75cac588d2e9', 400), bookingCode: 'FS-BK0950',
   },
 ];
 

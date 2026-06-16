@@ -1,215 +1,324 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import RoleBanner from '@/components/RoleBanner';
+import Image from 'next/image';
 import { equipment, formatIDR } from '@/lib/mockData';
 import {
-  LayoutGrid,
-  Boxes,
-  Wallet,
-  BarChart3,
-  Shield,
-  Bell,
-  TrendingUp,
-  TrendingDown,
-  Plus,
-  AlertCircle,
-  CheckCircle2,
-  Clock,
+  Plus, Store, PackageOpen, CalendarDays, Star, Shield, AlertCircle,
+  CheckCircle2, Clock, Check, X, TrendingUp, TrendingDown,
+  MessageCircle, Settings, ArrowRight, Boxes, Wallet,
 } from 'lucide-react';
 
-export default function VendorDashboardPage() {
+const VC = '#818cf8';
+const VBORDER = 'rgba(129,140,248,0.4)';
+
+const TODAY_PICKUPS = [
+  { order: 'ORD-091', client: 'Dimas P.',  item: 'Sony A7 IV + Lensa 24-70', time: '10:00', avatar: 'D' },
+  { order: 'ORD-092', client: 'Rina C.',   item: 'Aputure 600X Pro',          time: '13:00', avatar: 'R' },
+];
+const TODAY_RETURNS = [
+  { order: 'ORD-085', client: 'Maya R.',  item: 'Sony A7 IV',   time: '17:00', avatar: 'M' },
+  { order: 'ORD-083', client: 'Tania W.', item: 'DJI RS 3 Pro', time: '12:00', avatar: 'T' },
+];
+const PENDING_ORDERS = [
+  { id: 'ORD-091', client: 'Dimas P.', avatar: 'D', item: 'Sony A7 IV + Lensa 24-70', days: 3, start: '19 Jun', total: 1500000 },
+  { id: 'ORD-092', client: 'Rina C.',  avatar: 'R', item: 'Aputure 600X Pro',          days: 2, start: '20 Jun', total: 840000 },
+];
+const ACTIVE_RENTALS = [
+  { name: 'Canon RF 24-70', client: 'Galih S.', status: 'Berlangsung',   statusColor: '#34d399', total: 1050000 },
+  { name: 'DJI RS 3 Pro',   client: 'Tania W.', status: 'Terkonfirmasi', statusColor: VC,        total: 750000 },
+  { name: 'Rode NTG5',      client: 'Bara I.',   status: 'Selesai',       statusColor: '#9399ba', total: 480000 },
+];
+const SECTION_LINKS = [
+  { icon: Boxes,         label: 'Katalog Aset',     desc: '35 aset terdaftar',          href: '/dashboard/vendor/catalog',  color: VC },
+  { icon: CalendarDays,  label: 'Jadwal & Pesanan', desc: '2 pesanan menunggu',          href: '/dashboard/vendor/orders',   color: '#34d399' },
+  { icon: MessageCircle, label: 'Pesan Klien',      desc: '3 pesan belum dibaca',        href: '/dashboard/vendor/messages', color: '#f9b17a' },
+  { icon: Shield,        label: 'Pusat Klaim',      desc: '1 klaim aktif diproses',      href: '/dashboard/vendor/claims',   color: '#f87171' },
+  { icon: Wallet,        label: 'Keuangan & Wallet', desc: 'Saldo Rp 2.845.000 siap tarik', href: '/dashboard/vendor/finance', color: '#34d399' },
+  { icon: Settings,      label: 'Pengaturan Toko',  desc: 'NPWP belum dilengkapi',       href: '/dashboard/vendor/settings', color: '#9399ba' },
+];
+
+export default function VendorBerandaPage() {
   return (
     <>
-      <Navbar />
-      <RoleBanner role="VENDOR" name="Aperture Rental Co." />
-      <main className="max-w-[1440px] mx-auto px-6 lg:px-10 py-10">
-        <div className="grid lg:grid-cols-[260px,1fr] gap-8">
-          {/* Sidebar */}
-          <aside className="space-y-2 lg:sticky lg:top-28 self-start">
-            <div className="card p-5 mb-4" style={{ borderColor: 'rgba(103,111,157,0.5)' }}>
-              <div className="flex items-center gap-3 mb-3">
-                <div className="relative w-11 h-11 rounded-full overflow-hidden ring-2" style={{ '--tw-ring-color': '#676f9d' } as React.CSSProperties}>
-                  <Image src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120" alt="" fill className="object-cover" sizes="44px" />
-                </div>
-                <div>
-                  <div className="font-medium">Aperture Rental</div>
-                  <div className="text-xs flex items-center gap-1">
-                    <Shield className="w-3 h-3" style={{ color: '#8b91b8' }} />
-                    <span style={{ color: '#8b91b8' }}>Vendor · Biometric</span>
+      {/* ── HEADER ─────────────────────────────────────────── */}
+      <div className="flex items-start justify-between mb-8 gap-4 flex-wrap">
+        <div>
+          <div className="eyebrow mb-1.5" style={{ color: VC }}>Beranda · Senin, 16 Juni 2026</div>
+          <h1 className="headline text-4xl lg:text-5xl">
+            Selamat datang, <span className="italic font-light" style={{ color: VC }}>Aperture.</span>
+          </h1>
+          <p className="text-ink-300 text-sm mt-1.5">Hari ini ada {TODAY_PICKUPS.length} pickup & {TODAY_RETURNS.length} pengembalian terjadwal.</p>
+        </div>
+        <div className="flex items-center gap-2 mt-1">
+          <Link
+            href="/dashboard/vendor/catalog"
+            className="btn-ghost text-sm !py-2 !px-4 flex items-center gap-2"
+            style={{ borderColor: VBORDER, color: VC }}
+          >
+            <Store className="w-4 h-4" /> Etalase
+          </Link>
+          <Link
+            href="/dashboard/vendor/catalog"
+            className="text-sm inline-flex items-center gap-2 py-2 px-5 rounded-full font-medium"
+            style={{ background: VC, color: '#1a1c2e' }}
+          >
+            <Plus className="w-4 h-4" /> Tambah Alat
+          </Link>
+        </div>
+      </div>
+
+      {/* ── KPI ────────────────────────────────────────────── */}
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+        <KPI label="Pendapatan bulan ini"  value={formatIDR(12480000)} delta="+18% vs bulan lalu"    trend="up" />
+        <KPI label="Pesanan aktif"          value="8"                    delta="+2 pesanan hari ini"   trend="up" />
+        <KPI label="Rata-rata rating"        value="4.96 ★"              delta="dari 184 ulasan"        trend="neutral" />
+        <KPI label="Tingkat kerusakan"       value="0.8%"                delta="−0.3% vs bulan lalu"   trend="down-good" />
+      </div>
+
+      {/* ── PESANAN TINDAKAN | JADWAL HARI INI ─────────────── */}
+      <div className="grid lg:grid-cols-2 gap-5 mb-8">
+
+        {/* Pesanan Perlu Tindakan */}
+        <section className="card p-6" style={{ borderColor: VBORDER }}>
+          <div className="flex items-center gap-2 mb-5">
+            <PackageOpen className="w-5 h-5" style={{ color: VC }} />
+            <h3 className="font-display text-xl">Pesanan Perlu Tindakan</h3>
+            <span className="text-[0.65rem] px-2 py-0.5 rounded-full font-bold ml-1" style={{ background: VC, color: '#1a1c2e' }}>
+              {PENDING_ORDERS.length}
+            </span>
+          </div>
+          <div className="space-y-3">
+            {PENDING_ORDERS.map((o) => (
+              <div key={o.id} className="p-4 rounded-xl" style={{ background: 'rgba(129,140,248,0.06)', border: `1px solid ${VBORDER}` }}>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 text-ink-900" style={{ background: VC }}>
+                    {o.avatar}
                   </div>
-                </div>
-              </div>
-              <div className="text-xs text-ink-300 pt-3 border-t border-ink-700/40">
-                Pending payout: <span className="font-display text-base tabular" style={{ color: '#8b91b8' }}>{formatIDR(2845000)}</span>
-              </div>
-            </div>
-
-            {[
-              { icon: LayoutGrid, label: 'Overview', active: true },
-              { icon: Boxes, label: 'Inventaris', count: equipment.length },
-              { icon: BarChart3, label: 'Analitik' },
-              { icon: Wallet, label: 'Wallet & payout' },
-              { icon: Shield, label: 'Klaim proteksi', count: 1 },
-              { icon: Bell, label: 'Notifikasi', count: 5 },
-            ].map((m, i) => (
-              <button
-                key={i}
-                className="w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl text-sm transition hover:bg-ink-700/40"
-                style={m.active ? { background: 'rgba(103,111,157,0.18)', color: '#b1b6d1', border: '1px solid rgba(103,111,157,0.45)' } : undefined}
-              >
-                <span className="flex items-center gap-3">
-                  <m.icon className="w-4 h-4" strokeWidth={1.5} />
-                  {m.label}
-                </span>
-                {m.count !== undefined && (
-                  <span className="text-[0.65rem] px-2 py-0.5 rounded-full bg-ink-700/50 tabular">{m.count}</span>
-                )}
-              </button>
-            ))}
-          </aside>
-
-          <div>
-            <div className="flex items-end justify-between mb-8 gap-4 flex-wrap">
-              <div>
-                <div className="eyebrow mb-2" style={{ color: '#8b91b8' }}>Dashboard Vendor</div>
-                <h1 className="headline text-4xl lg:text-5xl">
-                  Selamat datang, <span className="italic font-light" style={{ color: '#8b91b8' }}>Aperture.</span>
-                </h1>
-              </div>
-              <Link href="#" className="text-sm inline-flex items-center gap-2 py-3 px-5 rounded-full font-medium" style={{ background: '#676f9d', color: '#fff' }}>
-                <Plus className="w-4 h-4" /> Tambah alat
-              </Link>
-            </div>
-
-            {/* KPI */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-10">
-              <KPI label="Pendapatan bulan ini" value={formatIDR(12480000)} delta="+18%" up />
-              <KPI label="Penyewaan aktif" value="8" delta="+2 hari ini" up />
-              <KPI label="Rata-rata rating" value="4.96" delta="184 ulasan" />
-              <KPI label="Damage rate" value="0.8%" delta="-0.3% MoM" up />
-            </div>
-
-            {/* Earnings chart placeholder */}
-            <section className="card p-6 mb-10">
-              <div className="flex items-end justify-between mb-6">
-                <div>
-                  <div className="eyebrow text-ink-400 mb-1">Pendapatan 30 hari</div>
-                  <div className="font-display text-3xl text-amber-400 tabular">{formatIDR(12480000)}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-medium truncate">{o.item}</div>
+                    <div className="text-[0.65rem] text-ink-400">{o.client} · {o.days} hari mulai {o.start}</div>
+                  </div>
+                  <div className="text-amber-400 text-sm tabular font-display shrink-0">{formatIDR(o.total)}</div>
                 </div>
                 <div className="flex gap-2">
-                  {['7H', '30H', '90H', '1T'].map((t, i) => (
-                    <button key={t} className={`text-xs px-3 py-1.5 rounded-full ${i === 1 ? 'bg-amber-400 text-ink-900' : 'border border-ink-700/40 hover:border-amber-400/40'}`}>{t}</button>
-                  ))}
+                  <button className="flex-1 flex items-center justify-center gap-1 text-xs py-1.5 rounded-lg border border-red-400/40 text-red-400 hover:bg-red-400/10 transition">
+                    <X className="w-3 h-3" /> Tolak
+                  </button>
+                  <button className="flex-1 flex items-center justify-center gap-1 text-xs py-1.5 rounded-lg font-medium transition" style={{ background: '#34d399', color: '#1a1c2e' }}>
+                    <Check className="w-3 h-3" /> Terima
+                  </button>
                 </div>
               </div>
-              <ChartMock />
-            </section>
+            ))}
+          </div>
+          <Link href="/dashboard/vendor/orders" className="flex items-center justify-center gap-1 text-xs mt-4 py-2 rounded-lg border border-ink-700/40 hover:border-[#818cf8]/30 transition text-ink-400">
+            Lihat semua pesanan <ArrowRight className="w-3 h-3" />
+          </Link>
+        </section>
 
-            <div className="grid lg:grid-cols-2 gap-6 mb-10">
-              {/* Recent rentals */}
-              <section className="card p-6">
-                <h3 className="font-display text-xl mb-5">Penyewaan terbaru</h3>
-                <div className="space-y-3">
-                  {[
-                    { name: 'Sony A7 IV', client: 'Maya R.', status: 'ongoing', total: 1500000 },
-                    { name: 'Canon RF 24-70', client: 'Galih S.', status: 'returned', total: 1050000 },
-                    { name: 'DJI RS 3 Pro', client: 'Tania W.', status: 'confirmed', total: 750000 },
-                  ].map((r, i) => (
-                    <div key={i} className="flex items-center justify-between py-2 border-b border-ink-700/30 last:border-0">
-                      <div>
-                        <div className="text-sm font-medium">{r.name}</div>
-                        <div className="text-[0.65rem] text-ink-400">oleh {r.client}</div>
-                      </div>
-                      <div className="text-right">
-                        <div className="tabular text-sm text-amber-400">{formatIDR(r.total)}</div>
-                        <div className="text-[0.65rem] text-ink-400 capitalize">{r.status}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
+        {/* Jadwal Hari Ini */}
+        <section className="card p-6">
+          <div className="flex items-center gap-2 mb-5">
+            <CalendarDays className="w-5 h-5 text-amber-400" />
+            <h3 className="font-display text-xl">Jadwal Hari Ini</h3>
+            <span className="text-[0.65rem] text-ink-400 ml-1">16 Juni 2026</span>
+          </div>
 
-              {/* Top-performing */}
-              <section className="card p-6">
-                <h3 className="font-display text-xl mb-5">Alat terpopuler bulan ini</h3>
-                <div className="space-y-3">
-                  {equipment.slice(0, 3).map((e, i) => (
-                    <div key={e.id} className="flex items-center gap-3">
-                      <span className="font-display text-2xl text-amber-400/40 tabular w-6">{i + 1}</span>
-                      <div className="relative w-12 h-12 rounded-md overflow-hidden bg-ink-800">
-                        <Image src={e.image} alt="" fill className="object-cover" sizes="48px" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="text-sm font-medium leading-tight">{e.name}</div>
-                        <div className="text-[0.65rem] text-ink-400 tabular">{Math.floor(Math.random() * 14) + 6} kali disewa</div>
-                      </div>
-                      <div className="text-xs text-amber-400 tabular">{formatIDR(e.pricePerDay * 8)}</div>
-                    </div>
-                  ))}
-                </div>
-              </section>
+          <div className="mb-5">
+            <div className="eyebrow text-ink-400 mb-3 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+              Pickup klien ({TODAY_PICKUPS.length} alat)
             </div>
-
-            {/* Protection claim & KYC */}
-            <div className="grid lg:grid-cols-3 gap-4 mb-10">
-              <div className="card p-5 lg:col-span-2">
-                <div className="flex items-start gap-3 mb-4">
-                  <Shield className="w-5 h-5 text-amber-400" />
-                  <div>
-                    <h3 className="font-display text-lg">Klaim Proteksi aktif</h3>
-                    <p className="text-xs text-ink-400">DJI Mavic 3, baling-baling retak</p>
+            <div className="space-y-2">
+              {TODAY_PICKUPS.map((p, i) => (
+                <div key={i} className="flex items-center gap-3 p-3 rounded-lg" style={{ background: 'rgba(52,211,153,0.07)', border: '1px solid rgba(52,211,153,0.2)' }}>
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 text-ink-900 bg-emerald-400">{p.avatar}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-medium truncate">{p.item}</div>
+                    <div className="text-[0.65rem] text-ink-400">{p.client} · {p.order}</div>
                   </div>
+                  <div className="text-xs font-semibold text-emerald-400 shrink-0">{p.time}</div>
                 </div>
-                <div className="space-y-1.5 text-xs">
-                  <Step done label="Klaim diajukan" date="24 Mei 2026" />
-                  <Step done label="Foto before/after diverifikasi" date="24 Mei 2026" />
-                  <Step current label="Estimasi servis ditinjau" date="Sedang diproses…" />
-                  <Step label="Dana dicairkan" date="Estimasi: 26 Mei" />
-                </div>
-                <div className="mt-4 pt-4 border-t border-ink-700/40 flex items-center justify-between">
-                  <span className="text-xs text-ink-400">Nilai klaim diajukan</span>
-                  <span className="font-display text-lg text-amber-400 tabular">{formatIDR(385000)}</span>
-                </div>
-              </div>
-
-              <div className="card p-5">
-                <div className="flex items-center gap-2 mb-3">
-                  <AlertCircle className="w-4 h-4 text-amber-400" />
-                  <h3 className="font-medium text-sm">Verifikasi KYC</h3>
-                </div>
-                <div className="space-y-2 mb-3">
-                  <KycRow done label="Email" />
-                  <KycRow done label="No. Telepon" />
-                  <KycRow done label="KTP" />
-                  <KycRow done label="Biometrik" />
-                  <KycRow label="NPWP" />
-                </div>
-                <button className="btn-ghost w-full !py-2 text-xs justify-center">Lengkapi NPWP</button>
-              </div>
+              ))}
             </div>
           </div>
+
+          <div>
+            <div className="eyebrow text-ink-400 mb-3 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
+              Pengembalian ({TODAY_RETURNS.length} alat)
+            </div>
+            <div className="space-y-2">
+              {TODAY_RETURNS.map((r, i) => (
+                <div key={i} className="flex items-center gap-3 p-3 rounded-lg" style={{ background: 'rgba(249,177,122,0.07)', border: '1px solid rgba(249,177,122,0.2)' }}>
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 text-ink-900 bg-amber-400">{r.avatar}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-medium truncate">{r.item}</div>
+                    <div className="text-[0.65rem] text-ink-400">{r.client} · {r.order}</div>
+                  </div>
+                  <div className="text-xs font-semibold text-amber-400 shrink-0">≤ {r.time}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* ── EARNINGS CHART ─────────────────────────────────── */}
+      <section className="card p-6 mb-8">
+        <div className="flex items-end justify-between mb-6">
+          <div>
+            <div className="eyebrow text-ink-400 mb-1">Pendapatan 30 hari</div>
+            <div className="font-display text-3xl text-amber-400 tabular">{formatIDR(12480000)}</div>
+          </div>
+          <div className="flex gap-2">
+            {['7H', '30H', '90H', '1T'].map((t, i) => (
+              <button
+                key={t}
+                className="text-xs px-3 py-1.5 rounded-full transition"
+                style={i === 1
+                  ? { background: VC, color: '#1a1c2e', fontWeight: 600 }
+                  : { border: '1px solid rgba(103,111,157,0.4)' }}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
         </div>
-      </main>
-      <Footer />
+        <ChartMock />
+      </section>
+
+      {/* ── PENYEWAAN AKTIF | ALAT TERPOPULER ──────────────── */}
+      <div className="grid lg:grid-cols-2 gap-5 mb-8">
+        <section className="card p-6">
+          <div className="flex items-center justify-between mb-5">
+            <h3 className="font-display text-xl">Penyewaan Aktif</h3>
+            <Link href="/dashboard/vendor/orders" className="text-xs text-ink-400 hover:text-ink-200 flex items-center gap-1 transition">
+              Semua <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
+          <div className="space-y-3">
+            {ACTIVE_RENTALS.map((r, i) => (
+              <div key={i} className="flex items-center justify-between py-2 border-b border-ink-700/30 last:border-0">
+                <div>
+                  <div className="text-sm font-medium">{r.name}</div>
+                  <div className="text-[0.65rem] text-ink-400">oleh {r.client}</div>
+                </div>
+                <div className="text-right">
+                  <div className="tabular text-sm text-amber-400">{formatIDR(r.total)}</div>
+                  <div className="text-[0.65rem] font-medium" style={{ color: r.statusColor }}>{r.status}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="card p-6">
+          <div className="flex items-center justify-between mb-5">
+            <h3 className="font-display text-xl">Alat Terpopuler</h3>
+            <span className="eyebrow text-ink-400">bulan ini</span>
+          </div>
+          <div className="space-y-3">
+            {equipment.slice(0, 3).map((e, i) => (
+              <div key={e.id} className="flex items-center gap-3">
+                <span className="font-display text-2xl text-amber-400/40 tabular w-6">{i + 1}</span>
+                <div className="relative w-10 h-10 rounded-md overflow-hidden bg-ink-800 shrink-0">
+                  <Image src={e.image} alt="" fill className="object-cover" sizes="40px" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-medium truncate">{e.name}</div>
+                  <div className="text-[0.65rem] text-ink-400 flex items-center gap-1">
+                    <Star className="w-2.5 h-2.5 text-amber-400" />
+                    {(4.8 + i * 0.05).toFixed(2)} · {14 - i * 3} disewa
+                  </div>
+                </div>
+                <div className="text-xs text-amber-400 tabular">{formatIDR(e.pricePerDay * 8)}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* ── KLAIM | KYC ────────────────────────────────────── */}
+      <div className="grid lg:grid-cols-3 gap-4 mb-10">
+        <div className="card p-5 lg:col-span-2">
+          <div className="flex items-start justify-between gap-3 mb-4">
+            <div className="flex items-start gap-3">
+              <Shield className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-display text-lg">Klaim Proteksi Aktif</h3>
+                <p className="text-xs text-ink-400">DJI Mavic 3 — baling-baling retak</p>
+              </div>
+            </div>
+            <span className="text-[0.65rem] px-2 py-1 rounded-full bg-amber-400/10 text-amber-400 border border-amber-400/20 shrink-0">Diproses</span>
+          </div>
+          <div className="space-y-1.5">
+            <Step done label="Klaim diajukan" date="24 Mei 2026" />
+            <Step done label="Foto before/after diverifikasi" date="24 Mei 2026" />
+            <Step current label="Estimasi servis ditinjau" date="Sedang diproses…" />
+            <Step label="Dana dicairkan ke wallet" date="Estimasi: 26 Mei" />
+          </div>
+          <div className="mt-4 pt-4 border-t border-ink-700/40 flex items-center justify-between">
+            <span className="text-xs text-ink-400">Nilai klaim</span>
+            <span className="font-display text-lg text-amber-400 tabular">{formatIDR(385000)}</span>
+          </div>
+        </div>
+
+        <div className="card p-5">
+          <div className="flex items-center gap-2 mb-4">
+            <AlertCircle className="w-4 h-4 text-amber-400" />
+            <h3 className="font-medium text-sm">Verifikasi KYC</h3>
+          </div>
+          <div className="space-y-2 mb-4">
+            <KycRow done label="Email" />
+            <KycRow done label="No. WhatsApp" />
+            <KycRow done label="KTP / Identitas" />
+            <KycRow done label="Verifikasi Biometrik" />
+            <KycRow label="NPWP (opsional)" />
+          </div>
+          <button className="w-full text-xs py-2 rounded-full border font-medium" style={{ borderColor: VBORDER, color: VC }}>
+            Lengkapi NPWP
+          </button>
+          <p className="text-[0.6rem] text-ink-500 mt-2 text-center">Diperlukan untuk payout &gt; Rp 5 juta/bln</p>
+        </div>
+      </div>
+
+      {/* ── KELOLA TOKO (quick links) ───────────────────────── */}
+      <div>
+        <div className="eyebrow text-ink-400 mb-4">Kelola toko</div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {SECTION_LINKS.map((s, i) => (
+            <Link key={i} href={s.href} className="card p-5 flex items-center gap-4 hover:border-[#818cf8]/30 transition group">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${s.color}18`, color: s.color }}>
+                <s.icon className="w-5 h-5" strokeWidth={1.5} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-medium">{s.label}</div>
+                <div className="text-[0.65rem] text-ink-400">{s.desc}</div>
+              </div>
+              <ArrowRight className="w-4 h-4 text-ink-500 group-hover:text-ink-200 transition shrink-0" />
+            </Link>
+          ))}
+        </div>
+      </div>
     </>
   );
 }
 
-function KPI({ label, value, delta, up }: { label: string; value: string; delta: string; up?: boolean }) {
+// ── Sub-components ────────────────────────────────────────────────────────────
+
+type Trend = 'up' | 'down' | 'down-good' | 'neutral';
+
+function KPI({ label, value, delta, trend }: { label: string; value: string; delta: string; trend: Trend }) {
+  const icon =
+    trend === 'up'        ? <TrendingUp  className="w-3 h-3 text-emerald-400" /> :
+    trend === 'down'      ? <TrendingDown className="w-3 h-3 text-red-400" /> :
+    trend === 'down-good' ? <TrendingDown className="w-3 h-3 text-emerald-400" /> :
+                            <Star className="w-3 h-3 text-amber-400" />;
   return (
     <div className="card p-5">
       <div className="eyebrow text-ink-400 mb-2">{label}</div>
       <div className="font-display text-2xl text-amber-400 tabular mb-2">{value}</div>
-      <div className="text-[0.65rem] text-ink-400 flex items-center gap-1">
-        {up ? (
-          <TrendingUp className="w-3 h-3 text-emerald-400" />
-        ) : (
-          <TrendingDown className="w-3 h-3 text-red-400" />
-        )}
-        {delta}
-      </div>
+      <div className="text-[0.65rem] text-ink-400 flex items-center gap-1">{icon}{delta}</div>
     </div>
   );
 }
@@ -217,13 +326,9 @@ function KPI({ label, value, delta, up }: { label: string; value: string; delta:
 function Step({ done, current, label, date }: { done?: boolean; current?: boolean; label: string; date: string }) {
   return (
     <div className="flex items-center gap-3 py-1.5">
-      {done ? (
-        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-      ) : current ? (
-        <Clock className="w-4 h-4 text-amber-400 animate-shimmer shrink-0" />
-      ) : (
-        <div className="w-4 h-4 rounded-full border border-ink-700/40 shrink-0" />
-      )}
+      {done    ? <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> :
+       current ? <Clock className="w-4 h-4 text-amber-400 animate-shimmer shrink-0" /> :
+                 <div className="w-4 h-4 rounded-full border border-ink-700/40 shrink-0" />}
       <span className={`flex-1 text-xs ${done || current ? 'text-ink-200' : 'text-ink-400'}`}>{label}</span>
       <span className="text-[0.65rem] text-ink-400 tabular">{date}</span>
     </div>
@@ -234,11 +339,7 @@ function KycRow({ done, label }: { done?: boolean; label: string }) {
   return (
     <div className="flex items-center justify-between text-xs">
       <span className={done ? 'text-ink-200' : 'text-ink-400'}>{label}</span>
-      {done ? (
-        <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-      ) : (
-        <span className="text-amber-400 text-[0.65rem]">Perlu upload</span>
-      )}
+      {done ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <span className="text-amber-400 text-[0.65rem]">Perlu upload</span>}
     </div>
   );
 }
@@ -251,8 +352,8 @@ function ChartMock() {
       {heights.map((h, i) => (
         <div
           key={i}
-          className="flex-1 rounded-t bg-gradient-to-t from-amber-400/40 to-amber-400 transition hover:from-amber-400 hover:to-amber-300"
-          style={{ height: `${(h / max) * 100}%` }}
+          className="flex-1 rounded-t transition hover:opacity-80"
+          style={{ height: `${(h / max) * 100}%`, background: 'linear-gradient(to top, rgba(129,140,248,0.35), #818cf8)' }}
         />
       ))}
     </div>

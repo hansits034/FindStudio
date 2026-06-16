@@ -1,26 +1,6 @@
 import type { Metadata } from 'next';
-import { Fraunces, DM_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import ChatButton from '@/components/ChatButton';
-
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  variable: '--font-fraunces',
-  axes: ['opsz', 'SOFT', 'WONK'],
-  display: 'swap',
-});
-
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  variable: '--font-geist',
-  display: 'swap',
-});
-
-const jetbrains = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   title: 'FindStudio, Sewa Alat & Studio untuk Kreator',
@@ -36,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className={`${fraunces.variable} ${dmSans.variable} ${jetbrains.variable}`}>
+    <html lang="id" style={{ '--font-fraunces': 'Georgia, "Times New Roman", serif', '--font-geist': '"Segoe UI", system-ui, -apple-system, sans-serif', '--font-mono': 'Consolas, "SFMono-Regular", monospace' } as React.CSSProperties}>
       <body className="grain min-h-screen antialiased">
         {children}
         <ChatButton />

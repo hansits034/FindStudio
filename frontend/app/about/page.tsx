@@ -3,7 +3,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import {
   ArrowUpRight, Shield, Users, Store, ShieldCheck, Search, CalendarCheck,
-  MessageCircle, Camera, Box, Sparkles, Hash, Upload, Wallet, CheckCircle2, Lock, UserCheck,
+  MessageCircle, Camera, Sparkles, Hash, Lock, UserCheck, BarChart3, Megaphone,
 } from 'lucide-react';
 
 export const metadata = {
@@ -64,7 +64,7 @@ export default function AboutPage() {
         <div className="grid md:grid-cols-3 gap-5">
           {[
             { icon: Camera, color: '#f9b17a', title: 'Klien / Kreator', desc: 'Cari & sewa alat, pesan studio, dan gunakan jasa profesional. Booking multi vendor dalam satu checkout.' },
-            { icon: Store, color: '#676f9d', title: 'Vendor / Penyedia', desc: 'Daftarkan alat, studio, atau jasa. Kelola inventaris, harga dinamis, wallet & payout, lewat dashboard analitik.' },
+            { icon: Store, color: '#818cf8', title: 'Vendor / Penyedia', desc: 'Daftarkan alat, studio, atau jasa. Kelola inventaris, harga dinamis, wallet & payout, lewat dashboard analitik.' },
             { icon: ShieldCheck, color: '#f9b17a', title: 'Admin', desc: 'Pantau kesehatan ekosistem: verifikasi KYC, transaksi, dana proteksi, dan deteksi fraud.' },
           ].map((r, i) => (
             <div key={i} className="card p-6">
@@ -77,28 +77,32 @@ export default function AboutPage() {
           ))}
         </div>
         <div className="mt-6 card !bg-ink-500/5 !border-ink-500/30 p-4 flex items-center gap-3 text-sm text-ink-300">
-          <Sparkles className="w-4 h-4 shrink-0" style={{ color: '#8b91b8' }} />
+          <Sparkles className="w-4 h-4 shrink-0" style={{ color: '#818cf8' }} />
           <span>Ekosistem yang terintegrasi untuk semua peran.</span>
         </div>
       </section>
 
-      {/* SOP & CARA KERJA MULTI-PERAN */}
+      {/* CARA KERJA */}
       <section className="max-w-[1100px] mx-auto px-6 lg:px-10 py-12">
         <div className="eyebrow text-amber-400 mb-3">Cara kerja</div>
-        <h2 className="headline text-4xl lg:text-5xl mb-10">Sistem yang jelas untuk dua sisi.</h2>
+        <h2 className="headline text-4xl lg:text-5xl mb-10">
+          Satu Ekosistem.
+          <br />
+          <span className="italic text-amber-400 font-light">Dua Peran.</span>
+        </h2>
         <div className="grid md:grid-cols-2 gap-5">
           {/* Bagi Kreator */}
           <div className="card p-6 lg:p-8">
-            <div className="eyebrow mb-4" style={{ color: '#f9b17a' }}>Bagi Kreator (Klien)</div>
-            <ol className="space-y-5">
+            <div className="eyebrow mb-6" style={{ color: '#f9b17a' }}>Bagi Kreator</div>
+            <ol className="space-y-6">
               {[
-                { icon: Search, t: 'Cari & Saring', d: 'Pencarian cerdas berbasis kata kunci, sistem membedah lokasi, harga, jenis layanan, dan rating secara otomatis.' },
-                { icon: Box, t: 'Checkout Multi Vendor', d: 'Sewa lensa dari Vendor A dan studio dari Vendor B dalam satu keranjang dan satu pembayaran.' },
-                { icon: CheckCircle2, t: 'Produksi & Review', d: 'Jalankan produksi dengan tenang, lalu beri ulasan dua arah setelah selesai.' },
-              ].map((s, i) => (
-                <li key={i} className="flex gap-4">
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ background: '#f9b17a22', color: '#f9b17a' }}>
-                    <s.icon className="w-5 h-5" strokeWidth={1.5} />
+                { num: '01', t: 'Eksplorasi & Pilih', d: 'Temukan spesifikasi alat atau studio yang paling sesuai dengan kebutuhan syutingmu dari ratusan daftar katalog di Surabaya.' },
+                { num: '02', t: 'Atur Pemesanan', d: 'Tentukan tanggal, gabungkan berbagai alat dari vendor yang berbeda ke dalam satu keranjang, dan selesaikan pembayaran.' },
+                { num: '03', t: 'Produksi & Evaluasi', d: 'Ambil alatnya, jalankan produksimu dengan tenang, dan berikan ulasan jujur setelah selesai untuk membangun reputasi komunitas.' },
+              ].map((s) => (
+                <li key={s.num} className="flex gap-4">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 font-display text-base font-bold" style={{ background: '#f9b17a22', color: '#f9b17a' }}>
+                    {s.num}
                   </div>
                   <div>
                     <div className="font-medium mb-0.5">{s.t}</div>
@@ -111,16 +115,16 @@ export default function AboutPage() {
 
           {/* Bagi Vendor */}
           <div className="card p-6 lg:p-8">
-            <div className="eyebrow mb-4" style={{ color: '#8b91b8' }}>Bagi Vendor (Provider)</div>
-            <ol className="space-y-5">
+            <div className="eyebrow mb-6" style={{ color: '#818cf8' }}>Bagi Vendor</div>
+            <ol className="space-y-6">
               {[
-                { icon: Upload, t: 'Listing Aset', d: 'Upload alat, studio, atau jasa dengan harga dinamis dan deskripsi lengkap.' },
-                { icon: CalendarCheck, t: 'Terima Pesanan', d: 'Kelola jadwal lewat kalender real time dengan deteksi konflik anti double booking.' },
-                { icon: Wallet, t: 'Pencairan Dana', d: 'Dana otomatis masuk ke wallet setelah sewa/jasa selesai dan dikonfirmasi.' },
-              ].map((s, i) => (
-                <li key={i} className="flex gap-4">
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ background: '#8b91b822', color: '#8b91b8' }}>
-                    <s.icon className="w-5 h-5" strokeWidth={1.5} />
+                { num: '01', t: 'Buka Etalase', d: 'Daftarkan aset menganggurmu (alat, studio, atau jasa), tentukan harga dinamis, dan atur ketersediaannya.' },
+                { num: '02', t: 'Proses Pesanan', d: 'Terima notifikasi pesanan masuk, siapkan alat sesuai jadwal yang sudah terkonfirmasi, dan serahkan kepada kreator.' },
+                { num: '03', t: 'Terima Pendapatan', d: 'Uang sewa akan otomatis diteruskan ke dompet digitalmu (wallet) setelah masa sewa selesai tanpa masalah.' },
+              ].map((s) => (
+                <li key={s.num} className="flex gap-4">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 font-display text-base font-bold" style={{ background: '#818cf822', color: '#818cf8' }}>
+                    {s.num}
                   </div>
                   <div>
                     <div className="font-medium mb-0.5">{s.t}</div>
@@ -133,19 +137,62 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* FITUR INTI */}
+      {/* FITUR PREMIUM VENDOR */}
+      <section className="max-w-[1100px] mx-auto px-6 lg:px-10 py-12">
+        <div className="eyebrow mb-3" style={{ color: '#818cf8' }}>Fitur Premium Vendor</div>
+        <h2 className="headline text-4xl lg:text-5xl mb-4">
+          Skala bisnismu,
+          <br />
+          <span className="italic font-light" style={{ color: '#818cf8' }}>dari dalam platform.</span>
+        </h2>
+        <p className="text-ink-300 mb-10 max-w-2xl text-sm lg:text-base">
+          Vendor yang berlangganan mendapatkan akses ke alat eksklusif yang membantu mengoptimalkan
+          visibilitas dan memahami performa bisnis secara lebih dalam.
+        </p>
+        <div className="grid sm:grid-cols-2 gap-5">
+          <div className="card p-6 lg:p-8 lift" style={{ borderColor: 'rgba(129,140,248,0.3)', background: 'rgba(99,102,241,0.04)' }}>
+            <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ background: 'rgba(129,140,248,0.15)', color: '#818cf8' }}>
+              <BarChart3 className="w-6 h-6" strokeWidth={1.5} />
+            </div>
+            <div className="eyebrow mb-2" style={{ color: '#818cf8' }}>Berlangganan bulanan</div>
+            <h3 className="font-display text-xl mb-2">Dasbor Vendor Premium</h3>
+            <p className="text-sm text-ink-300 leading-relaxed">
+              Dasbor analitik tingkat lanjut khusus bagi provider yang membayar biaya langganan bulanan.
+              Pantau konversi listing, tren permintaan per kategori, performa harga dinamis, dan laporan
+              pendapatan mendalam — semua dalam satu tampilan yang bisa diexport.
+            </p>
+          </div>
+          <div className="card p-6 lg:p-8 lift" style={{ borderColor: 'rgba(129,140,248,0.3)', background: 'rgba(99,102,241,0.04)' }}>
+            <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ background: 'rgba(129,140,248,0.15)', color: '#818cf8' }}>
+              <Megaphone className="w-6 h-6" strokeWidth={1.5} />
+            </div>
+            <div className="eyebrow mb-2" style={{ color: '#818cf8' }}>Berbayar per penayangan</div>
+            <h3 className="font-display text-xl mb-2">Iklan Digital Internal</h3>
+            <p className="text-sm text-ink-300 leading-relaxed">
+              Ruang iklan berbayar di dalam ekosistem FindStudio. Provider atau brand bisa mempromosikan
+              aset atau jasanya agar muncul lebih menonjol di hasil pencarian, halaman kategori, maupun
+              banner beranda — menjangkau kreator yang sedang aktif mencari.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* INFRASTRUKTUR PLATFORM */}
       <section className="max-w-[1100px] mx-auto px-6 lg:px-10 py-24">
-        <div className="eyebrow text-amber-400 mb-3">Fitur</div>
-        <h2 className="headline text-4xl lg:text-5xl mb-10">Dirancang untuk kelancaran produksi.</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="eyebrow text-amber-400 mb-3">Infrastruktur Platform</div>
+        <h2 className="headline text-4xl lg:text-5xl mb-10">
+          Mesin di balik
+          <br />
+          <span className="italic text-amber-400 font-light">kelancaran produksimu.</span>
+        </h2>
+        <div className="grid sm:grid-cols-2 gap-5">
           {[
-            { icon: Search, title: 'Pencarian cerdas', desc: 'Ketik kebutuhan dengan bahasa biasa, sistem membedah lokasi, harga, jenis layanan, dan rating.' },
-            { icon: CalendarCheck, title: 'Booking & kalender', desc: 'Ketersediaan real time lintas vendor dengan deteksi konflik double booking.' },
-            { icon: Box, title: 'Checkout multi vendor', desc: 'Sewa kamera dari Vendor A dan studio dari Vendor B dalam satu transaksi.' },
-            { icon: Shield, title: 'Pembayaran escrow', desc: 'Dana ditahan platform sampai alat dikembalikan / jasa selesai, aman dua arah.' },
-            { icon: MessageCircle, title: 'Chat real time', desc: 'Diskusi teknis & negosiasi langsung antara klien dan vendor di dalam platform.' },
+            { icon: Search, title: 'Pencarian Cerdas (NLP)', desc: 'Ketik kebutuhanmu dengan kalimat biasa. Sistem kami otomatis membedah lokasi, batas harga, jenis layanan, dan rating dalam hitungan detik.' },
+            { icon: Shield, title: 'Pembayaran Aman (Escrow)', desc: 'Sistem rekening bersama kami menahan dana secara otomatis hingga alat dikembalikan atau jasa selesai. Aman dari penipuan dua arah.' },
+            { icon: CalendarCheck, title: 'Sinkronisasi Kalender Real-Time', desc: 'Sistem manajemen jadwal pintar yang mendeteksi dan mencegah bentrok (double-booking) secara otomatis di seluruh vendor.' },
+            { icon: MessageCircle, title: 'Ruang Negosiasi Terpusat', desc: 'Fitur chat real-time langsung di dalam aplikasi. Diskusikan teknis alat atau briefing proyek tanpa perlu berpindah ke aplikasi pesan lain.' },
           ].map((f, i) => (
-            <div key={i} className="card p-6 lift">
+            <div key={i} className="card p-6 lg:p-8 lift">
               <f.icon className="w-6 h-6 text-amber-400 mb-4" strokeWidth={1.5} />
               <h3 className="font-display text-xl mb-2">{f.title}</h3>
               <p className="text-sm text-ink-300 leading-relaxed">{f.desc}</p>
@@ -217,11 +264,6 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-
-          <p className="text-xs text-ink-400/60 italic leading-relaxed mt-8 max-w-2xl">
-            Proteksi FindStudio adalah program proteksi alat berbasis mitra layanan internal
-            platform, bukan merupakan produk asuransi dari lembaga keuangan.
-          </p>
         </div>
       </section>
 
@@ -241,7 +283,7 @@ export default function AboutPage() {
               <h2 className="headline text-4xl lg:text-5xl mb-4">
                 Bukan sekadar aplikasi sewa,
                 <br />
-                <span className="italic text-amber-400 font-light">tempat bertumbuh.</span>
+                <span className="italic text-amber-400 font-light">tapi tempat bertumbuh.</span>
               </h2>
               <p className="text-ink-300 leading-relaxed mb-6 text-sm lg:text-base">
                 FindStudio berkomitmen membangun ruang diskusi kreatif untuk Surabaya lewat Discord
@@ -258,7 +300,7 @@ export default function AboutPage() {
                 ].map((c, i) => (
                   <div key={i} className="flex items-center gap-2.5 text-sm">
                     <Hash className="w-3.5 h-3.5 text-ink-500 shrink-0" />
-                    <span className="font-mono" style={{ color: '#8b91b8' }}>{c.ch}</span>
+                    <span className="font-mono" style={{ color: '#818cf8' }}>{c.ch}</span>
                     <span className="text-ink-400 hidden sm:inline text-xs">- {c.desc}</span>
                   </div>
                 ))}
@@ -345,7 +387,7 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-wrap gap-3 justify-center relative">
             <Link href="/browse" className="btn-primary">Eksplorasi Katalog Surabaya <ArrowUpRight className="w-4 h-4" /></Link>
-            <Link href="/register?role=vendor" className="btn-ghost" style={{ borderColor: '#676f9d' }}>Mulai Hasilkan Profit, Daftarkan Aset</Link>
+            <Link href="/register?role=vendor" className="btn-ghost" style={{ borderColor: '#818cf8' }}>Mulai Hasilkan Profit, Daftarkan Aset</Link>
           </div>
         </div>
       </section>

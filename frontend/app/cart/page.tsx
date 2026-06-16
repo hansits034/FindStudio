@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { cartItems, formatIDR } from '@/lib/mockData';
-import { Trash2, Shield, Plus, Minus, ArrowRight, ShoppingBag, Tag } from 'lucide-react';
+import { Trash2, Shield, Plus, Minus, ArrowRight, ShoppingBag, Tag, CalendarDays } from 'lucide-react';
 
 export default function CartPage() {
   // Group by vendor
@@ -66,13 +66,18 @@ export default function CartPage() {
 
                       <div className="flex-1 min-w-0">
                         <h3 className="font-display text-lg leading-tight mb-1.5">{item.name}</h3>
-                        <div className="flex flex-wrap gap-2 text-xs text-ink-400 mb-3">
+                        <div className="flex flex-wrap gap-2 text-xs text-ink-400 mb-2">
                           {item.protection && (
                             <span className="pill !text-[0.6rem]">
                               <Shield className="w-2.5 h-2.5" /> Proteksi
                             </span>
                           )}
                           <span>Deposit: {formatIDR(item.deposit)}</span>
+                        </div>
+
+                        <div className="flex items-center gap-1.5 text-xs text-ink-300 mb-3">
+                          <CalendarDays className="w-3.5 h-3.5 text-amber-400" />
+                          <span>19 Jun 2026 → {new Date(2026, 5, 19 + item.days - 1).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                         </div>
 
                         <div className="flex items-center justify-between flex-wrap gap-3">

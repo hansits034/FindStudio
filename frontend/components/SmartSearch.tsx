@@ -18,10 +18,12 @@ export default function SmartSearch({
   variant = 'hero',
   initialValue = '',
   placeholder,
+  onSubmitted,
 }: {
   variant?: 'hero' | 'compact';
   initialValue?: string;
   placeholder?: string;
+  onSubmitted?: () => void;
 }) {
   const router = useRouter();
   const [value, setValue] = useState(initialValue);
@@ -35,7 +37,7 @@ export default function SmartSearch({
 
   async function submit(q?: string) {
     const text = (q ?? value).trim();
-    if (!text && !nearLabel) { router.push('/browse'); return; }
+    if (!text && !nearLabel) { router.push('/browse'); onSubmitted?.(); return; }
 
     setThinking(true);
     // Simulate AI processing — proportional to query length
@@ -45,6 +47,7 @@ export default function SmartSearch({
     if (nearLabel && !p.location) p.near = true;
     setThinking(false);
     router.push(`/browse?${toQueryString(p)}`);
+    onSubmitted?.();
   }
 
   function detectLocation() {

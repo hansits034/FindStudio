@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Camera, Store, ShieldCheck, CalendarCheck, MessageCircle } from 'lucide-react';
+import { Camera, Store, ShieldCheck, CalendarCheck, MessageCircle, Heart, UserCircle2 } from 'lucide-react';
 
 type Role = 'CLIENT' | 'VENDOR' | 'ADMIN';
 
@@ -14,15 +14,15 @@ const CONFIG: Record<Role, { label: string; icon: any; color: string; tint: stri
   VENDOR: {
     label: 'Mode Vendor',
     icon: Store,
-    color: '#676f9d',
-    tint: 'rgba(103,111,157,0.18)',
+    color: '#818cf8',
+    tint: 'rgba(129,140,248,0.10)',
     desc: 'Anda menyewakan & mengelola aset.',
   },
   ADMIN: {
     label: 'Mode Admin',
     icon: ShieldCheck,
-    color: '#8b91b8',
-    tint: 'rgba(139,145,184,0.15)',
+    color: '#34d399',
+    tint: 'rgba(52,211,153,0.08)',
     desc: 'Pemantauan ekosistem FindStudio.',
   },
 };
@@ -39,7 +39,7 @@ export default function RoleBanner({ role, name }: { role: Role; name: string })
         <div className="flex items-center gap-3">
           <span
             className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-            style={{ background: c.color, color: role === 'CLIENT' ? '#2d3250' : '#fff' }}
+            style={{ background: c.color, color: '#2d3250' }}
           >
             <Icon className="w-4 h-4" />
           </span>
@@ -58,6 +58,16 @@ export default function RoleBanner({ role, name }: { role: Role; name: string })
             <Link href="/messages" className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border hover:bg-white/5 transition" style={{ borderColor: `${c.color}55` }}>
               <MessageCircle className="w-3.5 h-3.5" style={{ color: c.color }} /> Chat
             </Link>
+            {role === 'CLIENT' && (
+              <>
+                <Link href="/wishlist" className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border hover:bg-white/5 transition" style={{ borderColor: `${c.color}55` }}>
+                  <Heart className="w-3.5 h-3.5" style={{ color: c.color }} /> Favorit
+                </Link>
+                <Link href="/account" className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border hover:bg-white/5 transition" style={{ borderColor: `${c.color}55` }}>
+                  <UserCircle2 className="w-3.5 h-3.5" style={{ color: c.color }} /> Akun
+                </Link>
+              </>
+            )}
           </div>
         )}
       </div>

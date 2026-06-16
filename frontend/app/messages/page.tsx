@@ -6,7 +6,15 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import {
   Send, Search, Shield, MoreHorizontal, ImageIcon, X, Check, CheckCheck,
+  Bell, CheckCircle2, Clock, AlertTriangle, ShieldCheck,
 } from 'lucide-react';
+
+const SYSTEM_NOTIFS = [
+  { id: 1, icon: CheckCircle2, color: '#34d399', title: 'Pembayaran berhasil', desc: 'Pembayaran untuk Sony A7 IV Body (28-30 Mei) telah dikonfirmasi.', time: '2 jam lalu' },
+  { id: 2, icon: CheckCircle2, color: '#34d399', title: 'Vendor mengonfirmasi pesananmu', desc: 'Aperture Rental Co. telah menerima pesanan #FS-BK1029.', time: 'Kemarin' },
+  { id: 3, icon: AlertTriangle, color: '#f9b17a', title: 'Jangan lupa kembalikan alat', desc: 'Sony A7 IV harus dikembalikan hari ini sebelum jam 18:00.', time: 'Hari ini' },
+  { id: 4, icon: Clock, color: '#818cf8', title: 'Pengingat pembayaran', desc: 'Selesaikan pembayaran keranjangmu sebelum slot tanggal hangus.', time: '3 hari lalu' },
+];
 
 type Msg =
   | { id: number; from: 'me' | 'them'; type: 'text'; text: string; time: string; read?: boolean }
@@ -16,21 +24,34 @@ type Msg =
 // Versi distributif ini menerapkan Omit ke tiap varian, jadi `text`/`imgSrc` tetap ada.
 type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never;
 
-const conversations = vendors.map((v, i) => ({
-  ...v,
-  preview: [
-    'Halo! Sony A7 IV-nya sudah saya cek, kondisi prima.',
-    'Studio cyc tersedia tanggal 2 Juni. Saya kirim foto terkini ya.',
-    'Drone Mavic 3-nya sudah siap, sudah saya kalibrasi ulang.',
-    'Untuk color grading, mohon kirim sample 2-3 detik footage.',
-    'Audio kit lengkap tersedia. Kapan mau ambil?',
-    'Lighting set Aputure 600X Pro siap dipickup.',
-  ][i] ?? 'Siap membantu!',
-  time: ['09:42', '08:15', 'Kemarin', 'Senin', '11:30', '14:20'][i] ?? '-',
-  unread: [2, 0, 1, 0, 0, 3][i] ?? 0,
-}));
+const ADMIN_CONTACT = {
+  id: 'admin', slug: 'admin-support', name: 'Admin FindStudio',
+  avatar: '/logo.png', cover: '', location: '',
+  verified: 'KYC' as const, rating: 0, responseTime: '< 1 jam',
+  totalRentals: 0, joined: '', tagline: '',
+  preview: 'Ada masalah pesanan, pembayaran, atau klaim? Chat kami di sini.',
+  time: '', unread: 0,
+};
+
+const conversations = [
+  ADMIN_CONTACT,
+  ...vendors.map((v, i) => ({
+    ...v,
+    preview: [
+      'Halo! Sony A7 IV-nya sudah saya cek, kondisi prima.',
+      'Studio cyc tersedia tanggal 2 Juni. Saya kirim foto terkini ya.',
+      'Drone Mavic 3-nya sudah siap, sudah saya kalibrasi ulang.',
+      'Untuk color grading, mohon kirim sample 2-3 detik footage.',
+      'Audio kit lengkap tersedia. Kapan mau ambil?',
+      'Lighting set Aputure 600X Pro siap dipickup.',
+    ][i] ?? 'Siap membantu!',
+    time: ['09:42', '08:15', 'Kemarin', 'Senin', '11:30', '14:20'][i] ?? '-',
+    unread: [2, 0, 1, 0, 0, 3][i] ?? 0,
+  })),
+];
 
 const SEED_MESSAGES: Record<string, Msg[]> = {
+  admin: [],
   v1: [
     { id: 1, from: 'them', type: 'text', text: 'Halo! Sony A7 IV-nya sudah saya cek, kondisi prima.', time: '09:40' },
     { id: 2, from: 'them', type: 'text', text: 'Kapan rencana shoot? Saya sediakan tas tahan air sekalian.', time: '09:42' },
@@ -51,12 +72,13 @@ export default function MessagesPage() {
   const [active, setActive] = useState(0);
   const [msgMap, setMsgMap] = useState<Record<string, Msg[]>>(() => {
     const m: Record<string, Msg[]> = {};
-    vendors.forEach((v) => { m[v.id] = SEED_MESSAGES[v.id] ?? []; });
+    conversations.forEach((v) => { m[v.id] = SEED_MESSAGES[v.id] ?? []; });
     return m;
   });
   const [input, setInput] = useState('');
   const [imgPreview, setImgPreview] = useState<string | null>(null);
   const [search, setSearch] = useState('');
+  const [view, setView] = useState<'chat' | 'system'>('chat');
   const bottomRef = useRef<HTMLDivElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -92,9 +114,12 @@ export default function MessagesPage() {
     if (text) {
       addMsg({ from: 'me', type: 'text', text, time: now(), read: false });
       setInput('');
-      // mock vendor reply after 1.2s
+      // mock reply after 1.2s
       setTimeout(() => {
-        addMsg({ from: 'them', type: 'text', text: 'Baik, terima kasih! Segera saya konfirmasi.', time: now() });
+        const reply = v.id === 'admin'
+          ? 'Terima kasih telah menghubungi Admin FindStudio. Tim kami akan merespons dalam < 1 jam.'
+          : 'Baik, terima kasih! Segera saya konfirmasi.';
+        addMsg({ from: 'them', type: 'text', text: reply, time: now() });
       }, 1200);
     }
   }
@@ -122,10 +147,45 @@ export default function MessagesPage() {
       <Navbar />
       <main className="max-w-[1440px] mx-auto px-6 lg:px-10 py-8">
         <div className="mb-6">
-          <div className="eyebrow text-amber-400 mb-2">Pesan</div>
-          <h1 className="headline text-4xl lg:text-5xl">Percakapan</h1>
+          <div className="eyebrow text-amber-400 mb-2">Kotak Masuk</div>
+          <h1 className="headline text-4xl lg:text-5xl">Pesan & Notifikasi.</h1>
         </div>
 
+        <div className="flex gap-2 mb-6">
+          <button
+            onClick={() => setView('chat')}
+            className={`text-sm px-5 py-2.5 rounded-full font-medium border transition inline-flex items-center gap-2 ${
+              view === 'chat' ? 'bg-amber-400 text-ink-900 border-amber-400' : 'border-ink-700/40 text-ink-300 hover:border-amber-400/40'
+            }`}
+          >
+            <Search className="w-3.5 h-3.5" /> Chat Vendor
+          </button>
+          <button
+            onClick={() => setView('system')}
+            className={`text-sm px-5 py-2.5 rounded-full font-medium border transition inline-flex items-center gap-2 ${
+              view === 'system' ? 'bg-amber-400 text-ink-900 border-amber-400' : 'border-ink-700/40 text-ink-300 hover:border-amber-400/40'
+            }`}
+          >
+            <Bell className="w-3.5 h-3.5" /> Notifikasi Sistem
+          </button>
+        </div>
+
+        {view === 'system' ? (
+          <div className="card max-w-2xl divide-y divide-ink-700/30">
+            {SYSTEM_NOTIFS.map((n) => (
+              <div key={n.id} className="p-5 flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ background: `${n.color}22`, color: n.color }}>
+                  <n.icon className="w-5 h-5" />
+                </div>
+                <div className="flex-1">
+                  <div className="font-medium text-sm mb-0.5">{n.title}</div>
+                  <div className="text-xs text-ink-300 leading-relaxed">{n.desc}</div>
+                </div>
+                <span className="text-[0.65rem] text-ink-500 shrink-0 tabular">{n.time}</span>
+              </div>
+            ))}
+          </div>
+        ) : (
         <div className="card overflow-hidden grid lg:grid-cols-[340px,1fr] min-h-[640px]">
           {/* ── Sidebar ────────────────────────────────────────────── */}
           <aside className="border-r border-ink-700/40 flex flex-col">
@@ -183,13 +243,19 @@ export default function MessagesPage() {
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="font-medium">{v.name}</h3>
-                    <span className="pill !text-[0.6rem] !py-0.5">
-                      <Shield className="w-2.5 h-2.5" /> {v.verified}
-                    </span>
+                    {v.id === 'admin' ? (
+                      <span className="pill !text-[0.6rem] !py-0.5 !bg-emerald-400/15 !border-emerald-400/40 !text-emerald-300">
+                        <ShieldCheck className="w-2.5 h-2.5" /> Tim Resmi
+                      </span>
+                    ) : (
+                      <span className="pill !text-[0.6rem] !py-0.5">
+                        <Shield className="w-2.5 h-2.5" /> {v.verified}
+                      </span>
+                    )}
                   </div>
                   <div className="text-xs text-emerald-400 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                    online
+                    {v.id === 'admin' ? 'Respon < 1 jam' : 'online'}
                   </div>
                 </div>
               </div>
@@ -200,11 +266,23 @@ export default function MessagesPage() {
 
             {/* Messages */}
             <div className="flex-1 p-6 space-y-4 overflow-y-auto bg-gradient-to-b from-transparent to-ink-950/30">
-              <div className="text-center">
-                <span className="text-[0.65rem] text-ink-400 px-3 py-1 bg-ink-700/30 rounded-full">
-                  Hari ini
-                </span>
-              </div>
+              {messages.length === 0 ? (
+                <div className="h-full flex flex-col items-center justify-center text-center gap-2 py-10">
+                  <div className="w-12 h-12 rounded-full bg-emerald-400/10 text-emerald-400 flex items-center justify-center mb-1">
+                    <ShieldCheck className="w-5 h-5" />
+                  </div>
+                  <p className="text-sm text-ink-200">Belum ada percakapan dengan {v.name}.</p>
+                  <p className="text-xs text-ink-400 max-w-xs">
+                    Ada masalah pesanan, pembayaran, atau klaim Proteksi? Tulis pesanmu di bawah, tim kami akan membantu.
+                  </p>
+                </div>
+              ) : (
+                <div className="text-center">
+                  <span className="text-[0.65rem] text-ink-400 px-3 py-1 bg-ink-700/30 rounded-full">
+                    Hari ini
+                  </span>
+                </div>
+              )}
 
               {messages.map((m) => (
                 <div key={m.id} className={`flex ${m.from === 'me' ? 'justify-end' : 'justify-start'}`}>
@@ -302,6 +380,7 @@ export default function MessagesPage() {
             </div>
           </section>
         </div>
+        )}
       </main>
     </>
   );

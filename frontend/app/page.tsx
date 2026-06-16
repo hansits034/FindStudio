@@ -279,10 +279,12 @@ export default function HomePage() {
                 </div>
                 <div className="space-y-3 text-sm relative">
                   <Row label="Harga sewa per hari" value="Rp 500.000" />
-                  <Row label="Biaya layanan platform" value="Rp 25.000" muted />
+                  <Row label="Biaya layanan klien" value="Rp 10.000" muted />
                   <div className="divider my-2" />
-                  <Row label="Total yang dibayar klien" value="Rp 525.000" bold />
-                  <Row label="Vendor menerima" value="Rp 475.000" bold accent />
+                  <Row label="Total yang dibayar klien" value="Rp 510.000" bold />
+                  <Row label="Komisi vendor" value="− Rp 10.000" muted />
+                  <Row label="Proteksi (10% — alat ini aktif)" value="− Rp 50.000" muted />
+                  <Row label="Vendor menerima" value="Rp 440.000" bold accent />
                 </div>
                 <div className="mt-6 pt-6 border-t border-ink-700/40 flex items-center gap-3">
                   <Shield className="w-5 h-5 text-amber-400 shrink-0" strokeWidth={1.5} />
@@ -526,17 +528,17 @@ export default function HomePage() {
           <div
             className="p-10 lg:p-12 relative overflow-hidden rounded-2xl border"
             style={{
-              background: 'linear-gradient(160deg, rgba(103,111,157,0.28) 0%, rgba(45,50,80,0.55) 100%)',
-              borderColor: 'rgba(139,145,184,0.35)',
+              background: 'linear-gradient(160deg, rgba(99,102,241,0.22) 0%, rgba(45,50,80,0.6) 100%)',
+              borderColor: 'rgba(129,140,248,0.4)',
             }}
           >
-            <div className="absolute -left-16 -bottom-16 w-80 h-80 bg-[#8b91b8]/25 blur-[90px] rounded-full" />
+            <div className="absolute -left-16 -bottom-16 w-80 h-80 bg-[#6366f1]/25 blur-[90px] rounded-full" />
             <div className="relative">
-              <div className="eyebrow text-[#b3b8da] mb-3">Untuk Vendor & Provider</div>
+              <div className="eyebrow text-[#a5b4fc] mb-3">Untuk Vendor & Provider</div>
               <h2 className="headline text-4xl lg:text-5xl mb-4">
                 Ubah Aset Nganggur
                 <br />
-                <span className="italic font-light" style={{ color: '#b3b8da' }}>Jadi Passive Income.</span>
+                <span className="italic font-light text-[#a5b4fc]">Jadi Passive Income.</span>
               </h2>
               <p className="text-ink-300 text-sm leading-relaxed mb-8 max-w-sm">
                 Daftarkan studio, alat, dan jasamu. Jangkau ribuan kreator dengan sistem
@@ -544,7 +546,7 @@ export default function HomePage() {
               </p>
               <Link
                 href="/register?role=vendor"
-                className="inline-flex items-center gap-2 py-3.5 px-6 rounded-full text-sm font-medium text-ink-900 bg-[#8b91b8] transition-all duration-300 hover:bg-[#a3a8d4] hover:shadow-lg hover:shadow-[#8b91b8]/30 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 py-3.5 px-6 rounded-full text-sm font-medium text-ink-900 bg-[#818cf8] transition-all duration-300 hover:bg-[#a5b4fc] hover:shadow-lg hover:shadow-[#818cf8]/40 hover:-translate-y-0.5"
               >
                 Daftarkan Asetmu
                 <ArrowUpRight className="w-4 h-4" />

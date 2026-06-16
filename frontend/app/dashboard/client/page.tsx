@@ -1,161 +1,150 @@
+'use client';
+
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import RoleBanner from '@/components/RoleBanner';
-import { myBookings, formatIDR } from '@/lib/mockData';
+import EquipmentCard from '@/components/EquipmentCard';
+import { equipment } from '@/lib/mockData';
 import {
-  ClipboardList,
-  Wallet,
-  Heart,
-  Bell,
-  ChevronRight,
-  Calendar,
-  TrendingUp,
-  Sparkles,
+  Search, Camera, Aperture, Lightbulb, Mic, Box, MapPin, Sparkles, Package,
+  ShoppingBag, ClipboardList, MessageCircle, Heart, UserCircle2, Tag, ArrowRight,
 } from 'lucide-react';
 
-export default function ClientDashboardPage() {
-  const active = myBookings.filter((b) => ['ongoing', 'confirmed'].includes(b.status));
-  const completed = myBookings.filter((b) => b.status === 'completed');
+const CATEGORIES = [
+  { key: 'camera', label: 'Kamera', icon: Camera },
+  { key: 'lens', label: 'Lensa & Filter', icon: Aperture },
+  { key: 'lighting', label: 'Lighting & Grip', icon: Lightbulb },
+  { key: 'audio', label: 'Audio', icon: Mic },
+  { key: 'gimbal', label: 'Stabilizer', icon: Box },
+  { key: 'studio', label: 'Studio & Set', icon: MapPin },
+  { key: 'accessory', label: 'Aksesoris', icon: Package },
+  { key: 'service', label: 'Jasa Profesional', icon: Sparkles },
+];
+
+const QUICK_NAV = [
+  { label: 'Eksplorasi', desc: 'Cari & sewa alat', icon: Search, href: '/dashboard/client', active: true },
+  { label: 'Keranjang', desc: 'Lanjutkan sewa', icon: ShoppingBag, href: '/cart' },
+  { label: 'Pesanan Saya', desc: 'Lacak sewamu', icon: ClipboardList, href: '/orders' },
+  { label: 'Kotak Masuk', desc: 'Chat vendor', icon: MessageCircle, href: '/messages' },
+  { label: 'Favorit', desc: 'Alat tersimpan', icon: Heart, href: '/wishlist' },
+  { label: 'Akun Saya', desc: 'Profil & verifikasi', icon: UserCircle2, href: '/account' },
+];
+
+const RECOMMENDED = [equipment[0], equipment[12], equipment[16], equipment[26]];
+
+export default function ClientExplorePage() {
+  const [q, setQ] = useState('');
+  const router = useRouter();
+
+  function handleSearch(e: React.FormEvent) {
+    e.preventDefault();
+    router.push(q.trim() ? `/browse?q=${encodeURIComponent(q.trim())}` : '/browse');
+  }
 
   return (
     <>
       <Navbar />
-      <RoleBanner role="CLIENT" name="Rakha Pratama" />
       <main className="max-w-[1440px] mx-auto px-6 lg:px-10 py-10">
-        <div className="grid lg:grid-cols-[260px,1fr] gap-8">
-          {/* Sidebar */}
-          <aside className="space-y-2 lg:sticky lg:top-28 self-start">
-            <div className="card p-5 mb-4" style={{ borderColor: 'rgba(249,177,122,0.5)' }}>
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-11 h-11 rounded-full bg-amber-400 text-ink-900 font-display text-lg flex items-center justify-center">R</div>
-                <div>
-                  <div className="font-medium">Rakha Pratama</div>
-                  <div className="text-xs text-amber-400">Kreator · Verified</div>
-                </div>
-              </div>
-              <div className="text-xs text-ink-300 pt-3 border-t border-ink-700/40">
-                Saldo wallet: <span className="text-amber-400 font-display text-base tabular">{formatIDR(425000)}</span>
-              </div>
-            </div>
+        {/* Sapaan + smart search */}
+        <div className="mb-8">
+          <div className="eyebrow text-amber-400 mb-2">Selamat datang kembali</div>
+          <h1 className="headline text-4xl lg:text-5xl mb-6">
+            Mau sewa apa <span className="italic text-amber-400 font-light">hari ini, Rakha?</span>
+          </h1>
 
-            {[
-              { icon: ClipboardList, label: 'Booking saya', active: true, count: active.length },
-              { icon: Calendar, label: 'Jadwal' },
-              { icon: Heart, label: 'Wishlist', count: 12 },
-              { icon: Wallet, label: 'Wallet & deposit' },
-              { icon: Bell, label: 'Notifikasi', count: 3 },
-            ].map((m, i) => (
-              <button
-                key={i}
-                className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl text-sm transition ${
-                  m.active ? 'bg-amber-400/10 text-amber-400 border border-amber-400/30' : 'hover:bg-ink-700/40'
-                }`}
-              >
-                <span className="flex items-center gap-3">
-                  <m.icon className="w-4 h-4" strokeWidth={1.5} />
-                  {m.label}
-                </span>
-                {m.count !== undefined && (
-                  <span className="text-[0.65rem] px-2 py-0.5 rounded-full bg-ink-700/50 tabular">{m.count}</span>
-                )}
-              </button>
-            ))}
-          </aside>
-
-          <div>
-            <div className="flex items-end justify-between mb-8 flex-wrap gap-4">
-              <div>
-                <div className="eyebrow text-amber-400 mb-2">Dashboard Kreator</div>
-                <h1 className="headline text-4xl lg:text-5xl">
-                  Selamat sore, <span className="italic text-amber-400 font-light">Rakha.</span>
-                </h1>
-              </div>
-              <Link href="/browse" className="btn-primary text-sm">
-                <Sparkles className="w-4 h-4" /> Cari alat baru
-              </Link>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-10">
-              {[
-                { l: 'Total project', v: '24', d: '+3 bulan ini', up: true },
-                { l: 'Total disewa', v: formatIDR(18450000), d: '+12% MoM', up: true },
-                { l: 'Booking aktif', v: '2', d: 'Sony A7IV + Studio' },
-                { l: 'Reward poin', v: '1.240', d: 'Naik tier silver' },
-              ].map((s, i) => (
-                <div key={i} className="card p-5">
-                  <div className="eyebrow text-ink-400 mb-2">{s.l}</div>
-                  <div className="font-display text-2xl text-amber-400 tabular mb-2">{s.v}</div>
-                  <div className="text-[0.65rem] text-ink-400 flex items-center gap-1">
-                    {s.up && <TrendingUp className="w-3 h-3 text-emerald-400" />}
-                    {s.d}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Active Bookings */}
-            <section className="mb-10">
-              <div className="flex items-end justify-between mb-4">
-                <h2 className="font-display text-2xl">Booking aktif</h2>
-                <Link href="#" className="text-xs text-amber-400 hover:underline">Lihat semua →</Link>
-              </div>
-              <div className="space-y-3">
-                {active.map((b) => (
-                  <BookingRow key={b.id} booking={b} />
-                ))}
-              </div>
-            </section>
-
-            {/* Riwayat */}
-            <section>
-              <div className="flex items-end justify-between mb-4">
-                <h2 className="font-display text-2xl">Riwayat</h2>
-                <Link href="#" className="text-xs text-amber-400 hover:underline">Lihat semua →</Link>
-              </div>
-              <div className="space-y-3">
-                {completed.map((b) => <BookingRow key={b.id} booking={b} />)}
-                {myBookings.filter((b) => b.status === 'pending').map((b) => <BookingRow key={b.id} booking={b} />)}
-              </div>
-            </section>
-          </div>
+          <form onSubmit={handleSearch} className="relative max-w-2xl">
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-ink-400" />
+            <input
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              className="field !pl-14 !py-4 !text-base w-full"
+              placeholder='Coba ketik "lensa prime di Gubeng"…'
+            />
+            <button type="submit" className="btn-primary !absolute !right-2 !top-1/2 !-translate-y-1/2 !py-2.5">
+              Cari
+            </button>
+          </form>
         </div>
+
+        {/* Quick nav — 6 menu utama, besar & jelas */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-12">
+          {QUICK_NAV.map((m) => (
+            <Link
+              key={m.label}
+              href={m.href}
+              className={`card p-4 text-center transition lift ${m.active ? '!border-amber-400/60 !bg-amber-400/5' : ''}`}
+            >
+              <div
+                className="w-11 h-11 rounded-xl flex items-center justify-center mx-auto mb-2"
+                style={{ background: m.active ? '#f9b17a' : 'rgba(249,177,122,0.12)', color: m.active ? '#2d3250' : '#f9b17a' }}
+              >
+                <m.icon className="w-5 h-5" />
+              </div>
+              <div className="text-sm font-medium leading-tight">{m.label}</div>
+              <div className="text-[0.65rem] text-ink-400 mt-0.5">{m.desc}</div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Kategori cepat */}
+        <section className="mb-12">
+          <h2 className="font-display text-2xl mb-4">Cari berdasarkan kategori</h2>
+          <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
+            {CATEGORIES.map((c) => (
+              <Link
+                key={c.key}
+                href={`/browse?cat=${c.key}`}
+                className="card p-4 flex flex-col items-center gap-2 text-center lift"
+              >
+                <c.icon className="w-6 h-6 text-amber-400" strokeWidth={1.5} />
+                <span className="text-[0.7rem] leading-tight">{c.label}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Promo hari ini */}
+        <section className="mb-12">
+          <div
+            className="card p-6 lg:p-8 flex flex-col sm:flex-row items-center justify-between gap-5 relative overflow-hidden"
+            style={{ background: 'linear-gradient(135deg, rgba(249,177,122,0.1) 0%, transparent 60%)', borderColor: 'rgba(249,177,122,0.4)' }}
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style={{ background: '#f9b17a', color: '#2d3250' }}>
+                <Tag className="w-6 h-6" />
+              </div>
+              <div>
+                <div className="eyebrow text-amber-400 mb-1">Promo hari ini</div>
+                <div className="font-display text-xl">Subsidi biaya layanan untuk sewa pertamamu.</div>
+                <div className="text-sm text-ink-300 mt-0.5">Pakai kode <span className="text-amber-400 font-medium">KREATOR10</span> saat checkout.</div>
+              </div>
+            </div>
+            <Link href="/browse" className="btn-primary shrink-0">
+              Pakai sekarang <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </section>
+
+        {/* Rekomendasi personal */}
+        <section className="mb-4">
+          <div className="flex items-end justify-between mb-4">
+            <div>
+              <h2 className="font-display text-2xl">Direkomendasikan untukmu</h2>
+              <p className="text-sm text-ink-400 mt-1">Tren & terdekat dari lokasimu di Surabaya.</p>
+            </div>
+            <Link href="/browse" className="text-xs text-amber-400 hover:underline shrink-0">Lihat semua →</Link>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {RECOMMENDED.map((item) => (
+              <EquipmentCard key={item.id} item={item} />
+            ))}
+          </div>
+        </section>
       </main>
       <Footer />
     </>
-  );
-}
-
-function BookingRow({ booking: b }: { booking: typeof myBookings[number] }) {
-  const statusMap: Record<string, { label: string; cls: string }> = {
-    pending: { label: 'Menunggu konfirmasi', cls: 'bg-amber-400/10 text-amber-400 border-amber-400/30' },
-    confirmed: { label: 'Terkonfirmasi', cls: 'bg-sky-400/10 text-sky-300 border-sky-400/30' },
-    ongoing: { label: 'Sedang berlangsung', cls: 'bg-emerald-400/10 text-emerald-300 border-emerald-400/30' },
-    completed: { label: 'Selesai', cls: 'bg-ink-700/40 text-ink-300 border-ink-700/40' },
-    returned: { label: 'Dikembalikan', cls: 'bg-ink-700/40 text-ink-300 border-ink-700/40' },
-    claimed: { label: 'Diklaim', cls: 'bg-red-400/10 text-red-300 border-red-400/30' },
-  };
-  const s = statusMap[b.status];
-
-  return (
-    <div className="card p-4 flex flex-col sm:flex-row sm:items-center gap-4">
-      <div className="relative w-full sm:w-28 h-28 sm:h-20 rounded-lg overflow-hidden shrink-0 bg-ink-800">
-        <Image src={b.itemImage} alt={b.itemName} fill className="object-cover" sizes="112px" />
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-start justify-between gap-2 mb-1.5">
-          <h3 className="font-medium leading-tight">{b.itemName}</h3>
-          <span className={`text-[0.65rem] px-2.5 py-1 rounded-full border ${s.cls} shrink-0`}>{s.label}</span>
-        </div>
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink-400">
-          <span>{b.vendorName}</span>
-          <span className="tabular">{b.startDate} → {b.endDate}</span>
-          <span className="tabular text-amber-400">{formatIDR(b.total)}</span>
-        </div>
-      </div>
-      <ChevronRight className="w-4 h-4 text-ink-400 shrink-0 hidden sm:block" />
-    </div>
   );
 }

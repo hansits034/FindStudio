@@ -135,7 +135,7 @@ export default function EquipmentDetailPage({ params }: { params: { id: string }
                 </div>
                 <div className="flex justify-between text-ink-400">
                   <span>Biaya layanan</span>
-                  <span className="tabular">{formatIDR(50000)}</span>
+                  <span className="tabular">{formatIDR(10000)}</span>
                 </div>
                 <div className="flex justify-between text-amber-400/90">
                   <span>Proteksi FindStudio</span>
@@ -146,7 +146,7 @@ export default function EquipmentDetailPage({ params }: { params: { id: string }
               <div className="flex justify-between items-baseline mb-5 relative">
                 <span>Total bayar</span>
                 <span className="font-display text-3xl text-amber-400 tabular">
-                  {formatIDR(item.pricePerDay * 2 + 50000)}
+                  {formatIDR(item.pricePerDay * 2 + 10000)}
                 </span>
               </div>
 
