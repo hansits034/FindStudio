@@ -93,6 +93,34 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </header>
 
+      {/* ── MOBILE NAV (horizontal scroll) ──────────────── */}
+      <nav className="lg:hidden sticky top-14 z-30 bg-ink-900/95 backdrop-blur border-b border-ink-700/40 flex gap-1.5 overflow-x-auto px-4 py-2.5">
+        {NAV.map((item) => {
+          const active =
+            item.href === '/dashboard/admin' ? path === item.href : path.startsWith(item.href);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs whitespace-nowrap transition"
+              style={
+                active
+                  ? { background: 'rgba(52,211,153,0.13)', color: '#6ee7b7', border: '1px solid rgba(52,211,153,0.35)' }
+                  : { color: '#9399ba', border: '1px solid rgba(103,111,157,0.25)' }
+              }
+            >
+              <item.icon className="w-3.5 h-3.5 shrink-0" strokeWidth={1.5} />
+              {item.label}
+              {item.badge !== null && (
+                <span className="text-[0.55rem] px-1.5 py-0.5 rounded-full font-bold" style={{ background: EM, color: '#1a1c2e' }}>
+                  {item.badge}
+                </span>
+              )}
+            </Link>
+          );
+        })}
+      </nav>
+
       <div className="flex flex-1 overflow-hidden">
         {/* ── SIDEBAR ─────────────────────────────────────── */}
         <aside className="hidden lg:flex w-[220px] shrink-0 flex-col border-r border-ink-700/30 overflow-y-auto">

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Send, Search, Package, ShieldCheck } from 'lucide-react';
+import { Send, Search, Package, ShieldCheck, ArrowLeft } from 'lucide-react';
 
 const VC = '#818cf8';
 const EM = '#34d399';
@@ -62,6 +62,8 @@ const MESSAGES: Record<number, { from: 'vendor' | 'client'; text: string; time: 
 export default function MessagesPage() {
   const [activeId, setActiveId] = useState(1);
   const [input, setInput] = useState('');
+  // Mobile: tampilkan daftar klien ATAU percakapan (master-detail).
+  const [mobileChatOpen, setMobileChatOpen] = useState(false);
 
   const active = CONTACTS.find((c) => c.id === activeId)!;
   const msgs = MESSAGES[activeId] ?? [];
@@ -75,10 +77,10 @@ export default function MessagesPage() {
       </div>
 
       {/* Split layout */}
-      <div className="flex gap-4 min-h-[620px] flex-1">
+      <div className="flex flex-col lg:flex-row gap-4 lg:min-h-[620px] flex-1">
 
         {/* Contact list */}
-        <aside className="w-[260px] shrink-0 flex flex-col gap-2">
+        <aside className={`${mobileChatOpen ? 'hidden' : 'flex'} lg:flex w-full lg:w-[260px] shrink-0 flex-col gap-2`}>
           <div className="relative mb-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-ink-400 pointer-events-none" />
             <input className="field !pl-9 !py-2 text-sm w-full" placeholder="Cari klien…" />
@@ -86,7 +88,7 @@ export default function MessagesPage() {
           {CONTACTS.map((c) => (
             <button
               key={c.id}
-              onClick={() => setActiveId(c.id)}
+              onClick={() => { setActiveId(c.id); setMobileChatOpen(true); }}
               className="card p-3.5 text-left transition flex items-start gap-3"
               style={
                 activeId === c.id
@@ -125,9 +127,16 @@ export default function MessagesPage() {
         </aside>
 
         {/* Chat window */}
-        <div className="flex-1 flex flex-col card p-0 overflow-hidden">
+        <div className={`${mobileChatOpen ? 'flex' : 'hidden'} lg:flex flex-1 min-w-0 flex-col card p-0 overflow-hidden`}>
           {/* Chat header — order context */}
           <div className="p-4 border-b border-ink-700/40 flex items-center gap-3">
+            <button
+              onClick={() => setMobileChatOpen(false)}
+              className="lg:hidden w-9 h-9 -ml-1 rounded-full hover:bg-ink-700/50 flex items-center justify-center shrink-0"
+              aria-label="Kembali ke daftar"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
             <div className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-ink-900 shrink-0" style={{ background: active.avatarColor }}>
               {active.avatar}
             </div>
@@ -170,7 +179,7 @@ export default function MessagesPage() {
             {msgs.map((m, i) => (
               <div key={i} className={`flex ${m.from === 'vendor' ? 'justify-end' : 'justify-start'}`}>
                 <div
-                  className="max-w-[75%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed"
+                  className="max-w-[85%] sm:max-w-[75%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed"
                   style={
                     m.from === 'vendor'
                       ? { background: VC, color: '#1a1c2e', borderBottomRightRadius: 4 }

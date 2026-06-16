@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import {
   Send, Search, Shield, MoreHorizontal, ImageIcon, X, Check, CheckCheck,
-  Bell, CheckCircle2, Clock, AlertTriangle, ShieldCheck,
+  Bell, CheckCircle2, Clock, AlertTriangle, ShieldCheck, ArrowLeft,
 } from 'lucide-react';
 
 const SYSTEM_NOTIFS = [
@@ -79,6 +79,8 @@ export default function MessagesPage() {
   const [imgPreview, setImgPreview] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [view, setView] = useState<'chat' | 'system'>('chat');
+  // Mobile: tampilkan daftar ATAU percakapan (master-detail), bukan keduanya bertumpuk.
+  const [mobileChatOpen, setMobileChatOpen] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -90,7 +92,7 @@ export default function MessagesPage() {
     const vId = new URLSearchParams(window.location.search).get('v');
     if (vId) {
       const idx = conversations.findIndex((c) => c.id === vId);
-      if (idx >= 0) setActive(idx);
+      if (idx >= 0) { setActive(idx); setMobileChatOpen(true); }
     }
   }, []);
 
@@ -186,9 +188,9 @@ export default function MessagesPage() {
             ))}
           </div>
         ) : (
-        <div className="card overflow-hidden grid lg:grid-cols-[340px,1fr] min-h-[640px]">
-          {/* ── Sidebar ────────────────────────────────────────────── */}
-          <aside className="border-r border-ink-700/40 flex flex-col">
+        <div className="card overflow-hidden grid lg:grid-cols-[340px,1fr] min-h-[70vh] lg:min-h-[640px]">
+          {/* ── Sidebar (daftar percakapan) ────────────────────────── */}
+          <aside className={`${mobileChatOpen ? 'hidden' : 'flex'} lg:flex border-r border-ink-700/40 flex-col`}>
             <div className="p-4 border-b border-ink-700/40">
               <div className="relative">
                 <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-ink-400" />
@@ -206,7 +208,7 @@ export default function MessagesPage() {
                 return (
                   <li
                     key={c.id}
-                    onClick={() => setActive(idx)}
+                    onClick={() => { setActive(idx); setMobileChatOpen(true); }}
                     className={`p-4 cursor-pointer border-b border-ink-700/20 hover:bg-ink-700/30 transition flex gap-3 ${
                       idx === active ? 'bg-ink-700/40 border-l-2 border-l-amber-400' : ''
                     }`}
@@ -233,10 +235,17 @@ export default function MessagesPage() {
           </aside>
 
           {/* ── Conversation ───────────────────────────────────────── */}
-          <section className="flex flex-col min-h-0">
+          <section className={`${mobileChatOpen ? 'flex' : 'hidden'} lg:flex flex-col min-h-0`}>
             {/* Header */}
-            <div className="px-6 py-4 border-b border-ink-700/40 flex items-center justify-between shrink-0">
+            <div className="px-4 sm:px-6 py-4 border-b border-ink-700/40 flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setMobileChatOpen(false)}
+                  className="lg:hidden w-9 h-9 -ml-1 rounded-full hover:bg-ink-700/50 flex items-center justify-center shrink-0"
+                  aria-label="Kembali ke daftar"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                </button>
                 <div className="relative w-10 h-10 rounded-full overflow-hidden">
                   <Image src={v.avatar} alt="" fill className="object-cover" sizes="40px" />
                 </div>
@@ -265,7 +274,7 @@ export default function MessagesPage() {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 p-6 space-y-4 overflow-y-auto bg-gradient-to-b from-transparent to-ink-950/30">
+            <div className="flex-1 p-4 sm:p-6 space-y-4 overflow-y-auto bg-gradient-to-b from-transparent to-ink-950/30">
               {messages.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center gap-2 py-10">
                   <div className="w-12 h-12 rounded-full bg-emerald-400/10 text-emerald-400 flex items-center justify-center mb-1">
@@ -291,7 +300,7 @@ export default function MessagesPage() {
                       <Image src={v.avatar} alt="" fill className="object-cover" sizes="28px" />
                     </div>
                   )}
-                  <div className={`max-w-[68%] ${m.from === 'me' ? 'items-end' : 'items-start'} flex flex-col gap-1`}>
+                  <div className={`max-w-[82%] sm:max-w-[68%] ${m.from === 'me' ? 'items-end' : 'items-start'} flex flex-col gap-1`}>
                     {m.type === 'text' ? (
                       <div className={`px-4 py-2.5 ${
                         m.from === 'me'
@@ -305,7 +314,7 @@ export default function MessagesPage() {
                         m.from === 'me' ? 'border-amber-400/30 rounded-tr-sm' : 'border-ink-700/40 rounded-tl-sm'
                       }`}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={m.imgSrc} alt="gambar" className="max-w-[280px] max-h-[320px] object-cover block" />
+                        <img src={m.imgSrc} alt="gambar" className="max-w-[70vw] sm:max-w-[280px] max-h-[320px] object-cover block" />
                       </div>
                     )}
                     <div className={`flex items-center gap-1 text-[0.6rem] text-ink-400 ${m.from === 'me' ? 'flex-row-reverse' : ''}`}>

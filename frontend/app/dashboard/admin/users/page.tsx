@@ -102,7 +102,8 @@ export default function AdminUsersPage() {
           </div>
         </div>
 
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+        <table className="w-full text-sm min-w-[680px]">
           <thead className="text-xs text-ink-400 border-b border-ink-700/40">
             <tr>
               <th className="text-left px-6 py-3 font-normal">Pengguna</th>
@@ -142,6 +143,7 @@ export default function AdminUsersPage() {
             ))}
           </tbody>
         </table>
+        </div>
       </section>
 
       {/* KTP preview modal (mock) */}

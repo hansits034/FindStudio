@@ -51,7 +51,7 @@ export default function RoleBanner({ role, name }: { role: Role; name: string })
         </div>
 
         {role !== 'ADMIN' && (
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
             <Link href="/orders" className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border hover:bg-white/5 transition" style={{ borderColor: `${c.color}55` }}>
               <CalendarCheck className="w-3.5 h-3.5" style={{ color: c.color }} /> Pesanan & Jadwal
             </Link>

@@ -21,6 +21,23 @@ body {
   font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Backstop agar tidak ada horizontal-scroll tak sengaja di mobile.
+     `clip` aman untuk position: sticky (tidak seperti `hidden`). */
+  overflow-x: clip;
+}
+
+/* Media tidak pernah melebihi lebar kontainer di layar kecil */
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+/* Cegah kata/URL panjang merusak layout di kartu sempit */
+.break-anywhere {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 ::selection {

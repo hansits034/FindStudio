@@ -58,7 +58,8 @@ export default function AdminFinancePage() {
         <div className="px-6 py-4 border-b border-ink-700/40">
           <h3 className="font-display text-xl">Pemantauan Rekening Bersama</h3>
         </div>
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+        <table className="w-full text-sm min-w-[640px]">
           <thead className="text-xs text-ink-400 border-b border-ink-700/40">
             <tr>
               <th className="text-left px-6 py-3 font-normal">Klien → Vendor</th>
@@ -86,6 +87,7 @@ export default function AdminFinancePage() {
             ))}
           </tbody>
         </table>
+        </div>
       </section>
 
       {/* Payout approval */}

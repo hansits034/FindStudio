@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Send, Search, Store, Users2, ShieldCheck } from 'lucide-react';
+import { Send, Search, Store, Users2, ShieldCheck, ArrowLeft } from 'lucide-react';
 import { vendors } from '@/lib/mockData';
 
 const EM = '#34d399';
@@ -60,6 +60,7 @@ export default function AdminMessagesPage() {
   const [activeId, setActiveId] = useState('vendor-v1');
   const [input, setInput] = useState('');
   const [msgMap, setMsgMap] = useState(SEED);
+  const [mobileChatOpen, setMobileChatOpen] = useState(false);
 
   const active = THREADS.find((t) => t.id === activeId)!;
   const msgs = msgMap[activeId] ?? [];
@@ -90,8 +91,8 @@ export default function AdminMessagesPage() {
         </h1>
       </div>
 
-      <div className="flex gap-4 min-h-[620px]">
-        <aside className="w-[280px] shrink-0 flex flex-col">
+      <div className="flex flex-col lg:flex-row gap-4 lg:min-h-[620px]">
+        <aside className={`${mobileChatOpen ? 'hidden' : 'flex'} lg:flex w-full lg:w-[280px] shrink-0 flex-col`}>
           {/* Klasifikasi vendor/klien sebagai tab di atas, bukan di-scroll */}
           <div className="grid grid-cols-2 gap-1.5 mb-3">
             {TABS.map((t) => {
@@ -130,7 +131,7 @@ export default function AdminMessagesPage() {
             {visibleThreads.map((t) => (
               <button
                 key={t.id}
-                onClick={() => setActiveId(t.id)}
+                onClick={() => { setActiveId(t.id); setMobileChatOpen(true); }}
                 className="card p-3 text-left transition flex items-start gap-2.5"
                 style={
                   activeId === t.id
@@ -164,8 +165,15 @@ export default function AdminMessagesPage() {
           </div>
         </aside>
 
-        <div className="flex-1 flex flex-col card p-0 overflow-hidden">
+        <div className={`${mobileChatOpen ? 'flex' : 'hidden'} lg:flex flex-1 min-w-0 flex-col card p-0 overflow-hidden`}>
           <div className="p-4 border-b border-ink-700/40 flex items-center gap-3">
+            <button
+              onClick={() => setMobileChatOpen(false)}
+              className="lg:hidden w-9 h-9 -ml-1 rounded-full hover:bg-ink-700/50 flex items-center justify-center shrink-0"
+              aria-label="Kembali ke daftar"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
             <div
               className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-ink-900 shrink-0"
               style={{ background: EM }}
@@ -202,7 +210,7 @@ export default function AdminMessagesPage() {
             {msgs.map((m, i) => (
               <div key={i} className={`flex ${m.from === 'admin' ? 'justify-end' : 'justify-start'}`}>
                 <div
-                  className="max-w-[75%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed"
+                  className="max-w-[85%] sm:max-w-[75%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed"
                   style={
                     m.from === 'admin'
                       ? { background: EM, color: '#1a1c2e', borderBottomRightRadius: 4 }
