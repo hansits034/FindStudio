@@ -1,3 +1,4 @@
+<img width="1276" height="604" alt="image" src="https://github.com/user-attachments/assets/c904ccb8-8035-435e-9e80-e2e30c6f29e0" />
 # FindStudio
 
 Ekosistem terpadu untuk kreator konten, fotografer, videografer, dan sinematografer di
